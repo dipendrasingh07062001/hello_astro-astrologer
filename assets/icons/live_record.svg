@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="Group_1535" data-name="Group 1535" transform="translate(-165 -622)">
+    <circle id="Ellipse_80" data-name="Ellipse 80" cx="16" cy="16" r="16" transform="translate(165 622)" fill="#fff" opacity="0.43"/>
+    <path id="Icon_material-keyboard-voice" data-name="Icon material-keyboard-voice" d="M15.237,17.763a3.3,3.3,0,0,0,3.3-3.316l.011-6.632a3.316,3.316,0,1,0-6.632,0v6.632A3.311,3.311,0,0,0,15.237,17.763Zm5.858-3.316a5.735,5.735,0,0,1-5.858,5.637,5.735,5.735,0,0,1-5.858-5.637H7.5a7.71,7.71,0,0,0,6.632,7.427V25.5h2.211V21.875a7.7,7.7,0,0,0,6.632-7.427Z" transform="translate(165.499 623.5)" fill="#fff"/>
+  </g>
+</svg>
