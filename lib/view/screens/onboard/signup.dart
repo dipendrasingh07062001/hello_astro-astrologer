@@ -94,7 +94,7 @@ class _SignupState extends State<Signup> {
           height: double.infinity,
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(backgroundImage),
+                image: AssetImage(AppImages.backgroundImage),
                 alignment: Alignment.bottomCenter,
                 fit: BoxFit.fitWidth),
           ),
@@ -488,11 +488,11 @@ class _SignupState extends State<Signup> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    loginGFA(AppColor.colWhite, iconGoogle),
+                    loginGFA(AppColor.colWhite, AppImages.iconGoogle),
                     SizedBox(
                       width: w * .08,
                     ),
-                    loginGFA(AppColor.colFbCircle, iconFB),
+                    loginGFA(AppColor.colFbCircle, AppImages.iconFB),
                   ],
                 ),
                 Padding(

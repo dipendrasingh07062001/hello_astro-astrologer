@@ -55,7 +55,7 @@ class LoginAstro extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColor.colWhite,
             image: DecorationImage(
-                image: AssetImage(backgroundImage),
+                image: AssetImage(AppImages.backgroundImage),
                 alignment: Alignment.bottomCenter,
                 fit: BoxFit.fitWidth),
           ),
@@ -65,7 +65,7 @@ class LoginAstro extends StatelessWidget {
                 SizedBox(
                   height: h * .045,
                 ),
-                SvgPicture.asset('assets/image/login_astro.svg',
+                SvgPicture.asset('assets/images/login_astro.svg',
                     width: w * .65),
                 Padding(
                   padding: EdgeInsets.only(
@@ -248,12 +248,12 @@ class LoginAstro extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // google login
-                    loginGFA(AppColor.colWhite, iconGoogle),
+                    loginGFA(AppColor.colWhite, AppImages.iconGoogle),
                     SizedBox(
                       width: w * .08,
                     ),
                     // facebook login
-                    loginGFA(AppColor.colFbCircle, iconFB),
+                    loginGFA(AppColor.colFbCircle, AppImages.iconFB),
                   ],
                 ),
                 Padding(

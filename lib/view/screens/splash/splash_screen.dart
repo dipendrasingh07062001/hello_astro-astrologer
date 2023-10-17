@@ -1,3 +1,4 @@
+import 'package:astro/util/images.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
           child: SizedBox(
             width: w * .8,
             child: Image.asset(
-              'assets/image/hello_astrologer.png',
+              AppImages.splashImagePath,
               color: AppColor.colWhite,
             ),
           ),

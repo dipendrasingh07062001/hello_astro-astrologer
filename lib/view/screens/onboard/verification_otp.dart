@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -26,9 +24,9 @@ import 'login_astro.dart';
 // }
 
 class Verification extends StatefulWidget {
- final String phone;
+  final String phone;
 
- const Verification({
+  const Verification({
     Key? key,
     required this.phone,
   }) : super(key: key);
@@ -123,7 +121,7 @@ class _VerificationState extends State<Verification> {
             padding: EdgeInsets.symmetric(horizontal: w * .04),
             decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage(backgroundImage),
+                  image: AssetImage(AppImages.backgroundImage),
                   alignment: Alignment.bottomCenter,
                   fit: BoxFit.fitWidth),
             ),
@@ -133,7 +131,7 @@ class _VerificationState extends State<Verification> {
                   height: h * .045,
                 ),
                 SvgPicture.asset(
-                  verifImage,
+                  AppImages.verifImage,
                   width: w * .63,
                 ),
                 SizedBox(height: h * .048),

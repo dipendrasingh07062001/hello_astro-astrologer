@@ -1,0 +1,144 @@
+// ignore_for_file: avoid_print
+
+import 'package:astro/controller/homecontroller/homecontroller.dart';
+import 'package:astro/util/images.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import '../../../controller/homenavcontroller/homenav_controller.dart';
+import '../../../util/colors.dart';
+import '../../../util/methods.dart';
+import '../../../util/textstyles.dart';
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  var h = Get.height;
+  var w = Get.width;
+  final HomeController homeController =
+      Get.put<HomeController>(HomeController(), permanent: false);
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  HomeNavController homeNavController =
+      Get.put(HomeNavController(), permanent: false);
+  @override
+  Widget build(BuildContext context) {
+    ScrollController scrollController = ScrollController();
+    return WillPopScope(
+      onWillPop: () async {
+        showExitPopup();
+        return false;
+      },
+      child: Scaffold(
+          backgroundColor: AppColor.colWhite,
+          appBar: AppBar(
+            elevation: 4,
+            backgroundColor: AppColor.colWhite,
+            toolbarHeight: h * .09,
+            leading: Padding(
+              padding: EdgeInsets.only(bottom: h * .03),
+              child: IconButton(
+                  icon: SvgPicture.asset(AppImages.iconMenu),
+                  onPressed: homeNavController.opendrawer),
+            ),
+            titleSpacing: 0,
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: h * .0),
+                textStyle('WHAT\'S ON YOUR MIND'.tr, AppColor.colBlack,
+                    w * .046, FontWeight.bold),
+                SizedBox(height: h * .007),
+                textStyle('Find an Astrologer'.tr, AppColor.colBlack, w * .04,
+                    FontWeight.w500)
+              ],
+            ),
+            actions: [
+              Padding(
+                padding: EdgeInsets.only(bottom: h * .015),
+                child: InkWell(
+                  child:
+                      Image.asset('assets/icons/language@2x.png', scale: 1.3),
+                  onTap: () {
+                    // Navigator.of(context).pop();
+
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: ((context) => Language(
+                    //               phone: GetStorage().read(UserData.phone),
+                    //             ))));
+                  },
+                ),
+              )
+            ],
+          ),
+          body: Obx(
+            () => GridView.count(
+                padding: EdgeInsets.only(
+                    left: w * .015,
+                    right: w * .015,
+                    top: h * .032,
+                    bottom: h * .1),
+                crossAxisSpacing: w * .001,
+                mainAxisSpacing: w * .001,
+                crossAxisCount: 2,
+                childAspectRatio: 1.2,
+                shrinkWrap: true,
+                physics: const BouncingScrollPhysics(),
+                controller: scrollController,
+                children: List.generate(homeController.profileListData.length,
+                    (index) {
+                  var data = homeController.profileListData[index];
+                  return Column(
+                    children: [
+                      InkWell(
+                          child: Container(
+                            height: w * .35,
+                            width: w * .43,
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Color(int.parse(data['color1'])),
+                                  Color(int.parse(data['color2'])),
+                                ],
+                              ),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SvgPicture.asset(data['image']),
+                                SizedBox(height: h * .01),
+                                textStyle(data['title'], AppColor.colWhite,
+                                    w * .048, FontWeight.bold, 1.8)
+                              ],
+                            ),
+                          ),
+                          onTap: () {
+                            // Get.to(() => data['klass']);
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             data['klass']));
+                          }),
+                    ],
+                  );
+                })),
+          )),
+    );
+  }
+}

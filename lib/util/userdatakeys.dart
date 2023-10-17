@@ -1,0 +1,34 @@
+class UserData {
+  static const id = 'id';
+  static const name = 'Name';
+  static const experience = 'experience';
+  static const expertise = 'expertise';
+  static const skills = 'skills';
+  static const phone = 'phone';
+  static const email = 'email';
+  static const gender = 'gender';
+  static const city = 'city';
+  static const country = 'country';
+  static const systemKnown = 'system_known';
+  static const shortBio = 'short_bio';
+  static const conversationType = 'conversation_type';
+  static const socialType = 'social_type';
+  static const astrology = 'astrology';
+  static const price = 'price';
+  static const description = 'description';
+  static const image = 'image';
+  static const coverImage = 'cover_image';
+  static const galleryImage = 'gallery_image';
+  static const icon = 'icon';
+  static const panCard = 'pan_card';
+  static const aadharCard = 'aadhar_card';
+  static const language = 'language';
+  static const status = 'status';
+  static const approveStatus = 'approve_status';
+  static const monetize = 'monetize';
+  static const isLogin = 'is_login';
+  static const speakingLanguages = 'speaking_languages';
+  static const token = 'token';
+  static const termsConditions = 'termsConditions';
+  static const privacyPolocy = 'privacyPolicy';
+}
