@@ -1,12 +1,22 @@
+import 'dart:io';
 
+import 'package:astro/data/model/expertise_model.dart';
+import 'package:astro/util/methods.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../api/apiconstants.dart';
+import '../api/apiservices.dart';
 import '../data/model/language_model.dart';
-
+import '../helper/route_helper.dart';
+import '../util/colors.dart';
+import '../util/textstyles.dart';
+import 'package:http/http.dart' as http;
 
 class OnboardingController extends GetxController {
   RxBool isLoading = false.obs;
+  RxString profileImage = "".obs;
   TextEditingController nameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -16,8 +26,14 @@ class OnboardingController extends GetxController {
   TextEditingController systemController = TextEditingController();
   TextEditingController bioController = TextEditingController();
   TextEditingController languageController = TextEditingController();
-
+  TextEditingController qualificationsController = TextEditingController();
+  RxBool isSelected = false.obs;
+  RxBool showexpertise = false.obs;
+  RxBool directoryselected = true.obs;
   RxList<LanguageModel> languageList = RxList();
+  Rxn<ExpertiseModel> selectedexpertise =
+      Rxn<ExpertiseModel>(ExpertiseModel(name: "", id: 0, image: ""));
+  RxList<ExpertiseModel> expertiselist = RxList();
 
   // List language = [
   //   {"language": "Hindi", "isSelected": false},
@@ -28,6 +44,169 @@ class OnboardingController extends GetxController {
   String? name;
   String? email;
   String? profilePic;
+  RxString filePath = ''.obs;
+
+  Widget getprofileImage() {
+    if (profileImage.value == "") {
+      return CircleAvatar(
+        radius: 75,
+        backgroundColor: AppColor.colGrey.withOpacity(0.1),
+        child: SvgPicture.network(
+          "https://myworkdesk.tech/designer/html/hello-astro/assets/images/user-profile.svg",
+        ),
+      );
+    } else {
+      return CircleAvatar(
+          radius: 75,
+          backgroundImage: FileImage(
+            File(profileImage.value),
+          ));
+    }
+  }
+
+  pickprofilepick() {
+    pickImage().then((value) {
+      profileImage.value = value;
+    });
+  }
+
+  pickcertificat() {
+    pickImage().then((value) {
+      filePath.value = value;
+    });
+  }
+
+  showhideexpertise() {
+    showexpertise.value = !showexpertise.value;
+  }
+
+  onlogin(BuildContext context) {
+    if (mobileController.text.isEmpty) {
+      Get.rawSnackbar(
+          messageText: textStyle("Please enter your phone number",
+              AppColor.colWhite, Get.width * .04, FontWeight.w500),
+          backgroundColor: Colors.red);
+
+      return;
+    }
+
+    if (mobileController.text.length != 10) {
+      Get.rawSnackbar(
+          messageText: textStyle("Please enter valid phone number",
+              AppColor.colWhite, Get.width * .04, FontWeight.w500),
+          backgroundColor: Colors.red);
+
+      return;
+    }
+
+    // if (!isSelected.value) {
+    //   Get.rawSnackbar(
+    //       messageText: textStyle(
+    //           "Please accept Terms and Conditions to continue",
+    //           AppColor.colWhite,
+    //           Get.width * .04,
+    //           FontWeight.w500),
+    //       backgroundColor: Colors.red);
+
+    //   return;
+    // }
+    signin();
+
+    // onboardingController
+    //     .astroSignup(phoneController.text.trim());
+  }
+
+  // signup/login api
+  signin() async {
+    isLoading.value = true;
+    ApiClient apiClient = ApiClient();
+    Map<String, String> map = {"phone": mobileController.text};
+    await apiClient.postRequest(ApiUrls.signin, map).then((value) {
+      if (value != null) {
+        print("==$value");
+        Get.toNamed(Routes.otpverification);
+        isLoading.value = false;
+      }
+    });
+    isLoading.value = false;
+  }
+
+  RxBool resendingotp = false.obs;
+  resend() async {
+    resendingotp.value = true;
+    ApiClient apiClient = ApiClient();
+    Map<String, String> map = {"phone": mobileController.text};
+    await apiClient.postRequest(ApiUrls.resendotp, map).then((value) {
+      if (value != null) {
+        print("==$value");
+        // Get.toNamed(Routes.otpverification);
+        resendingotp.value = false;
+      }
+    });
+    resendingotp.value = false;
+  }
+
+  onsignup(BuildContext context) async {
+    isLoading.value = true;
+    ApiClient apiClient = ApiClient();
+    List<http.MultipartFile> files = [];
+    Map<String, String> map = {
+      "phone": mobileController.text,
+      "name": nameController.text,
+      "email": emailController.text,
+      "experience": expController.text,
+      "expertise[]": selectedexpertise.value!.id.toString(),
+      "qualifications": qualificationsController.text,
+      "bio": bioController.text,
+      "astrologer_type": (directoryselected.value ? 1 : 0).toString()
+    };
+    if (profileImage.value.isNotEmpty) {
+      files.add(await http.MultipartFile.fromPath("profile", profileImage.value,
+          filename: profileImage.value.split("/").last));
+    }
+    if (filePath.value.isNotEmpty) {
+      files.add(await http.MultipartFile.fromPath("image", filePath.value,
+          filename: filePath.value.split("/").last));
+    }
+    await apiClient
+        .postRequest(ApiUrls.signUp, map, files: files)
+        .then((value) {
+      if (value != null) {
+        print("==$value");
+        Get.toNamed(Routes.otpverification);
+        isLoading.value = false;
+      }
+    });
+    isLoading.value = false;
+  }
+
+  verifyotp(String otp) async {
+    isLoading.value = true;
+    ApiClient apiClient = ApiClient();
+    Map<String, String> map = {"phone": mobileController.text, "otp": otp};
+    await apiClient.postRequest(ApiUrls.verifiotp, map).then((value) {
+      if (value != null) {
+        print("==$value");
+        Get.toNamed(Routes.home);
+        isLoading.value = false;
+      }
+    });
+    isLoading.value = false;
+  }
+
+  getexpertisedata() async {
+    ApiClient apiClient = ApiClient();
+    await apiClient.getRequest(ApiUrls.getexpertise).then((value) {
+      if (value != null) {
+        expertiselist.value = List<ExpertiseModel>.from(
+            value["data"].map((e) => ExpertiseModel.fromJson(e)));
+      }
+    });
+  }
+
+  onexpertisetap(ExpertiseModel model) {
+    selectedexpertise.value = model;
+  }
 
 //   Future googleLogin() async {
 //     // var familyname;

@@ -1,3 +1,4 @@
+import 'package:astro/helper/route_helper.dart';
 import 'package:astro/util/images.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(seconds: 2), () async {
-      Get.offAllNamed("/loginAstro");
+      Get.offAllNamed(Routes.login);
     });
   }
 

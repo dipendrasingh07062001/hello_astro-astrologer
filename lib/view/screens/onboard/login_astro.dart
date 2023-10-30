@@ -1,17 +1,17 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print, must_be_immutable
 
+import 'package:astro/helper/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import '../../../api/apiconstants.dart';
 import '../../../controller/onboarding_controllers.dart';
 import '../../../util/colors.dart';
 import '../../../util/extra_widget.dart';
 import '../../../util/images.dart';
 import '../../../util/methods.dart';
 import '../../../util/textstyles.dart';
-
-String mobNumber = '';
 
 class LoginAstro extends StatelessWidget {
   String phone;
@@ -24,17 +24,10 @@ class LoginAstro extends StatelessWidget {
       Get.put(OnboardingController(), permanent: false);
 
   // bool isLoading = false;
-  bool val = false;
-  late double h, w;
-  RxBool isSelected = false.obs;
-  TextEditingController phoneController = TextEditingController();
+  double h = Get.height, w = Get.width;
 
   @override
   Widget build(BuildContext context) {
-    h = MediaQuery.of(context).size.height;
-    w = MediaQuery.of(context).size.width;
-    onboardingController.isLoading.value = false;
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: AppColor.colWhite,
@@ -93,12 +86,9 @@ class LoginAstro extends StatelessWidget {
                       ]),
                   child: TextFormField(
                     keyboardType: TextInputType.number,
-                    controller: phoneController,
+                    controller: onboardingController.mobileController,
                     inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                     maxLength: 10,
-                    onChanged: (value) {
-                      mobNumber = value;
-                    },
                     style: TextStyle(fontSize: w * .043),
                     decoration: InputDecoration(
                       hintText: 'Phone number',
@@ -131,56 +121,58 @@ class LoginAstro extends StatelessWidget {
                 SizedBox(
                   height: h * .03,
                 ),
-                Row(
-                  children: [
-                    InkWell(
-                      child: Container(
-                        margin: EdgeInsets.only(left: w * .042),
-                        height: w * .055,
-                        width: w * .055,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(2.5)),
-                            color: AppColor.colPrimary),
-                        child: Center(
-                          child: Obx(
-                            () => Visibility(
-                                visible: isSelected.value ? true : false,
-                                child: FittedBox(
-                                  child: Icon(
-                                    Icons.check_rounded,
-                                    color: AppColor.colWhite,
-                                  ),
-                                )),
-                          ),
-                        ),
-                      ),
-                      onTap: () {
-                        isSelected.value = !isSelected.value;
-                      },
-                    ),
-                    SizedBox(
-                      width: w * .026,
-                    ),
-                    textStyle('I agree to the ', AppColor.colLabel, w * .043,
-                        FontWeight.w500),
-                    InkWell(
-                        child: Text(
-                          'Terms & Conditions',
-                          style: TextStyle(
-                              fontSize: w * .043,
-                              color: AppColor.colPrimary,
-                              fontWeight: FontWeight.w500,
-                              decoration: TextDecoration.underline),
-                        ),
-                        onTap: () {
-                          Get.toNamed('/termsAndCondition');
-                        }),
-                  ],
-                ),
-                SizedBox(
-                  height: h * .035,
-                ),
+                // Row(
+                //   children: [
+                //     InkWell(
+                //       child: Container(
+                //         margin: EdgeInsets.only(left: w * .042),
+                //         height: w * .055,
+                //         width: w * .055,
+                //         decoration: BoxDecoration(
+                //             borderRadius:
+                //                 BorderRadius.all(Radius.circular(2.5)),
+                //             color: AppColor.colPrimary),
+                //         child: Center(
+                //           child: Obx(
+                //             () => Visibility(
+                //                 visible: onboardingController.isSelected.value
+                //                     ? true
+                //                     : false,
+                //                 child: FittedBox(
+                //                   child: Icon(
+                //                     Icons.check_rounded,
+                //                     color: AppColor.colWhite,
+                //                   ),
+                //                 )),
+                //           ),
+                //         ),
+                //       ),
+                //       onTap: () {
+                //         onboardingController.isSelected.value =
+                //             !onboardingController.isSelected.value;
+                //       },
+                //     ),
+                //     SizedBox(
+                //       width: w * .026,
+                //     ),
+                //     textStyle('I agree to the ', AppColor.colLabel, w * .043,
+                //         FontWeight.w500),
+                //     InkWell(
+                //         child: Text(
+                //           'Terms & Conditions',
+                //           style: TextStyle(
+                //               fontSize: w * .043,
+                //               color: AppColor.colPrimary,
+                //               fontWeight: FontWeight.w500,
+                //               decoration: TextDecoration.underline),
+                //         ),
+                //         onTap: () => Get.toNamed(Routes.webview,
+                //             arguments: {"link": ApiUrls.termsncondition})),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: h * .035,
+                // ),
                 Obx(
                   () => onboardingController.isLoading.value
                       ? loader
@@ -195,67 +187,28 @@ class LoginAstro extends StatelessWidget {
                                   FontWeight.bold),
                             ),
                           ),
-                          onTap: () {
-                            if (phoneController.text.isEmpty) {
-                              Get.rawSnackbar(
-                                  messageText: textStyle(
-                                      "Please enter your phone number",
-                                      AppColor.colWhite,
-                                      w * .04,
-                                      FontWeight.w500),
-                                  backgroundColor: Colors.red);
-
-                              return;
-                            }
-
-                            if (phoneController.text.length != 10) {
-                              Get.rawSnackbar(
-                                  messageText: textStyle(
-                                      "Please enter valid phone number",
-                                      AppColor.colWhite,
-                                      w * .04,
-                                      FontWeight.w500),
-                                  backgroundColor: Colors.red);
-
-                              return;
-                            }
-
-                            if (!isSelected.value) {
-                              Get.rawSnackbar(
-                                  messageText: textStyle(
-                                      "Please accept Terms and Conditions to continue",
-                                      AppColor.colWhite,
-                                      w * .04,
-                                      FontWeight.w500),
-                                  backgroundColor: Colors.red);
-
-                              return;
-                            }
-
-                            // onboardingController
-                            //     .astroSignup(phoneController.text.trim());
-                          },
+                          onTap: () => onboardingController.onlogin(context),
                         ),
                 ),
-                SizedBox(
-                  height: h * .024,
-                ),
-                textStyle('OR', AppColor.colPrimary, w * .039, FontWeight.w500),
-                SizedBox(
-                  height: h * .024,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // google login
-                    loginGFA(AppColor.colWhite, AppImages.iconGoogle),
-                    SizedBox(
-                      width: w * .08,
-                    ),
-                    // facebook login
-                    loginGFA(AppColor.colFbCircle, AppImages.iconFB),
-                  ],
-                ),
+                // SizedBox(
+                //   height: h * .024,
+                // ),
+                // textStyle('OR', AppColor.colPrimary, w * .039, FontWeight.w500),
+                // SizedBox(
+                //   height: h * .024,
+                // ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     // google login
+                //     loginGFA(AppColor.colWhite, AppImages.iconGoogle),
+                //     SizedBox(
+                //       width: w * .08,
+                //     ),
+                //     // facebook login
+                //     loginGFA(AppColor.colFbCircle, AppImages.iconFB),
+                //   ],
+                // ),
                 Padding(
                   padding: EdgeInsets.only(
                       left: w * .026, top: h * .034, bottom: h * .026),
@@ -275,7 +228,7 @@ class LoginAstro extends StatelessWidget {
                           ),
                           onTap: () {
                             // Get.to(() => const Signup());
-                            Get.toNamed('/signupForm');
+                            Get.toNamed(Routes.signup);
                             // Navigator.of(context).pop();
                           }),
                     ],

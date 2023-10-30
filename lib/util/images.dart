@@ -68,4 +68,8 @@ class AppImages {
   static String privacyIcon = "assets/icons/privacy.svg";
   static String tNcIcon = "assets/icons/t&c.svg";
   static String faqIcon = "assets/icons/faq.svg";
+
+// network images link
+  static String editicon =
+      "https://myworkdesk.tech/designer/html/hello-astro/assets/images/edit-profile.svg";
 }
