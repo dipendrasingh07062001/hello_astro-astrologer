@@ -1,4 +1,4 @@
-import 'package:astro/view/reviews/view.dart';
+import 'package:astro/view/screens/reviews/view.dart';
 import 'package:astro/view/screens/earnings/history.dart';
 import 'package:astro/view/screens/helpnsupport/helpnsupport.dart';
 import 'package:astro/view/screens/contact/chat_current.dart';
