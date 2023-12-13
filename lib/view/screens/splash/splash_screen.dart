@@ -1,10 +1,9 @@
 import 'package:astro/helper/route_helper.dart';
+import 'package:astro/theme/colorpalatt.dart';
 import 'package:astro/util/images.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
-import '../../../util/colors.dart';
+import 'package:get_storage/get_storage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -14,8 +13,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  late double h, w;
-  // var box = GetStorage();
+  double h = Get.height, w = Get.width;
+  var box = GetStorage();
   @override
   void initState() {
     super.initState();
@@ -26,19 +25,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    h = MediaQuery.of(context).size.height;
-    w = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Container(
+      backgroundColor: Palatt.primary,
+      body: SizedBox(
         height: double.infinity,
         width: double.infinity,
-        decoration: BoxDecoration(color: AppColor.colPrimary),
         child: Center(
           child: SizedBox(
             width: w * .8,
             child: Image.asset(
-              AppImages.splashImagePath,
-              color: AppColor.colWhite,
+              AppImages.splashpic,
+              // color: Palatt.white,
             ),
           ),
         ),

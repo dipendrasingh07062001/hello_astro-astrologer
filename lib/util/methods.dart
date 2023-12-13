@@ -1,11 +1,10 @@
 import 'dart:io';
 
+import 'package:astro/theme/colorpalatt.dart';
 import 'package:astro/util/textstyles.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'colors.dart';
 
 late double h, w;
 
@@ -19,7 +18,7 @@ Row listExpand(String title, String expand, BuildContext context, var classA) {
       Text(
         title,
         style: TextStyle(
-          color: AppColor.colListTitle,
+          color: Palatt.black,
           height: w * .0025,
           fontSize: w * .043,
           fontWeight: FontWeight.bold,
@@ -29,7 +28,7 @@ Row listExpand(String title, String expand, BuildContext context, var classA) {
         child: Text(
           expand,
           style: TextStyle(
-              color: AppColor.colPrimary,
+              color: Palatt.primary,
               height: w * .0025,
               fontSize: w * .033,
               fontWeight: FontWeight.bold,
@@ -57,7 +56,7 @@ Container gradientContainer(
       height: height,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(radius)),
-          color: AppColor.colPrimary
+          color: Palatt.primary
           // gradient: const LinearGradient(
           //   begin: Alignment(0, 2),
           //   end: Alignment(0, 0),
@@ -86,16 +85,16 @@ showExitPopup() async {
           Container(
             alignment: Alignment.center,
             height: h * .099,
-            child: textStyle('Do you want to Exit?'.tr, AppColor.colBlack,
-                w * .042, FontWeight.w900),
+            child: textStyle('Do you want to Exit?'.tr, Palatt.black,
+                fontSize: w * .042, fontWeight: FontWeight.w900),
           ),
           // SizedBox(height: h * .01),
           Container(
             width: double.infinity,
             height: h * .051,
             decoration: BoxDecoration(
-                color: AppColor.colPrimary,
-                border: Border.all(color: AppColor.colWhite, width: w * .0011),
+                color: Palatt.primary,
+                border: Border.all(color: Palatt.white, width: w * .0011),
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(8),
                     bottomRight: Radius.circular(8))),
@@ -109,8 +108,8 @@ showExitPopup() async {
                       height: h * .05,
                       width: w * .38,
                       alignment: Alignment.center,
-                      child: textStyle('NO'.tr, AppColor.colWhite, w * .038,
-                          FontWeight.w500)),
+                      child: textStyle('NO'.tr, Palatt.white,
+                          fontSize: w * .038, fontWeight: FontWeight.w500)),
                   onTap: () {
                     Get.back();
 
@@ -120,15 +119,16 @@ showExitPopup() async {
                 Container(
                   height: h * .048,
                   width: w * .001,
-                  color: AppColor.colWhite,
+                  color: Palatt.white,
                 ),
                 InkWell(
                   child: Container(
                       height: h * .05,
                       width: w * .38,
                       alignment: Alignment.center,
-                      child: textStyle('YES'.tr, AppColor.colWhite, w * .038,
-                          FontWeight.w500)),
+                      child: textStyle('YES'.tr, Palatt.white,
+                          fontSize: Get.width * .038,
+                          fontWeight: FontWeight.w500)),
                   onTap: () {
                     exit(0);
                   },
@@ -180,17 +180,16 @@ Future<dynamic> exitLiveVideo(BuildContext context) {
               Container(),
               textStyle(
                   'Do you confirm that you leave \n                  this Live?',
-                  AppColor.colBlack,
-                  w * .042,
-                  FontWeight.w800,
-                  1.7),
+                  Palatt.black,
+                  fontSize: w * .042,
+                  fontWeight: FontWeight.w800,
+                  height: 1.7),
               Container(
                 width: double.infinity,
                 height: h * .06,
                 decoration: BoxDecoration(
-                    color: AppColor.colPrimary,
-                    border:
-                        Border.all(color: AppColor.colWhite, width: w * .0011),
+                    color: Palatt.primary,
+                    border: Border.all(color: Palatt.white, width: w * .0011),
                     borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(8),
                         bottomRight: Radius.circular(8))),
@@ -204,8 +203,8 @@ Future<dynamic> exitLiveVideo(BuildContext context) {
                           height: h * .052,
                           width: w * .37,
                           alignment: Alignment.center,
-                          child: textStyle('Resume', AppColor.colWhite,
-                              w * .038, FontWeight.w500)),
+                          child: textStyle('Resume', Palatt.white,
+                              fontSize: w * .038, fontWeight: FontWeight.w500)),
                       onTap: () {
                         Navigator.of(context).pop();
                         // Navigator.push(
@@ -217,15 +216,15 @@ Future<dynamic> exitLiveVideo(BuildContext context) {
                     Container(
                       height: h * .058,
                       width: w * .001,
-                      color: AppColor.colWhite,
+                      color: Palatt.white,
                     ),
                     InkWell(
                       child: Container(
                           height: h * .052,
                           width: w * .37,
                           alignment: Alignment.center,
-                          child: textStyle('Leave', AppColor.colWhite, w * .038,
-                              FontWeight.w500)),
+                          child: textStyle('Leave', Palatt.white,
+                              fontSize: w * .038, fontWeight: FontWeight.w500)),
                       onTap: () {
                         Navigator.of(context).pop();
                         // Navigator.push(

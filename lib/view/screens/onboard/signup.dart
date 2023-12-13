@@ -2,14 +2,13 @@
 
 import 'package:astro/api/apiconstants.dart';
 import 'package:astro/helper/route_helper.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import '../../../controller/onboarding_controllers.dart';
+import '../../../controller/onboarding/onboarding_controllers.dart';
 import '../../../data/model/expertise_model.dart';
-import '../../../util/colors.dart';
+import '../../../theme/colorpalatt.dart';
 import '../../../util/extra_widget.dart';
 import '../../../util/images.dart';
 import '../../../util/methods.dart';
@@ -51,7 +50,7 @@ class _SignupState extends State<Signup> {
     onboardingController.gender = 'Gender';
     // onboardingController.email = "";
     onboardingController.filePath.value = '';
-    onboardingController.getexpertisedata();
+    // onboardingController.getexpertisedata();
 
     // onboardingController.getLanguage();
     onboardingController.emailController.text =
@@ -67,27 +66,15 @@ class _SignupState extends State<Signup> {
     w = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: AppColor.colWhite,
+      backgroundColor: Palatt.white,
       appBar: AppBar(
         elevation: 4,
-        backgroundColor: AppColor.colWhite,
+        backgroundColor: Palatt.white,
         toolbarHeight: h * .08,
-        leading: ModalRoute.of(context)?.canPop == true
-            ? IconButton(
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  size: w * .075,
-                  color: AppColor.colBlack,
-                ),
-                onPressed: () {
-                  onboardingController.email = '';
-                  Get.back();
-                },
-              )
-            : null,
+        automaticallyImplyLeading: true,
         centerTitle: true,
-        title:
-            textStyle('Sign Up', AppColor.colText1, w * .059, FontWeight.bold),
+        title: textStyle('Sign Up', Palatt.black,
+            fontSize: w * .059, fontWeight: FontWeight.bold),
       ),
       body: GestureDetector(
         onTap: () {
@@ -95,9 +82,9 @@ class _SignupState extends State<Signup> {
         },
         child: Container(
           height: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage(AppImages.backgroundImage),
+                image: AssetImage(AppImages.background),
                 alignment: Alignment.bottomCenter,
                 fit: BoxFit.fitWidth),
           ),
@@ -108,31 +95,37 @@ class _SignupState extends State<Signup> {
                 SizedBox(
                   height: h * .025,
                 ),
-                GestureDetector(
-                  onTap: () => setState(() {
-                    onboardingController.pickprofilepick();
-                  }),
-                  child: SizedBox(
-                      height: 150,
-                      width: 150,
-                      child: Stack(
-                        children: [
-                          onboardingController.getprofileImage(),
-                          Positioned(
-                            right: 10,
-                            bottom: 10,
-                            child: SvgPicture.network(
-                              AppImages.editicon,
-                              height: 30,
-                              width: 30,
-                            ),
-                          ),
-                        ],
-                      )),
-                ),
+                // GestureDetector(
+                //   onTap: () => setState(() {
+                //     onboardingController.pickprofilepick();
+                //   }),
+                //   child: SizedBox(
+                //       height: 150,
+                //       width: 150,
+                //       child: Stack(
+                //         children: [
+                //           onboardingController.getprofileImage(),
+                //           Positioned(
+                //             right: 10,
+                //             bottom: 10,
+                //             child: SvgPicture.network(
+                //               AppImages.editicon,
+                //               height: 30,
+                //               width: 30,
+                //             ),
+                //           ),
+                //         ],
+                //       )),
+                // ),
                 signupTextForm('Full Name', TextInputType.name,
                     onboardingController.nameController,
                     nonEditable: true,
+                    maxLength: null,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.singleLineFormatter
+                    ]),
+                signupTextForm('Gender', TextInputType.name,
+                    onboardingController.nameController,
                     maxLength: null,
                     inputFormatters: [
                       FilteringTextInputFormatter.singleLineFormatter
@@ -154,7 +147,7 @@ class _SignupState extends State<Signup> {
                 //           top: h * .01,
                 //           bottom: h * .01),
                 //       decoration: BoxDecoration(
-                //           color: AppColor.colWhite,
+                //           color: Palatt.white,
                 //           borderRadius:
                 //               const BorderRadius.all(Radius.circular(13)),
                 //           boxShadow: const [
@@ -169,7 +162,7 @@ class _SignupState extends State<Signup> {
                 //             onboardingController.gender,
                 //             onboardingController.gender == 'Gender'
                 //                 ? const Color(0xffa4a4a4)
-                //                 : AppColor.colBlack,
+                //                 : Palatt.black,
                 //             w * .04,
                 //             onboardingController.gender == 'Gender'
                 //                 ? FontWeight.w500
@@ -192,7 +185,7 @@ class _SignupState extends State<Signup> {
                 //           top: h * .01,
                 //           bottom: h * .01),
                 //       decoration: BoxDecoration(
-                //           color: AppColor.colWhite,
+                //           color: Palatt.white,
                 //           borderRadius:
                 //               const BorderRadius.all(Radius.circular(13)),
                 //           boxShadow: const [
@@ -213,7 +206,7 @@ class _SignupState extends State<Signup> {
                 //             child: SizedBox(
                 //               height: h * .05,
                 //               width: double.infinity,
-                //               child: textStyle('Male', AppColor.colBlack,
+                //               child: textStyle('Male', Palatt.black,
                 //                   w * .04, FontWeight.bold),
                 //             ),
                 //           ),
@@ -226,7 +219,7 @@ class _SignupState extends State<Signup> {
                 //             child: SizedBox(
                 //               height: h * .04,
                 //               width: double.infinity,
-                //               child: textStyle('Female', AppColor.colBlack,
+                //               child: textStyle('Female', Palatt.black,
                 //                   w * .04, FontWeight.bold),
                 //             ),
                 //           ),
@@ -262,11 +255,10 @@ class _SignupState extends State<Signup> {
                           right: w * .042,
                           top: h * .01,
                           bottom: h * .01),
-                      decoration: BoxDecoration(
-                          color: AppColor.colWhite,
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(13)),
-                          boxShadow: const [
+                      decoration: const BoxDecoration(
+                          color: Palatt.white,
+                          borderRadius: BorderRadius.all(Radius.circular(13)),
+                          boxShadow: [
                             BoxShadow(
                                 color: Color(0xffebebeb),
                                 blurRadius: 5,
@@ -275,22 +267,36 @@ class _SignupState extends State<Signup> {
                       child: Obx(
                         () => Align(
                           alignment: Alignment.centerLeft,
-                          child: textStyle(
-                              onboardingController
-                                      .selectedexpertise.value!.name!.isEmpty
-                                  ? "Expertise"
-                                  : onboardingController
-                                          .selectedexpertise.value!.name ??
-                                      "",
-                              onboardingController
-                                      .selectedexpertise.value!.name!.isEmpty
-                                  ? const Color(0xffa4a4a4)
-                                  : AppColor.colBlack,
-                              w * .04,
-                              onboardingController
-                                      .selectedexpertise.value!.name!.isEmpty
-                                  ? FontWeight.w500
-                                  : FontWeight.bold),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              textStyle(
+                                  onboardingController.selectedexpertise.value!
+                                          .name!.isEmpty
+                                      ? "My Expertise"
+                                      : onboardingController
+                                              .selectedexpertise.value!.name ??
+                                          "",
+                                  onboardingController.selectedexpertise.value!
+                                          .name!.isEmpty
+                                      ? const Color(0xffa4a4a4)
+                                      : Palatt.black,
+                                  fontSize: w * .04,
+                                  fontWeight: onboardingController
+                                          .selectedexpertise
+                                          .value!
+                                          .name!
+                                          .isEmpty
+                                      ? FontWeight.w500
+                                      : FontWeight.bold),
+                              const Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Palatt.grey,
+                                  ))
+                            ],
+                          ),
                         ),
                       )),
                 ),
@@ -314,11 +320,9 @@ class _SignupState extends State<Signup> {
                                         onboardingController
                                             .selectedexpertise.value!.name),
                                     SizedBox(width: w * .04),
-                                    textStyle(
-                                        model.name ?? "",
-                                        AppColor.colBlack,
-                                        w * .04,
-                                        FontWeight.bold),
+                                    textStyle(model.name ?? "", Palatt.black,
+                                        fontSize: w * .04,
+                                        fontWeight: FontWeight.bold),
                                     const Spacer(),
                                   ],
                                 )),
@@ -326,9 +330,213 @@ class _SignupState extends State<Signup> {
                         }),
                       )),
                 ),
-                signupTextForm('Qualifications', TextInputType.text,
-                    onboardingController.qualificationsController,
-                    maxLines: 5, height: 100),
+
+                signupTextForm(
+                  'Qualifications',
+                  TextInputType.text,
+                  onboardingController.qualificationsController,
+                ),
+                signupTextForm(
+                  'City',
+                  TextInputType.text,
+                  onboardingController.cityController,
+                ),
+                signupTextForm(
+                  'State',
+                  TextInputType.text,
+                  onboardingController.stateController,
+                ),
+                GestureDetector(
+                  onTap: onboardingController.showhideexpertise,
+                  child: Container(
+                      height: h * .063,
+                      width: double.infinity,
+                      padding: EdgeInsets.only(left: w * .042),
+                      margin: EdgeInsets.only(
+                          left: w * .042,
+                          right: w * .042,
+                          top: h * .01,
+                          bottom: h * .01),
+                      decoration: const BoxDecoration(
+                          color: Palatt.white,
+                          borderRadius: BorderRadius.all(Radius.circular(13)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color(0xffebebeb),
+                                blurRadius: 5,
+                                spreadRadius: 3),
+                          ]),
+                      child: Obx(
+                        () => Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              textStyle(
+                                  onboardingController.selectedexpertise.value!
+                                          .name!.isEmpty
+                                      ? "My Expertise"
+                                      : onboardingController
+                                              .selectedexpertise.value!.name ??
+                                          "",
+                                  onboardingController.selectedexpertise.value!
+                                          .name!.isEmpty
+                                      ? const Color(0xffa4a4a4)
+                                      : Palatt.black,
+                                  fontSize: w * .04,
+                                  fontWeight: onboardingController
+                                          .selectedexpertise
+                                          .value!
+                                          .name!
+                                          .isEmpty
+                                      ? FontWeight.w500
+                                      : FontWeight.bold),
+                              const Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: Icon(
+                                    Icons.keyboard_arrow_down,
+                                    color: Palatt.grey,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      )),
+                ),
+
+                GestureDetector(
+                  onTap: onboardingController.showhideexpertise,
+                  child: Container(
+                      height: h * .063,
+                      width: double.infinity,
+                      padding: EdgeInsets.only(left: w * .042),
+                      margin: EdgeInsets.only(
+                          left: w * .042,
+                          right: w * .042,
+                          top: h * .01,
+                          bottom: h * .01),
+                      decoration: const BoxDecoration(
+                          color: Palatt.white,
+                          borderRadius: BorderRadius.all(Radius.circular(13)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color(0xffebebeb),
+                                blurRadius: 5,
+                                spreadRadius: 3),
+                          ]),
+                      child: Obx(
+                        () => Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              textStyle(
+                                  onboardingController.selectedexpertise.value!
+                                          .name!.isEmpty
+                                      ? "Availability Day/Timing"
+                                      : onboardingController
+                                              .selectedexpertise.value!.name ??
+                                          "",
+                                  onboardingController.selectedexpertise.value!
+                                          .name!.isEmpty
+                                      ? const Color(0xffa4a4a4)
+                                      : Palatt.black,
+                                  fontSize: w * .04,
+                                  fontWeight: onboardingController
+                                          .selectedexpertise
+                                          .value!
+                                          .name!
+                                          .isEmpty
+                                      ? FontWeight.w500
+                                      : FontWeight.bold),
+                              const Padding(
+                                  padding: EdgeInsets.all(5),
+                                  child: Icon(
+                                    Icons.access_time_rounded,
+                                    color: Palatt.grey,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      )),
+                ),
+                signupTextForm(
+                  'PAN Number',
+                  TextInputType.text,
+                  onboardingController.panController,
+                ),
+                signupTextForm(
+                  'GST Number',
+                  TextInputType.text,
+                  onboardingController.panController,
+                ),
+                signupTextForm(
+                  'Consultancy Charges Per Minute',
+                  TextInputType.text,
+                  onboardingController.panController,
+                ),
+                signupTextForm(
+                  'Profile Bio(Multiple language)',
+                  TextInputType.text,
+                  onboardingController.panController,
+                ),
+                GestureDetector(
+                  onTap: onboardingController.showhideexpertise,
+                  child: Container(
+                      height: h * .063,
+                      width: double.infinity,
+                      padding: EdgeInsets.only(left: w * .042),
+                      margin: EdgeInsets.only(
+                          left: w * .042,
+                          right: w * .042,
+                          top: h * .01,
+                          bottom: h * .01),
+                      decoration: const BoxDecoration(
+                          color: Palatt.white,
+                          borderRadius: BorderRadius.all(Radius.circular(13)),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Color(0xffebebeb),
+                                blurRadius: 5,
+                                spreadRadius: 3),
+                          ]),
+                      child: Obx(
+                        () => Align(
+                          alignment: Alignment.centerLeft,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              textStyle(
+                                  onboardingController.selectedexpertise.value!
+                                          .name!.isEmpty
+                                      ? "Upload PAN Card"
+                                      : onboardingController
+                                              .selectedexpertise.value!.name ??
+                                          "",
+                                  onboardingController.selectedexpertise.value!
+                                          .name!.isEmpty
+                                      ? const Color(0xffa4a4a4)
+                                      : Palatt.black,
+                                  fontSize: w * .04,
+                                  fontWeight: onboardingController
+                                          .selectedexpertise
+                                          .value!
+                                          .name!
+                                          .isEmpty
+                                      ? FontWeight.w500
+                                      : FontWeight.bold),
+                              Padding(
+                                  padding: const EdgeInsets.all(5),
+                                  child: SvgPicture.asset(
+                                    AppImages.upload,
+                                    height: 15,
+                                    width: 30,
+                                  ))
+                            ],
+                          ),
+                        ),
+                      )),
+                ),
+
                 // Select Language
                 // GestureDetector(
                 //   onTap: () {
@@ -356,7 +564,7 @@ class _SignupState extends State<Signup> {
                 //         top: h * .01,
                 //         bottom: h * .01),
                 //     decoration: BoxDecoration(
-                //         color: AppColor.colWhite,
+                //         color: Palatt.white,
                 //         borderRadius:
                 //             const BorderRadius.all(Radius.circular(13)),
                 //         boxShadow: const [
@@ -409,7 +617,7 @@ class _SignupState extends State<Signup> {
                 //                     onboardingController
                 //                         .languageList[index].language
                 //                         .toString(),
-                //                     AppColor.colBlack,
+                //                     Palatt.black,
                 //                     w * .04,
                 //                     FontWeight.bold),
                 //                 const Spacer(),
@@ -429,7 +637,7 @@ class _SignupState extends State<Signup> {
                 //   maxLines: 2,
                 // ),
                 InkWell(
-                  onTap: onboardingController.pickcertificat,
+                  // onTap: onboardingController.pickcertificat,
                   child: Container(
                     width: double.infinity,
                     padding: EdgeInsets.only(
@@ -442,11 +650,10 @@ class _SignupState extends State<Signup> {
                         right: w * .042,
                         top: h * .005,
                         bottom: h * .01),
-                    decoration: BoxDecoration(
-                        color: AppColor.colWhite,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(13)),
-                        boxShadow: const [
+                    decoration: const BoxDecoration(
+                        color: Palatt.white,
+                        borderRadius: BorderRadius.all(Radius.circular(13)),
+                        boxShadow: [
                           BoxShadow(
                               color: Color(0xffebebeb),
                               blurRadius: 5,
@@ -455,19 +662,20 @@ class _SignupState extends State<Signup> {
                     child: Column(
                       children: [
                         SvgPicture.asset(
-                          'assets/icons/upload.svg',
+                          // 'assets/icons/upload.svg',
+                          AppImages.upload,
                           // color: AppColor.colSrchIcon,
-                          colorFilter: ColorFilter.mode(
-                              AppColor.colSrchIcon, BlendMode.srcIn),
+                          colorFilter: const ColorFilter.mode(
+                              Palatt.grey, BlendMode.srcIn),
                           width: w * .17,
                         ),
                         Obx(() => textStyle(
                             onboardingController.filePath.value.isEmpty
                                 ? "Add File Upload"
                                 : onboardingController.filePath.value,
-                            AppColor.colSrchIcon,
-                            w * .04,
-                            FontWeight.w500)),
+                            Palatt.grey,
+                            fontSize: w * .04,
+                            fontWeight: FontWeight.w500)),
                       ],
                     ),
                   ),
@@ -476,56 +684,56 @@ class _SignupState extends State<Signup> {
                 SizedBox(
                   height: h * .02,
                 ),
-                Row(
-                  children: [
-                    // SizedBox(width: w * .032),
-                    InkWell(
-                      child: checkBoxContainer(
-                          onboardingController.directoryselected.value),
-                      onTap: () {
-                        setState(() {
-                          onboardingController.directoryselected.value = true;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      width: w * .026,
-                    ),
-                    textStyle('Profile listing in directory', AppColor.colLabel,
-                        w * .043, FontWeight.w500),
-                  ],
-                ),
-                SizedBox(
-                  height: h * .02,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // SizedBox(width: w * .032),
-                    InkWell(
-                      child: checkBoxContainer(
-                          !onboardingController.directoryselected.value),
-                      onTap: () {
-                        setState(() {
-                          onboardingController.directoryselected.value = false;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      width: w * .026,
-                    ),
-                    Expanded(
-                      child: textStyle(
-                          'Profile listing in chat with astrologers and call with astrologers',
-                          AppColor.colLabel,
-                          w * .043,
-                          FontWeight.w500),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: h * .02,
-                ),
+                // Row(
+                //   children: [
+                //     // SizedBox(width: w * .032),
+                //     InkWell(
+                //       child: checkBoxContainer(
+                //           onboardingController.directoryselected.value),
+                //       onTap: () {
+                //         setState(() {
+                //           onboardingController.directoryselected.value = true;
+                //         });
+                //       },
+                //     ),
+                //     SizedBox(
+                //       width: w * .026,
+                //     ),
+                //     textStyle('Profile listing in directory', Palatt.grey,
+                //         fontSize: w * .043, fontWeight: FontWeight.w500),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: h * .02,
+                // ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     // SizedBox(width: w * .032),
+                //     InkWell(
+                //       child: checkBoxContainer(
+                //           !onboardingController.directoryselected.value),
+                //       onTap: () {
+                //         setState(() {
+                //           onboardingController.directoryselected.value = false;
+                //         });
+                //       },
+                //     ),
+                //     SizedBox(
+                //       width: w * .026,
+                //     ),
+                //     Expanded(
+                //       child: textStyle(
+                //           'Profile listing in chat with astrologers and call with astrologers',
+                //           Palatt.grey,
+                //           fontSize: w * .043,
+                //           fontWeight: FontWeight.w500),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(
+                //   height: h * .02,
+                // ),
                 Row(
                   children: [
                     // SizedBox(width: w * .032),
@@ -540,14 +748,14 @@ class _SignupState extends State<Signup> {
                     SizedBox(
                       width: w * .026,
                     ),
-                    textStyle('I agree to the ', AppColor.colLabel, w * .043,
-                        FontWeight.w500),
+                    textStyle('I agree to the ', Palatt.grey,
+                        fontSize: w * .043, fontWeight: FontWeight.w500),
                     InkWell(
                         child: Text(
                           'Terms & Conditions',
                           style: TextStyle(
                               fontSize: w * .043,
-                              color: AppColor.colPrimary,
+                              color: Palatt.primary,
                               fontWeight: FontWeight.w500,
                               decoration: TextDecoration.underline),
                         ),
@@ -570,60 +778,60 @@ class _SignupState extends State<Signup> {
                               h * .065,
                               double.infinity,
                               10,
-                              textStyle('Continue', AppColor.colWhite, w * .043,
-                                  FontWeight.bold),
+                              textStyle('Continue', Palatt.white,
+                                  fontSize: w * .043,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           onTap: () {
-                            if (onboardingController
-                                .mobileController.text.isEmpty) {
-                              Get.rawSnackbar(
-                                  messageText: textStyle(
-                                      "Please enter your phone number",
-                                      AppColor.colWhite,
-                                      w * .04,
-                                      FontWeight.w500),
-                                  backgroundColor: Colors.red);
+                            // if (onboardingController
+                            //     .mobileController.text.isEmpty) {
+                            //   Get.rawSnackbar(
+                            //       messageText: textStyle(
+                            //           "Please enter your phone number",
+                            //           Palatt.white,
+                            //           fontSize: w * .04,
+                            //           fontWeight: FontWeight.w500),
+                            //       backgroundColor: Colors.red);
 
-                              return;
-                            }
+                            //   return;
+                            // }
 
-                            if (onboardingController
-                                    .mobileController.text.length !=
-                                10) {
-                              Get.rawSnackbar(
-                                  messageText: textStyle(
-                                      "Please enter valid phone number",
-                                      AppColor.colWhite,
-                                      w * .04,
-                                      FontWeight.w500),
-                                  backgroundColor: Colors.red);
+                            // if (onboardingController
+                            //         .mobileController.text.length !=
+                            //     10) {
+                            //   Get.rawSnackbar(
+                            //       messageText: textStyle(
+                            //           "Please enter valid phone number",
+                            //           Palatt.white,
+                            //           fontSize: w * .04,
+                            //           fontWeight: FontWeight.w500),
+                            //       backgroundColor: Colors.red);
 
-                              return;
-                            }
-                            if (onboardingController
-                                .nameController.text.isEmpty) {
-                              Get.rawSnackbar(
-                                  messageText: textStyle(
-                                      "Please enter name",
-                                      AppColor.colWhite,
-                                      w * .04,
-                                      FontWeight.w500),
-                                  backgroundColor: Colors.red);
+                            //   return;
+                            // }
+                            // if (onboardingController
+                            //     .nameController.text.isEmpty) {
+                            //   Get.rawSnackbar(
+                            //       messageText: textStyle(
+                            //           "Please enter name", Palatt.white,
+                            //           fontSize: w * .04,
+                            //           fontWeight: FontWeight.w500),
+                            //       backgroundColor: Colors.red);
 
-                              return;
-                            }
-                            if (!isSelected) {
-                              Get.rawSnackbar(
-                                  messageText: textStyle(
-                                      "Please accept Terms and Conditions to continue",
-                                      AppColor.colWhite,
-                                      w * .04,
-                                      FontWeight.w500),
-                                  backgroundColor: Colors.red);
+                            //   return;
+                            // }
+                            // if (!isSelected) {
+                            //   Get.rawSnackbar(
+                            //       messageText: textStyle(
+                            //           "Please accept Terms and Conditions to continue",
+                            //           Palatt.white,
+                            //           fontSize: w * .04,
+                            //           fontWeight: FontWeight.w500),
+                            //       backgroundColor: Colors.red);
 
-                              return;
-                            }
+                            //   return;
+                            // }
 
                             onboardingController.onsignup(context);
                           },
@@ -632,14 +840,14 @@ class _SignupState extends State<Signup> {
                 // SizedBox(
                 //   height: h * .024,
                 // ),
-                // textStyle('OR', AppColor.colPrimary, w * .039, FontWeight.w500),
+                // textStyle('OR', Palatt.primary, w * .039, FontWeight.w500),
                 // SizedBox(
                 //   height: h * .024,
                 // ),
                 // Row(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   children: [
-                //     loginGFA(AppColor.colWhite, AppImages.iconGoogle),
+                //     loginGFA(Palatt.white, AppImages.iconGoogle),
                 //     SizedBox(
                 //       width: w * .08,
                 //     ),
@@ -651,14 +859,14 @@ class _SignupState extends State<Signup> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      textStyle('Already have an account? ', AppColor.colBlack,
-                          w * .038, FontWeight.bold),
+                      textStyle('Already have an account? ', Palatt.black,
+                          fontSize: w * .038, fontWeight: FontWeight.bold),
                       InkWell(
                           child: Text(
                             'Login',
                             style: TextStyle(
                                 fontSize: w * .038,
-                                color: AppColor.colPrimary,
+                                color: Palatt.primary,
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline),
                           ),
@@ -690,9 +898,9 @@ class _SignupState extends State<Signup> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            AppColor.colPrimary,
+            Palatt.primary,
             // AppColor.colYellow,
-            AppColor.colPrimary,
+            Palatt.primary,
           ],
         ),
       ),
@@ -702,7 +910,7 @@ class _SignupState extends State<Signup> {
             child: FittedBox(
               child: Icon(
                 Icons.check_rounded,
-                color: AppColor.colWhite,
+                color: Palatt.white,
               ),
             )),
       ),
@@ -722,7 +930,7 @@ class _SignupState extends State<Signup> {
       margin: EdgeInsets.only(
           left: w * .042, right: w * .042, top: h * .01, bottom: h * .01),
       decoration: BoxDecoration(
-        color: AppColor.colWhite,
+        color: Palatt.white,
         borderRadius: const BorderRadius.all(Radius.circular(13)),
         boxShadow: const [
           BoxShadow(color: Color(0xffebebeb), blurRadius: 5, spreadRadius: 3),
@@ -782,13 +990,13 @@ class _SignupState extends State<Signup> {
         padding: const EdgeInsets.all(15),
         height: w * .137,
         width: w * .137,
-        decoration:
-            BoxDecoration(color: color, shape: BoxShape.circle, boxShadow: [
-          BoxShadow(
-              color: AppColor.colGrey,
-              blurRadius: 5,
-              offset: const Offset(1, 0)),
-        ]),
+        decoration: BoxDecoration(
+            color: color,
+            shape: BoxShape.circle,
+            boxShadow: const [
+              BoxShadow(
+                  color: Palatt.boxShadow, blurRadius: 5, offset: Offset(1, 0)),
+            ]),
         child: SvgPicture.asset(
           iconPath,
         ),

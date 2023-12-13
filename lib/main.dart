@@ -1,5 +1,6 @@
 import 'package:astro/api/preference.dart';
 import 'package:astro/helper/route_helper.dart';
+import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/nevugationservices.dart';
 import 'package:astro/view/screens/homenavbar/home_nav.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class HelloAstrologer extends StatelessWidget {
       initialRoute: AppPages.initial,
       navigatorKey: NavigationServices.navigatorKey,
       getPages: AppPages.routes,
-      // theme: ThemeData(fontFamily: 'Hind'),
+      theme: AppThemeData.appTheme,
       debugShowCheckedModeBanner: false,
     );
   }
