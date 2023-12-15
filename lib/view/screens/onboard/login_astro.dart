@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print, must_be_immutable
 
 import 'package:astro/helper/route_helper.dart';
+import 'package:astro/view/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,221 +29,269 @@ class LoginAstro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Palatt.white,
-      appBar: AppBar(
-        elevation: 0,
-        leading: ModalRoute.of(context)?.canPop == true
-            ? IconButton(
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  size: w * .075,
-                  // color: colBlack,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            : null,
-        centerTitle: true,
-        title: textStyle('Login Now', Palatt.black,
-            fontSize: w * .058, fontWeight: FontWeight.w500),
+    return Container(
+      decoration: const BoxDecoration(
+        color: Palatt.white,
+        image: DecorationImage(
+            image: AssetImage(AppImages.background),
+            alignment: Alignment.bottomCenter,
+            fit: BoxFit.fitWidth),
       ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: w * .04),
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(AppImages.background),
-                alignment: Alignment.bottomCenter,
-                fit: BoxFit.fitWidth),
-          ),
-          child: Stack(
-            children: [
-              const Background2(),
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: h * .045,
-                    ),
-                    SvgPicture.asset(AppImages.login, width: w * .65),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: h * .04, right: w * .09, bottom: h * .024),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: textStyle('Please enter your phone number',
-                            Palatt.blacklightshade,
-                            fontSize: w * .041, fontWeight: FontWeight.w500),
+      child: Scaffold(
+        backgroundColor: Palatt.transparent,
+        appBar: AppBar(
+          elevation: 0,
+          leading: ModalRoute.of(context)?.canPop == true
+              ? IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_rounded,
+                    size: w * .075,
+                    // color: colBlack,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              : null,
+          centerTitle: true,
+          title: textStyle('Login Now', Palatt.black,
+              fontSize: w * .058, fontWeight: FontWeight.w500),
+        ),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: h * .045,
+                ),
+                SvgPicture.asset(AppImages.login, width: w * .65),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: h * .04, right: w * .09, bottom: h * .024, left: 15),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: textStyle('Please enter your phone number',
+                        Palatt.blacklightshade,
+                        fontSize: w * .041, fontWeight: FontWeight.w500),
+                  ),
+                ),
+                Container(
+                  // height: 50,
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
+                  decoration: const BoxDecoration(
+                      color: Palatt.white,
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Palatt.boxShadow,
+                          blurRadius: 5,
+                          offset: Offset(-1, 2),
+                        ),
+                      ]),
+                  child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    maxLength: 10,
+                    cursorHeight: 20,
+                    controller: onboardingController.mobileController,
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    onChanged: (value) {},
+                    style: TextStyle(fontSize: w * .043),
+                    decoration: InputDecoration(
+                      hintText: 'Phone number',
+                      // isDense: true,
+                      isCollapsed: true,
+                      constraints: const BoxConstraints(minHeight: 50),
+                      contentPadding:
+                          const EdgeInsets.only(top: 10, left: 10, right: 10),
+                      hintStyle: TextStyle(
+                          fontSize: w * .039, color: const Color(0xffa4a4a4)),
+                      fillColor: Colors.transparent,
+                      filled: true,
+                      counterText: "",
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: w * 0, color: Colors.transparent),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(width: w * 0, color: Colors.transparent),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(10.0)),
+                      ),
+                      focusedErrorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.transparent),
+                      ),
+                      errorBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(color: Colors.transparent),
                       ),
                     ),
-                    Container(
-                      height: h * .063,
-                      decoration: const BoxDecoration(
-                          color: Palatt.white,
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Palatt.boxShadow,
-                              blurRadius: 5,
-                              offset: Offset(-1, 2),
-                            ),
-                          ]),
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        maxLength: 10,
-                        // controller: onboardingController.phoneController,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly
-                        ],
-                        onChanged: (value) {},
-                        style: TextStyle(fontSize: w * .043),
-                        decoration: InputDecoration(
-                          hintText: 'Phone number',
-                          hintStyle: TextStyle(
-                              fontSize: w * .039,
-                              color: const Color(0xffa4a4a4)),
-                          fillColor: Colors.transparent,
-                          filled: true,
-                          counterText: "",
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                width: w * 0, color: Colors.transparent),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                width: w * 0, color: Colors.transparent),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10.0)),
-                          ),
-                          focusedErrorBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                          ),
-                          errorBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.transparent),
-                          ),
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: h * .02,
-                    ),
-                    Row(
-                      children: [
-                        SizedBox(
-                          width: w * .05,
-                          child: Transform.scale(
-                            scale: w * .003,
-                            child: Checkbox(
-                              activeColor: Palatt.primary,
-                              value: true,
-                              onChanged: (value) {
-                                // setState(() {
-                                //   onboardingController.val = value!;
-                                // });
-                              },
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: w * .026,
-                        ),
-                        textStyle('I agree to the ', Palatt.blacklightshade,
-                            fontSize: w * .043, fontWeight: FontWeight.w500),
-                        InkWell(
-                            child: Text(
-                              'Terms & Conditions',
-                              style: TextStyle(
-                                  fontSize: w * .043,
-                                  color: Palatt.primary,
-                                  fontWeight: FontWeight.w500,
-                                  decoration: TextDecoration.underline),
-                            ),
-                            onTap: () =>
-                                'https://docs.flutter.io/flutter/services/UrlLauncher-class.html'),
-                      ],
-                    ),
-                    SizedBox(
-                      height: h * .03,
-                    ),
-                    Obx(
-                      () => onboardingController.isLoading.value == true
-                          ? loader
-                          : ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Palatt.primary,
-                                minimumSize: Size(w * .94, h * .065),
-                                maximumSize: Size(w * .94, h * .065),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0)),
-                              ),
-                              onPressed: () {
-                                Get.toNamed(Routes.otpverification);
-                              },
-                              // onboardingController.ontapContinue(context),
-                              child: textStyle('Continue', Palatt.white,
-                                  fontSize: w * .04,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+                  ),
+                ),
 
-                    textStyle('OR', Palatt.primary,
-                        fontSize: w * .039, fontWeight: FontWeight.w500),
-                    const SizedBox(
-                      height: 10,
+                // Container(
+                //   height: h * .063,
+                //   decoration: const BoxDecoration(
+                //       color: Palatt.white,
+                //       borderRadius: BorderRadius.all(Radius.circular(10)),
+                //       boxShadow: [
+                //         BoxShadow(
+                //           color: Palatt.boxShadow,
+                //           blurRadius: 5,
+                //           offset: Offset(-1, 2),
+                //         ),
+                //       ]),
+                //   child: TextFormField(
+                //     keyboardType: TextInputType.number,
+                //     maxLength: 10,
+                //     // controller: onboardingController.phoneController,
+                //     inputFormatters: [
+                //       FilteringTextInputFormatter.digitsOnly
+                //     ],
+                //     onChanged: (value) {},
+                //     style: TextStyle(fontSize: w * .043),
+                //     decoration: InputDecoration(
+                //       hintText: 'Phone number',
+                //       hintStyle: TextStyle(
+                //           fontSize: w * .039,
+                //           color: const Color(0xffa4a4a4)),
+                //       fillColor: Colors.transparent,
+                //       filled: true,
+                //       counterText: "",
+                //       focusedBorder: OutlineInputBorder(
+                //         borderSide: BorderSide(
+                //             width: w * 0, color: Colors.transparent),
+                //         borderRadius:
+                //             const BorderRadius.all(Radius.circular(10.0)),
+                //       ),
+                //       enabledBorder: OutlineInputBorder(
+                //         borderSide: BorderSide(
+                //             width: w * 0, color: Colors.transparent),
+                //         borderRadius:
+                //             const BorderRadius.all(Radius.circular(10.0)),
+                //       ),
+                //       focusedErrorBorder: const UnderlineInputBorder(
+                //         borderSide: BorderSide(color: Colors.transparent),
+                //       ),
+                //       errorBorder: const UnderlineInputBorder(
+                //         borderSide: BorderSide(color: Colors.transparent),
+                //       ),
+                //     ),
+                //   ),
+                // ),
+                SizedBox(
+                  height: h * .02,
+                ),
+                Row(
+                  children: [
+                    spaceHorizontal(15),
+                    SizedBox(
+                      width: w * .05,
+                      child: Transform.scale(
+                        scale: w * .003,
+                        child: Checkbox(
+                          activeColor: Palatt.primary,
+                          value: true,
+                          onChanged: (value) {
+                            // setState(() {
+                            //   onboardingController.val = value!;
+                            // });
+                          },
+                        ),
+                      ),
                     ),
-                    Padding(
-                        padding: EdgeInsets.only(
-                            left: w * .026, top: h * .034, bottom: h * .026),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              textStyle(
-                                  'Don\'t have an account? ', Palatt.black,
-                                  fontSize: w * .038,
-                                  fontWeight: FontWeight.bold),
-                              InkWell(
-                                  child: Text(
-                                    'Sign up',
-                                    style: TextStyle(
-                                        fontSize: w * .038,
-                                        color: Palatt.primary,
-                                        fontWeight: FontWeight.bold,
-                                        decoration: TextDecoration.underline),
-                                  ),
-                                  onTap: () {
-                                    // Get.to(() => const Signup());
-                                    Get.toNamed(Routes.signup);
-                                    // Navigator.of(context).pop();
-                                  }),
-                            ])),
-                    // ElevatedButton(
-                    //   style: ElevatedButton.styleFrom(
-                    //       backgroundColor: Palatt.white,
-                    //       minimumSize: Size(w * .94, h * .065),
-                    //       maximumSize: Size(w * .94, h * .065),
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(10.0),
-                    //         side: const BorderSide(color: Palatt.primary),
-                    //       ),
-                    //       elevation: 0),
-                    //   onPressed: () {},
-                    //   child: textStyle('Log in as guest', Palatt.primary,
-                    //       fontSize: w * .04, fontWeight: FontWeight.w500),
-                    // ),
+                    SizedBox(
+                      width: w * .026,
+                    ),
+                    textStyle('I agree to the ', Palatt.blacklightshade,
+                        fontSize: w * .043, fontWeight: FontWeight.w500),
+                    InkWell(
+                        child: Text(
+                          'Terms & Conditions',
+                          style: TextStyle(
+                              fontSize: w * .043,
+                              color: Palatt.primary,
+                              fontWeight: FontWeight.w500,
+                              decoration: TextDecoration.underline),
+                        ),
+                        onTap: () =>
+                            'https://docs.flutter.io/flutter/services/UrlLauncher-class.html'),
                   ],
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: h * .03,
+                ),
+                Obx(
+                  () => onboardingController.isLoading.value == true
+                      ? loader
+                      : ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Palatt.primary,
+                            minimumSize: Size(w * .94, h * .065),
+                            maximumSize: Size(w * .94, h * .065),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)),
+                          ),
+                          onPressed: () {
+                            Get.toNamed(Routes.otpverification);
+                          },
+                          // onboardingController.ontapContinue(context),
+                          child: textStyle('Continue', Palatt.white,
+                              fontSize: w * .04, fontWeight: FontWeight.w500),
+                        ),
+                ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+
+                // textStyle('OR', Palatt.primary,
+                //     fontSize: w * .039, fontWeight: FontWeight.w500),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                Padding(
+                    padding: EdgeInsets.only(
+                        left: w * .026, top: h * .034, bottom: h * .026),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          textStyle('Don\'t have an account? ', Palatt.black,
+                              fontSize: w * .038, fontWeight: FontWeight.w500),
+                          InkWell(
+                              child: Text(
+                                'Sign up',
+                                style: TextStyle(
+                                    fontSize: w * .038,
+                                    color: Palatt.primary,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline),
+                              ),
+                              onTap: () {
+                                // Get.to(() => const Signup());
+                                Get.toNamed(Routes.signup);
+                                // Navigator.of(context).pop();
+                              }),
+                        ])),
+                // ElevatedButton(
+                //   style: ElevatedButton.styleFrom(
+                //       backgroundColor: Palatt.white,
+                //       minimumSize: Size(w * .94, h * .065),
+                //       maximumSize: Size(w * .94, h * .065),
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(10.0),
+                //         side: const BorderSide(color: Palatt.primary),
+                //       ),
+                //       elevation: 0),
+                //   onPressed: () {},
+                //   child: textStyle('Log in as guest', Palatt.primary,
+                //       fontSize: w * .04, fontWeight: FontWeight.w500),
+                // ),
+              ],
+            ),
           ),
         ),
       ),

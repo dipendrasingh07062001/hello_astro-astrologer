@@ -1,10 +1,13 @@
+import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/images.dart';
+import 'package:astro/view/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../theme/colorpalatt.dart';
 import '../../widgets/custom_appbar.dart';
+import '../../widgets/dialogs/date_filter.dart';
 
 class CallCurrentScreen extends GetView {
   const CallCurrentScreen({super.key});
@@ -44,7 +47,7 @@ class CallCurrentScreen extends GetView {
                     indicator: BoxDecoration(
                       color: Palatt.primary,
                       shape: BoxShape.rectangle,
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(6),
                     ),
                     indicatorWeight: 3,
                     indicatorColor: Palatt.primary,
@@ -63,56 +66,61 @@ class CallCurrentScreen extends GetView {
                 ),
                 Expanded(
                   child: TabBarView(
-                    physics: NeverScrollableScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     children: [
                       ListView.builder(
                         itemCount: 2,
                         itemBuilder: (BuildContext context, int index) {
-                          return CallCurrentCard();
+                          return const CallCurrentCard();
                         },
                       ),
                       Column(
                         children: [
-                          Container(
-                            margin: EdgeInsets.only(
-                              left: Get.width * .43,
-                              top: Get.height * .015,
-                            ),
-                            padding: EdgeInsets.only(
-                              left: Get.width * .03,
-                              right: Get.width * .03,
-                            ),
-                            width: Get.width * .5,
-                            height: Get.height * .06,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Palatt.grey),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "01-11-2023 - 04-12-2023",
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Palatt.primary,
-                                  ),
-                                ),
-                                Container(
-                                    margin: EdgeInsets.only(
-                                      left: Get.height * .01,
-                                      top: Get.height * .00,
+                          GestureDetector(
+                            onTap: () => showDialog(
+                                context: context, builder: (_) => DateFilter()),
+                            child: Container(
+                              margin: EdgeInsets.only(
+                                left: Get.width * .43,
+                                top: Get.height * .015,
+                              ),
+                              padding: EdgeInsets.only(
+                                left: Get.width * .03,
+                                right: Get.width * .03,
+                              ),
+                              height: 36,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Palatt.boxShadow),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Text(
+                                    "01-11-2023 - 04-12-2023",
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Palatt.primary,
                                     ),
-                                    height: Get.height * .06,
-                                    width: Get.width * .035,
-                                    child: SvgPicture.asset(AppImages.calendar))
-                              ],
+                                  ),
+                                  Container(
+                                      margin: EdgeInsets.only(
+                                        left: Get.height * .01,
+                                        top: Get.height * .00,
+                                      ),
+                                      height: Get.height * .06,
+                                      width: Get.width * .035,
+                                      child:
+                                          SvgPicture.asset(AppImages.calendar))
+                                ],
+                              ),
                             ),
                           ),
                           Expanded(
                             child: ListView.builder(
                               itemCount: 3,
                               itemBuilder: (BuildContext context, int index) {
-                                return CallHistory();
+                                return const CallHistory();
                               },
                             ),
                           ),
@@ -136,27 +144,27 @@ class CallCurrentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
+      margin: const EdgeInsets.only(
         top: 18,
-        left: Get.width * .05,
-        right: Get.width * .05,
+        left: 15,
+        right: 15,
       ),
-      padding: EdgeInsets.only(
-        right: Get.width * .04,
-        left: Get.width * .04,
-        top: Get.height * .02,
+      padding: const EdgeInsets.only(
+        right: 11,
+        left: 11,
+        top: 15,
       ),
       decoration: BoxDecoration(
           color: Colors.white,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
           boxShadow: [
-            BoxShadow(
+            const BoxShadow(
               blurRadius: 6,
               color: Palatt.boxShadow,
             )
           ]),
-      height: Get.height * .18,
+      // height: Get.height * .18,
       width: Get.width * .07,
       child: Column(
         children: [
@@ -170,7 +178,7 @@ class CallCurrentCard extends StatelessWidget {
               SizedBox(
                 width: Get.width * .022,
               ),
-              Text(
+              const Text(
                 "Help",
                 style: TextStyle(fontSize: 11, color: Palatt.primary),
               )
@@ -178,19 +186,20 @@ class CallCurrentCard extends StatelessWidget {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                      radius: 25,
-                      child: SvgPicture.network(
-                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk3Wgo0pmPvbnMUQFekBl33a76j_vK6j0nEQ&usqp=CAU',
-                        fit: BoxFit.cover,
-                      )),
+                    radius: 25,
+                    backgroundImage: NetworkImage(
+                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-JXTGHFY17JKveGhEsuP2rz0qxFMoKb6eHg&usqp=CAU"),
+                  ),
                   SizedBox(
                     width: Get.width * .035,
                   ),
-                  Column(
+                  const Column(
                     children: [
                       Text(
                         "Rajveer Yadav",
@@ -199,9 +208,9 @@ class CallCurrentCard extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
-                        height: Get.height * .008,
-                      ),
+                      // SizedBox(
+                      //   height: 5,
+                      // ),
                       Text(
                         "2022-07-11 12:23 PM",
                         style: TextStyle(
@@ -213,25 +222,20 @@ class CallCurrentCard extends StatelessWidget {
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  RichText(
-                    text: TextSpan(
-                      text: 'Order Id : 345674321',
-                      style: TextStyle(fontSize: 11, color: Palatt.grey),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: '4466',
-                            style: TextStyle(
-                              color: Palatt.black,
-                              fontSize: 11,
-                            )),
-                      ],
-                    ),
-                  ),
-                  Text("")
-                ],
-              )
+              RichText(
+                text: const TextSpan(
+                  text: 'Order Id : 345674321',
+                  style: TextStyle(fontSize: 11, color: Palatt.grey, height: 2),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: '4466',
+                        style: TextStyle(
+                          color: Palatt.black,
+                          fontSize: 11,
+                        )),
+                  ],
+                ),
+              ),
             ],
           ),
           Row(
@@ -240,12 +244,12 @@ class CallCurrentCard extends StatelessWidget {
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(
                     left: Get.width * .165, top: Get.height * .01),
-                height: Get.height * .042,
-                width: Get.width * .17,
+                height: 24,
+                width: 71,
                 decoration: BoxDecoration(
                     color: Palatt.primary,
                     borderRadius: BorderRadius.circular(5)),
-                child: Text(
+                child: const Text(
                   "Accept",
                   style: TextStyle(
                     fontSize: 12,
@@ -258,12 +262,12 @@ class CallCurrentCard extends StatelessWidget {
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(
                     left: Get.width * .02, top: Get.height * .01),
-                height: Get.height * .042,
-                width: Get.width * .17,
+                height: 24,
+                width: 71,
                 decoration: BoxDecoration(
                     color: Palatt.primary,
                     borderRadius: BorderRadius.circular(5)),
-                child: Text(
+                child: const Text(
                   "Reject",
                   style: TextStyle(
                     fontSize: 12,
@@ -273,7 +277,8 @@ class CallCurrentCard extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
+          spaceVertical(15)
         ],
       ),
     );
@@ -286,56 +291,52 @@ class CallHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        top: 18,
-        left: Get.width * .05,
-        right: Get.width * .05,
-      ),
-      padding: EdgeInsets.only(
-        right: Get.width * .04,
-        left: Get.width * .04,
-        top: Get.height * .02,
-      ),
+      margin: const EdgeInsets.only(top: 18, left: 15, right: 15),
+      padding: const EdgeInsets.only(right: 11, left: 11, top: 10),
       decoration: BoxDecoration(
           color: Colors.white,
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
               blurRadius: 6,
               color: Palatt.boxShadow,
             )
           ]),
-      height: Get.height * .18,
-      width: Get.width * .07,
       child: Column(
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SvgPicture.asset(
-                AppImages.incoming_call,
+                AppImages.callfilled,
                 fit: BoxFit.fill,
+                color: Palatt.primary,
               ),
               SizedBox(
                 width: Get.width * .022,
               ),
               Text(
                 "Help",
-                style: TextStyle(fontSize: 11, color: Palatt.primary),
+                style: googleFontstyle(
+                  const TextStyle(
+                      fontSize: 11,
+                      color: Palatt.primary,
+                      fontWeight: FontWeight.w500),
+                ),
               )
             ],
           ),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Flexible(
                 flex: 0,
                 child: CircleAvatar(
-                    radius: 25,
-                    child: SvgPicture.network(
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk3Wgo0pmPvbnMUQFekBl33a76j_vK6j0nEQ&usqp=CAU',
-                      fit: BoxFit.cover,
-                    )),
+                  radius: 25,
+                  backgroundImage: NetworkImage(
+                      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-JXTGHFY17JKveGhEsuP2rz0qxFMoKb6eHg&usqp=CAU"),
+                ),
               ),
               SizedBox(
                 width: Get.width * .035,
@@ -350,16 +351,16 @@ class CallHistory extends StatelessWidget {
                       // mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          "Rajesh Sharma",
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                        Text("Rajesh Sharma",
+                            style: googleFontstyle(
+                              const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )),
                         // Expanded(child: SizedBox()),
                         RichText(
-                          text: TextSpan(
+                          text: const TextSpan(
                             text: 'Order Id : 345674321',
                             style: TextStyle(fontSize: 11, color: Palatt.grey),
                             children: <TextSpan>[
@@ -374,31 +375,26 @@ class CallHistory extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: Get.height * .008,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "2022-07-11 12:23 PM",
-                            style: TextStyle(
-                              color: Palatt.grey,
-                              fontSize: 11,
-                            ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "2022-07-11 12:23 PM",
+                          style: TextStyle(
+                            color: Palatt.grey,
+                            fontSize: 11,
                           ),
-                          Text(
-                            "Rate : 20/min",
-                            style: TextStyle(
-                              color: Palatt.grey,
-                              fontSize: 11,
-                            ),
+                        ),
+                        Text(
+                          "Rate : 20/min",
+                          style: TextStyle(
+                            color: Palatt.grey,
+                            fontSize: 11,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -409,7 +405,7 @@ class CallHistory extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "Income : 800 INR",
+                          "Promotional : 100 INR",
                           style: TextStyle(
                             color: Palatt.grey,
                             fontSize: 11,
@@ -422,6 +418,19 @@ class CallHistory extends StatelessWidget {
               ),
             ],
           ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              "Income : 800 INR",
+              style: googleFontstyle(
+                const TextStyle(
+                    fontSize: 11,
+                    color: Palatt.primary,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+          ),
+          spaceVertical(7)
         ],
       ),
     );

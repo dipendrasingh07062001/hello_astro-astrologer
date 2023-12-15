@@ -1,3 +1,4 @@
+import 'package:astro/theme/themedata.dart';
 import 'package:flutter/material.dart';
 
 Text textStyle(String text, Color? color,
@@ -9,13 +10,13 @@ Text textStyle(String text, Color? color,
   return Text(
     text,
     textAlign: textAlign,
-    style: TextStyle(
+    style: googleFontstyle(TextStyle(
       color: color,
       fontWeight: fontWeight,
       fontSize: fontSize,
       height: height,
       letterSpacing: letterSpacing,
-    ),
+    )),
   );
 }
 

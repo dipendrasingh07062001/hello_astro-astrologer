@@ -1,4 +1,6 @@
+import 'package:astro/helper/route_helper.dart';
 import 'package:astro/util/buttons.dart';
+import 'package:astro/view/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -11,154 +13,186 @@ class ChatRoomScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "Chat Room"),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Get.width * .04),
-        child: Column(children: [
-          Expanded(
-            child: DefaultTabController(
-              length: 2,
-              initialIndex: 0,
-              child: Column(
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(top: 20, bottom: 5),
-                    decoration: BoxDecoration(
-                        color: Palatt.primaryLight,
-                        border: Border.all(
-                          color: Palatt.primary,
-                        ),
-                        borderRadius: BorderRadius.circular(8)),
-                    width: double.infinity,
-                    height: 50,
-                    child: TabBar(
-                      labelPadding: const EdgeInsets.all(8),
-                      labelStyle: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      indicator: BoxDecoration(
+      backgroundColor: Palatt.white,
+      appBar: const CustomAppBar(
+          title: "Chat Room", automaticallyImplyLeading: false),
+      body: Column(children: [
+        Expanded(
+          child: DefaultTabController(
+            length: 2,
+            initialIndex: 0,
+            child: Column(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                      top: 20, bottom: 5, left: 15, right: 15),
+                  decoration: BoxDecoration(
+                      color: Palatt.primaryLight,
+                      border: Border.all(
                         color: Palatt.primary,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(8),
                       ),
-                      indicatorWeight: 3,
-                      indicatorColor: Palatt.primary,
-                      isScrollable: false,
-                      unselectedLabelColor: Palatt.primary,
-                      labelColor: Colors.white,
-                      tabs: const [
-                        Tab(
-                          text: "History",
-                        ),
-                        Tab(
-                          text: "Live Chat",
-                        ),
-                      ],
+                      borderRadius: BorderRadius.circular(8)),
+                  width: double.infinity,
+                  height: 50,
+                  child: TabBar(
+                    labelPadding: const EdgeInsets.all(8),
+                    labelStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
                     ),
+                    indicator: BoxDecoration(
+                      color: Palatt.primary,
+                      shape: BoxShape.rectangle,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    indicatorWeight: 3,
+                    indicatorColor: Palatt.primary,
+                    isScrollable: false,
+                    unselectedLabelColor: Palatt.primary,
+                    labelColor: Colors.white,
+                    tabs: const [
+                      Tab(
+                        text: "History",
+                      ),
+                      Tab(
+                        text: "Live Chat",
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: TabBarView(
-                      physics: NeverScrollableScrollPhysics(),
-                      children: [
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: Get.height * .026,
-                            ),
-                            TextFormField(
+                ),
+                Expanded(
+                  child: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      Column(
+                        children: [
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            child: TextFormField(
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * .03),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
                                 hintText: "Search here ...",
-                                hintStyle: TextStyle(
+                                isCollapsed: true,
+                                isDense: true,
+                                hintStyle: const TextStyle(
                                   color: Palatt.grey,
                                   fontSize: 16,
                                 ),
-                                suffixIcon: Icon(
+                                suffixIcon: const Icon(
                                   Icons.search,
                                   color: Palatt.grey,
+                                  size: 20,
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5),
-                                  borderSide:
-                                      BorderSide(width: .5, color: Palatt.grey),
+                                  borderSide: const BorderSide(
+                                      width: .5, color: Palatt.grey),
                                 ),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(5),
-                                  borderSide:
-                                      BorderSide(width: .5, color: Palatt.grey),
+                                  borderSide: const BorderSide(
+                                      width: .5, color: Palatt.grey),
                                 ),
                               ),
                             ),
-                            Expanded(
-                              child: ListView.separated(
-                                  itemBuilder: (BuildContext context, index) {
-                                    return usercard();
-                                  },
-                                  separatorBuilder:
-                                      (BuildContext context, index) {
-                                    return Divider(
-                                      color: Palatt.grey,
-                                    );
-                                  },
-                                  itemCount: 6),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
+                          ),
+                          Expanded(
+                            child: ListView.separated(
+                                padding:
+                                    const EdgeInsets.only(top: 20, bottom: 90),
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, index) {
+                                  return usercard();
+                                },
+                                separatorBuilder: (context, index) {
+                                  return Divider(
+                                    color: Palatt.boxShadow.withOpacity(0.5),
+                                    thickness: 1,
+                                    height: 1,
+                                  );
+                                },
+                                itemCount: 10),
+                          )
+                        ],
+                      )
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ]),
-      ),
+        ),
+      ]),
     );
   }
 
-  Widget usercard() => ListTile(
-        leading: CircleAvatar(
-          radius: 20,
-          child: SvgPicture.network(""),
-        ),
-        title: Text(
-          "Ajendra Kumar",
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        subtitle: Text(
-          "Hi, How are you",
-          style: TextStyle(
-            fontSize: 11,
-            color: Palatt.grey,
-          ),
-        ),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              "12.00 PM",
-              style: TextStyle(
-                fontSize: 12,
-                color: Palatt.grey,
+  Widget usercard() => GestureDetector(
+        onTap: () {
+          Get.toNamed(Routes.chat);
+        },
+        child: Container(
+          padding:
+              const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 10),
+          color: Palatt.white,
+          child: Row(
+            children: [
+              const CircleAvatar(
+                radius: 27.5,
+                backgroundImage: NetworkImage(
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-JXTGHFY17JKveGhEsuP2rz0qxFMoKb6eHg&usqp=CAU"),
               ),
-            ),
-            const CircleAvatar(
-              radius: 11,
-              backgroundColor: Palatt.primary,
-              child: Text(
-                "3",
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Palatt.white,
-                ),
+              spaceHorizontal(11),
+              const Expanded(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Ajendra Kumar",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  Text(
+                    "Hi, How are you",
+                    style: TextStyle(
+                      fontSize: 11,
+                      color: Palatt.grey,
+                    ),
+                  ),
+                ],
+              )),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Text(
+                    "12.00 PM",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Palatt.grey,
+                    ),
+                  ),
+                  spaceVertical(5),
+                  const CircleAvatar(
+                    radius: 11,
+                    backgroundColor: Palatt.primary,
+                    child: Text(
+                      "3",
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Palatt.white,
+                      ),
+                    ),
+                  )
+                ],
               ),
-            )
-          ],
+            ],
+          ),
         ),
       );
 }

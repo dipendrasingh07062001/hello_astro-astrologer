@@ -3,31 +3,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../controller/helpnsupport/controller.dart';
 import '../../../theme/colorpalatt.dart';
 import '../../../util/buttons.dart';
 import '../../../util/images.dart';
 import '../../widgets/custom_appbar.dart';
 import '../../widgets/space.dart';
 
-class HelpNSupport extends GetView {
+class HelpNSupport extends GetView<HelpNSupportController> {
   const HelpNSupport({super.key});
 
   @override
   Widget build(BuildContext context) {
     Widget chatview = Expanded(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage(AppImages.background2))),
         child: ListView(
           shrinkWrap: true,
           physics: const BouncingScrollPhysics(),
-          children: [chatcard(), chatcard(), chatcard(), chatcard()],
+          children: [
+            spaceVertical(10),
+            chatcard(),
+            chatcard(),
+            chatcard(),
+            chatcard()
+          ],
         ),
       ),
     );
     Widget userAssistent = Expanded(
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             image: DecorationImage(image: AssetImage(AppImages.background2))),
         child: ListView.builder(
           shrinkWrap: true,
@@ -109,49 +116,69 @@ class HelpNSupport extends GetView {
             child: Row(
               children: [
                 Expanded(
-                    child: Container(
-                  height: 50,
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(color: Palatt.black, width: 2),
-                    ),
-                  ),
-                  child: Text(
-                    "Admin Support",
-                    style: googleFontstyle(const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500,
-                      color: Palatt.black,
-                    )),
-                  ),
-                )),
+                    child: Obx(() => GestureDetector(
+                          onTap: () => controller.changetab(0),
+                          child: Container(
+                            height: 50,
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            alignment: Alignment.bottomCenter,
+                            decoration: BoxDecoration(
+                              border: controller.currenttab.value == 0
+                                  ? const Border(
+                                      bottom: BorderSide(
+                                          color: Palatt.black, width: 2),
+                                    )
+                                  : const Border(),
+                            ),
+                            child: Text(
+                              "Admin Support",
+                              style: googleFontstyle(TextStyle(
+                                fontSize: 17,
+                                fontWeight: controller.currenttab.value == 0
+                                    ? FontWeight.w500
+                                    : FontWeight.w300,
+                                color: controller.currenttab.value == 0
+                                    ? Palatt.black
+                                    : Palatt.grey,
+                              )),
+                            ),
+                          ),
+                        ))),
                 Expanded(
-                    child: Container(
-                  height: 50,
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
-                  alignment: Alignment.center,
-                  decoration: const BoxDecoration(
-                      // border: Border(
-                      //   bottom: BorderSide(color: Palatt.black, width: 2),
-                      // ),
-                      ),
-                  child: Text(
-                    "User Assistant",
-                    style: googleFontstyle(const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w300,
-                      color: Palatt.grey,
-                    )),
-                  ),
-                ))
+                    child: Obx(() => GestureDetector(
+                          onTap: () => controller.changetab(1),
+                          child: Container(
+                            height: 50,
+                            margin: const EdgeInsets.symmetric(horizontal: 10),
+                            alignment: Alignment.bottomCenter,
+                            decoration: BoxDecoration(
+                                border: controller.currenttab.value == 1
+                                    ? const Border(
+                                        bottom: BorderSide(
+                                            color: Palatt.black, width: 2),
+                                      )
+                                    : const Border()),
+                            child: Text(
+                              "User Assistant",
+                              style: googleFontstyle(TextStyle(
+                                fontSize: 17,
+                                fontWeight: controller.currenttab.value == 1
+                                    ? FontWeight.w500
+                                    : FontWeight.w300,
+                                color: controller.currenttab.value == 1
+                                    ? Palatt.black
+                                    : Palatt.grey,
+                              )),
+                            ),
+                          ),
+                        )))
               ],
             ),
           ),
-          // chatview,
-          userAssistent,
-          typemessage(),
+          Obx(() =>
+              controller.currenttab.value == 0 ? chatview : userAssistent),
+          Obx(() => Visibility(
+              visible: controller.currenttab.value == 0, child: typemessage())),
         ],
       ),
     );

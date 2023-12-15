@@ -1,4 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:astro/theme/colorpalatt.dart';
+import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/images.dart';
 import 'package:astro/view/widgets/custom_appbar.dart';
 import 'package:astro/view/widgets/space.dart';
@@ -13,9 +16,8 @@ class ServicesView extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        title: "Services",
-      ),
+      appBar: const CustomAppBar(
+          title: "Services", automaticallyImplyLeading: false),
       body: Column(children: [
         spaceVertical(15),
         service(AppImages.service_chat, "Chat", true),
@@ -52,29 +54,98 @@ class ServicesView extends GetView {
                   height: 42,
                 ),
                 spaceHorizontal(10),
-                const Text(
-                  "Chat",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Palatt.black,
-                  ),
-                ),
+                Text("Chat",
+                    style: googleFontstyle(
+                      TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Palatt.black,
+                      ),
+                    )),
               ],
             ),
-            SizedBox(
-              height: 24,
-              width: 54,
-              child: CupertinoSwitch(
-                onChanged: (p0) {
-                  value = p0;
-                },
-                activeColor: Palatt.primary,
-                trackColor: Palatt.grey,
-                value: value,
-              ),
-            ),
+            CustomSwitch(
+              onChanged: (value) {},
+              value: false,
+            )
           ],
         ),
       );
+}
+
+class CustomSwitch extends StatefulWidget {
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  const CustomSwitch({Key? key, required this.value, required this.onChanged})
+      : super(key: key);
+
+  @override
+  _CustomSwitchState createState() => _CustomSwitchState();
+}
+
+class _CustomSwitchState extends State<CustomSwitch>
+    with SingleTickerProviderStateMixin {
+  Animation? _circleAnimation;
+  AnimationController? _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 60));
+    _circleAnimation = AlignmentTween(
+            begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
+            end: widget.value ? Alignment.centerLeft : Alignment.centerRight)
+        .animate(CurvedAnimation(
+            parent: _animationController!, curve: Curves.linear));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animationController!,
+      builder: (context, child) {
+        return GestureDetector(
+          onTap: () {
+            if (_animationController!.isCompleted) {
+              _animationController!.reverse();
+            } else {
+              _animationController!.forward();
+            }
+            widget.value == false
+                ? widget.onChanged(true)
+                : widget.onChanged(false);
+          },
+          child: Container(
+            width: 54.0,
+            height: 24.0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(24.0),
+              color: !widget.value ? Palatt.grey : Palatt.primary,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  top: 2.0, bottom: 2.0, right: 2.0, left: 2.0),
+              child: Container(
+                alignment: widget.value
+                    ? ((Directionality.of(context) == TextDirection.rtl)
+                        ? Alignment.centerLeft
+                        : Alignment.centerRight)
+                    : ((Directionality.of(context) == TextDirection.rtl)
+                        ? Alignment.centerRight
+                        : Alignment.centerLeft),
+                child: Container(
+                  width: 20.0,
+                  height: 20.0,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.white),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

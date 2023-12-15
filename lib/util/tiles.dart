@@ -1,3 +1,4 @@
+import 'package:astro/view/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -17,28 +18,52 @@ class DrawerTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ListTile(
-          onTap: onTap,
-          leading: SvgPicture.asset(
-            image,
-            height: 40,
-            width: 40,
-          ),
-          title: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 17,
-              color: Palatt.white,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            margin: const EdgeInsets.only(left: 15, top: 15),
+            child: Row(
+              children: [
+                SvgPicture.asset(
+                  image,
+                  height: 24,
+                  width: 24,
+                ),
+                spaceHorizontal(13),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    color: Palatt.white,
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        showdivider
-            ? const Divider(height: 1, color: Palatt.white)
-            : Container()
-      ],
+          // ListTile(
+          //   onTap: onTap,
+          //   leading: SvgPicture.asset(
+          //     image,
+          //     height: 24,
+          //     width: 24,
+          //   ),
+
+          //   title: Text(
+          //     title,
+          //     style: const TextStyle(
+          //       fontSize: 17,
+          //       color: Palatt.white,
+          //     ),
+          //   ),
+          // ),
+          // showdivider
+          //     ? const Divider(height: 1, color: Palatt.white)
+          //     : Container()
+        ],
+      ),
     );
   }
 }

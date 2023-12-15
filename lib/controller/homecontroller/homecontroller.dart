@@ -36,21 +36,21 @@ class HomeController extends GetxController {
       'color2': '0xFF22726C',
       "image": AppImages.support,
       'title': 'Support',
-      // "class": Routes.support
+      "class": Routes.helpnsupport
     },
     {
       "color1": '0xFF0063A5',
       'color2': '0xFF0C8BE0',
       "image": AppImages.refund,
       'title': 'Bank Details',
-      // "class": Routes.bankdetails
+      "class": Routes.bankdetails
     },
     {
       "color1": '0xFF7B4397',
       'color2': '0xFFDC2430',
       "image": AppImages.user,
       'title': 'Profile',
-      // "class": Routes.profile
+      "class": Routes.profileView
     },
 
     // {

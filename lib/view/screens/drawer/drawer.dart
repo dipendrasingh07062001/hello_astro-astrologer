@@ -377,8 +377,10 @@ class HomeDrawer extends StatelessWidget {
             width: 75.0.h,
             margin: EdgeInsets.only(right: 10.w),
             decoration: const BoxDecoration(
-              color: Palatt.primary,
-            ),
+                color: Palatt.primary,
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(12),
+                    bottomRight: Radius.circular(12))),
             child: SafeArea(
               child: Column(
                 children: [
@@ -388,13 +390,13 @@ class HomeDrawer extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 16),
                       child: CustomCloseButton(
-                        onTap: () {},
+                        onTap: () => Get.back(),
                         backgroundColor: Palatt.white.withOpacity(0.3),
                         iconColor: Palatt.white,
                       ),
                     ),
                   ),
-                  spaceVertical(20),
+                  spaceVertical(10),
                   ListTile(
                     onTap: () {
                       // Get.toNamed(Routes.profile);
@@ -426,7 +428,7 @@ class HomeDrawer extends StatelessWidget {
                       shrinkWrap: true,
                       // physics: NeverScrollableScrollPhysics(),
                       children: [
-                        spaceVertical(10),
+                        // spaceVertical(10),
                         // DrawerTile(
                         //   image: AppImages.myorders,
                         //   title: "My Orders",
@@ -480,17 +482,25 @@ class HomeDrawer extends StatelessWidget {
                         //     Get.toNamed(Routes.helpnsupport);
                         //   },
                         // ),
-                        spaceVertical(10),
+                        // spaceVertical(10),
                         DrawerTile(
-                          image: AppImages.aboutus,
-                          title: "Help and Support",
+                          image: AppImages.square_earning,
+                          title: "Earning History",
                           onTap: () {
-                            Get.toNamed(Routes.helpnsupport);
+                            Get.toNamed(Routes.earningHistory);
                           },
                         ),
                         spaceVertical(10),
                         DrawerTile(
-                          image: AppImages.aboutus,
+                          image: AppImages.square_review,
+                          title: "Review",
+                          onTap: () {
+                            Get.toNamed(Routes.reviewsview);
+                          },
+                        ),
+                        spaceVertical(10),
+                        DrawerTile(
+                          image: AppImages.square_aboutus,
                           title: "About us",
                           onTap: () {
                             Get.toNamed(Routes.aboutus);
@@ -498,18 +508,44 @@ class HomeDrawer extends StatelessWidget {
                         ),
                         spaceVertical(10),
                         DrawerTile(
-                          image: AppImages.privacypolicy,
+                          image: AppImages.square_followers,
+                          title: "Followers",
+                          onTap: () {
+                            Get.toNamed(Routes.followersview);
+                          },
+                        ),
+
+                        // spaceVertical(10),
+                        // DrawerTile(
+                        //   image: AppImages.aboutus,
+                        //   title: "Help and Support",
+                        //   onTap: () {
+                        //     Get.toNamed(Routes.helpnsupport);
+                        //   },
+                        // ),
+                        spaceVertical(10),
+                        DrawerTile(
+                          image: AppImages.square_tnc,
+                          title: "Terms and Conditions",
+                          onTap: () {
+                            Get.toNamed(Routes.termsncondition);
+                          },
+                        ),
+                        spaceVertical(10),
+                        DrawerTile(
+                          image: AppImages.square_pp,
                           title: "Privacy Policy",
                           onTap: () {
                             Get.toNamed(Routes.privacypolicy);
                           },
                         ),
+
                         spaceVertical(10),
                         DrawerTile(
-                          image: AppImages.termsnconditions,
-                          title: "Terms and Conditions",
+                          image: AppImages.square_faq,
+                          title: "FAQ",
                           onTap: () {
-                            Get.toNamed(Routes.termsncondition);
+                            Get.toNamed(Routes.faqs);
                           },
                         ),
                         // spaceVertical(10),
@@ -533,16 +569,36 @@ class HomeDrawer extends StatelessWidget {
                         .toList(),
                   ),
                   spaceVertical(10),
-                  EltdButton(
-                    color: Palatt.white,
-                    foregroundColor: Palatt.primary,
-                    title: "Log Out",
-                    height: 50,
-                    width: 254,
-                    radius: 10,
-                    elevation: 0,
-                    press: () => Get.dialog(LogOut()),
-                  ),
+                  RRButton2(
+                      radius: 10,
+                      height: 50,
+                      onTap: () {},
+                      backgroundColor: Palatt.white,
+                      margin: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.power_settings_new,
+                            color: Palatt.primary,
+                          ),
+                          spaceHorizontal(5),
+                          const Text(
+                            "Sign Out",
+                            style: TextStyle(fontSize: 16, color: Palatt.black),
+                          )
+                        ],
+                      )),
+                  // EltdButton(
+                  //   color: Palatt.white,
+                  //   foregroundColor: Palatt.primary,
+                  //   title: "Log Out",
+                  //   height: 50,
+                  //   width: 254,
+                  //   radius: 10,
+                  //   elevation: 0,
+                  //   press: () => Get.dialog(const LogOut()),
+                  // ),
                   spaceVertical(10),
                 ],
               ),
@@ -575,7 +631,7 @@ class HomeDrawer extends StatelessWidget {
                   Positioned(
                     // top: 10,
                     bottom: 0,
-                    right: 20,
+                    right: 22,
                     // left: 0,
                     child: Container(
                       height: 100,

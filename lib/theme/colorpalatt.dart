@@ -18,9 +18,10 @@ class Palatt {
   static const Color transparent = Colors.transparent;
   static const Color tanborder = Color(0xff59B8BE);
   static const Color lightyellow = Color(0xffFFE9C9);
-  static const Color blueshadelight = Color(0xffE7E9FF);
+  static const Color blueshadelight = Color(0xffF2F6FF);
   static const Color grey = Color(0xFF818181);
   static const Color greyshade1 = Color(0xFF929292);
+  static const Color greyshade2 = Color(0xFF555555);
   static const Color greyshadedark = Color(0xFFEEEEEE);
   static const Color greyborder = Color(0xFF707070);
   static const LinearGradient horogradiant = LinearGradient(

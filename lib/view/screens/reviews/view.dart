@@ -13,7 +13,7 @@ class ReviewsView extends StatelessWidget {
   Widget build(BuildContext context) {
     Widget notificationcard = RRButton2(
       padding: const EdgeInsets.symmetric(
-        horizontal: 15,
+        // horizontal: 15,
         vertical: 10,
       ),
       // borderColor: Palatt.primary,
@@ -25,6 +25,8 @@ class ReviewsView extends StatelessWidget {
         children: [
           const CircleAvatar(
             radius: 27.5,
+            backgroundImage: NetworkImage(
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-JXTGHFY17JKveGhEsuP2rz0qxFMoKb6eHg&usqp=CAU"),
           ),
           spaceHorizontal(15),
           Expanded(
@@ -44,7 +46,7 @@ class ReviewsView extends StatelessWidget {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemCount: 5,
-                itemSize: 18,
+                itemSize: 15,
                 itemPadding: const EdgeInsets.only(right: 3.0),
                 itemBuilder: (context, _) => const Icon(
                   Icons.star,
@@ -81,7 +83,7 @@ class ReviewsView extends StatelessWidget {
           return Divider(
             height: 1,
             thickness: 1,
-            color: Palatt.boxShadow,
+            color: Palatt.boxShadow.withOpacity(0.5),
           );
         },
       ),

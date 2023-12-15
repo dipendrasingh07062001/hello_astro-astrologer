@@ -1,4 +1,5 @@
 import 'package:astro/theme/colorpalatt.dart';
+import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/buttons.dart';
 import 'package:astro/view/widgets/custom_appbar.dart';
 import 'package:astro/view/widgets/space.dart';
@@ -11,8 +12,7 @@ class FreeServices extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(
-        title: "Free Service",
-      ),
+          title: "Free Service", automaticallyImplyLeading: false),
       body: ListView(
         shrinkWrap: true,
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -26,16 +26,16 @@ class FreeServices extends StatelessWidget {
             boxShadow: const [
               BoxShadow(blurRadius: 6, color: Palatt.boxShadow)
             ],
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Kundali",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                Text("Kundali",
+                    style: googleFontstyle(
+                      TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )),
                 Icon(
                   Icons.keyboard_arrow_down_rounded,
                   size: 30,
@@ -53,16 +53,16 @@ class FreeServices extends StatelessWidget {
             boxShadow: const [
               BoxShadow(blurRadius: 6, color: Palatt.boxShadow)
             ],
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Horoscope",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                Text("Horoscope",
+                    style: googleFontstyle(
+                      TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )),
                 Icon(
                   Icons.keyboard_arrow_down_rounded,
                   size: 30,
@@ -80,16 +80,16 @@ class FreeServices extends StatelessWidget {
             boxShadow: const [
               BoxShadow(blurRadius: 6, color: Palatt.boxShadow)
             ],
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Matchmaking",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                Text("Matchmaking",
+                    style: googleFontstyle(
+                      TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )),
                 Icon(
                   Icons.keyboard_arrow_down_rounded,
                   size: 30,
@@ -107,16 +107,16 @@ class FreeServices extends StatelessWidget {
             boxShadow: const [
               BoxShadow(blurRadius: 6, color: Palatt.boxShadow)
             ],
-            child: const Row(
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  "Panchang",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
+                Text("Panchang",
+                    style: googleFontstyle(
+                      TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    )),
                 Icon(
                   Icons.keyboard_arrow_down_rounded,
                   size: 30,

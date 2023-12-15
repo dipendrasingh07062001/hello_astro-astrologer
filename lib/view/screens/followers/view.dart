@@ -25,6 +25,8 @@ class FollowersView extends StatelessWidget {
         children: [
           const CircleAvatar(
             radius: 27.5,
+            backgroundImage: NetworkImage(
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-JXTGHFY17JKveGhEsuP2rz0qxFMoKb6eHg&usqp=CAU"),
           ),
           spaceHorizontal(10),
           Expanded(

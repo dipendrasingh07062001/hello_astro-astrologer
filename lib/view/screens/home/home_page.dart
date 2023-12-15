@@ -31,7 +31,7 @@ class _HomeViewState extends State<HomeView> {
           leading: Padding(
             padding: EdgeInsets.only(bottom: h * .03),
             child: IconButton(
-              icon: SvgPicture.asset(AppImages.menu),
+              icon: SvgPicture.asset(AppImages.feather),
               onPressed: controller.openDrawer,
             ),
           ),

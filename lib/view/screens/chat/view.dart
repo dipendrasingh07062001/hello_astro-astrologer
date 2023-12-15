@@ -13,97 +13,98 @@ class ChatScreen extends GetView {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> msgs = [
+      chatcard(
+        alignment: Alignment.centerLeft,
+        backgroundColor: Palatt.blueshadelight,
+        msg:
+            "Welcome to Hello Astrologer. Consultant will take a minute to prepare your chart. You may ask your question in the meanwhile",
+      ),
+      chatcard(
+        msg:
+            "Hi Udayy,\nBelow are my details : \nName : Rajesh Kumar \nGender : Male \nDOB : 28-Feb-1996 \nTOB : 2:30 PM \nPOB : Homnabad, Karnataka, India \nMarital Status : Single \nOccupation : Private Sector \nProblem Area : Career and Business \nQuestion : undefined \nQuestion : undefined",
+      ),
+    ];
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70),
-        child: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: Row(
-              children: [
-                const CircleAvatar(
-                  radius: 27,
-                  backgroundImage: NetworkImage(
-                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-JXTGHFY17JKveGhEsuP2rz0qxFMoKb6eHg&usqp=CAU",
-                  ),
-                ),
-                spaceHorizontal(14),
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Harry John",
-                      style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w500,
-                          color: Palatt.black,
-                          height: 1.2),
-                    ),
-                    Text(
-                      "End",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Palatt.primary,
-                          height: 1.2),
-                    ),
-                    // Text(
-                    //   "Chat in-Progress",
-                    //   style: TextStyle(
-                    //       fontSize: 12,
-                    //       fontWeight: FontWeight.w500,
-                    //       color: Palatt.black,
-                    //       height: 1.2),
-                    // )
-                  ],
-                )
-              ],
+      appBar: AppBar(
+        toolbarHeight: 70,
+        titleSpacing: 0,
+        leadingWidth: 40,
+        title: Row(
+          children: [
+            const CircleAvatar(
+              radius: 27,
+              backgroundImage: NetworkImage(
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-JXTGHFY17JKveGhEsuP2rz0qxFMoKb6eHg&usqp=CAU",
+              ),
             ),
-          ),
-          actions: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            spaceHorizontal(14),
+            const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                InkWell(
-                  onTap: () {
-                    // Get.toNamed(Routes.walletBalance);
-                  },
-                  child: Container(
-                    decoration: const BoxDecoration(
+                Text(
+                  "Harry John",
+                  style: TextStyle(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w500,
+                      color: Palatt.black,
+                      height: 1.2),
+                ),
+                Text(
+                  "End",
+                  style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
                       color: Palatt.primary,
-                      borderRadius: BorderRadius.all(Radius.circular(20)),
-                    ),
-                    height: Get.height * .036,
-                    // width: w * .22,
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        SvgPicture.asset(
-                          AppImages.wallet,
-                          height: 12,
-                          width: 14,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        textStyle(
-                          "₹ 200",
-                          Palatt.white,
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        // textStyle("₹ 200", Palatt.white,
-                        //     w * .039, FontWeight.bold),
-                      ],
-                    ),
-                  ),
+                      height: 1.2),
                 ),
+                // Text(
+                //   "Chat in-Progress",
+                //   style: TextStyle(
+                //       fontSize: 12,
+                //       fontWeight: FontWeight.w500,
+                //       color: Palatt.black,
+                //       height: 1.2),
+                // )
               ],
-            ),
-            spaceHorizontal(15)
+            )
           ],
         ),
+        actions: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              InkWell(
+                onTap: () {
+                  // Get.toNamed(Routes.walletBalance);
+                },
+                child: Container(
+                  decoration: const BoxDecoration(
+                    color: Palatt.primary,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  height: Get.height * .036,
+                  // width: w * .22,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      textStyle(
+                        "50 Mins",
+                        Palatt.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      // textStyle("₹ 200", Palatt.white,
+                      //     w * .039, FontWeight.bold),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          spaceHorizontal(15)
+        ],
       ),
       body: Container(
         height: Get.height,
@@ -113,23 +114,19 @@ class ChatScreen extends GetView {
         child: Column(
           children: [
             Expanded(
-              child: ListView(
-                shrinkWrap: true,
-                // padding: const EdgeInsets.symmetric(horizontal: 15),
-                reverse: true,
-
-                children: [
-                  chatcard(
-                    alignment: Alignment.centerLeft,
-                    backgroundColor: Palatt.blueshadelight,
-                    msg:
-                        "Welcome to Hello Astrologer. Consultant will take a minute to prepare your chart. You may ask your question in the meanwhile",
-                  ),
-                  chatcard(
-                    msg:
-                        "Hi Udayy,\nBelow are my details : \nName : Rajesh Kumar \nGender : Male \nDOB : 28-Feb-1996 \nTOB : 2:30 PM \nPOB : Homnabad, Karnataka, India \nMarital Status : Single \nOccupation : Private Sector \nProblem Area : Career and Business \nQuestion : undefined \nQuestion : undefined",
-                  ),
-                ],
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  reverse: true,
+                  itemCount: msgs.length,
+                  itemBuilder: (context, index) {
+                    return msgs[index];
+                  },
+                  separatorBuilder: (context, index) {
+                    return Container();
+                  },
+                ),
               ),
             ),
             typemessage()
@@ -168,6 +165,14 @@ class ChatScreen extends GetView {
                   filled: true,
                   fillColor: Palatt.white,
                   hintText: "Type a message",
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.only(right: 12, left: 12),
+                    child: SvgPicture.asset(
+                      AppImages.emoji,
+                      height: 15,
+                      width: 15,
+                    ),
+                  ),
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   hintStyle: const TextStyle(

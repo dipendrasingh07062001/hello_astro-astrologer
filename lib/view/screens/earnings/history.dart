@@ -1,4 +1,5 @@
 import 'package:astro/theme/colorpalatt.dart';
+import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -14,13 +15,14 @@ class EarningHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> findorder = [
       spaceVertical(30),
-      const Text(
-        "From Date (DD-MM-YY)",
-        style: TextStyle(
-          fontSize: 17,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
+      Text("From Date (DD-MM-YY)",
+          style: googleFontstyle(
+            TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
+            ),
+          )),
+      spaceVertical(5),
       RRButton2(
         onTap: () {},
         padding: const EdgeInsets.only(
@@ -33,13 +35,13 @@ class EarningHistory extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              "08-07-2022",
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            Text("08-07-2022",
+                style: googleFontstyle(
+                  TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )),
             SvgPicture.asset(
               AppImages.calendar,
               height: 20,
@@ -48,13 +50,14 @@ class EarningHistory extends StatelessWidget {
         ),
       ),
       spaceVertical(22),
-      const Text(
-        "End Date (DD-MM-YY)",
-        style: TextStyle(
-          fontSize: 17,
-          fontWeight: FontWeight.w500,
-        ),
-      ),
+      Text("End Date (DD-MM-YY)",
+          style: googleFontstyle(
+            TextStyle(
+              fontSize: 17,
+              fontWeight: FontWeight.w500,
+            ),
+          )),
+      spaceVertical(5),
       RRButton2(
         onTap: () {},
         padding: const EdgeInsets.only(
@@ -67,13 +70,13 @@ class EarningHistory extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text(
-              "08-07-2022",
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            Text("08-07-2022",
+                style: googleFontstyle(
+                  TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )),
             SvgPicture.asset(
               AppImages.calendar,
               height: 20,
@@ -85,8 +88,10 @@ class EarningHistory extends StatelessWidget {
       RRButton(
         onTap: () {},
         data: "Generate Statement",
-        style: const TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w500, color: Palatt.primary),
+        style: googleFontstyle(
+          const TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w500, color: Palatt.primary),
+        ),
         borderColor: Palatt.primary,
         radius: 10,
         height: 50,
@@ -95,8 +100,10 @@ class EarningHistory extends StatelessWidget {
       RRButton(
         onTap: () {},
         data: "Find Order",
-        style: const TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w500, color: Palatt.white),
+        style: googleFontstyle(
+          const TextStyle(
+              fontSize: 18, fontWeight: FontWeight.w500, color: Palatt.white),
+        ),
         backgroundColor: Palatt.primary,
         radius: 10,
         height: 50,
@@ -172,14 +179,15 @@ class EarningHistory extends StatelessWidget {
       backgroundColor: Palatt.white,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          "Earning History",
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.w500,
-            color: Palatt.black,
-          ),
-        ),
+        leadingWidth: 40,
+        title: Text("Earning History",
+            style: googleFontstyle(
+              TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w500,
+                color: Palatt.black,
+              ),
+            )),
         actions: [
           Column(
             mainAxisAlignment: MainAxisAlignment.center,

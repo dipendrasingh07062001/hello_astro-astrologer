@@ -65,29 +65,29 @@ class _SignupState extends State<Signup> {
     h = MediaQuery.of(context).size.height;
     w = MediaQuery.of(context).size.width;
 
-    return Scaffold(
-      backgroundColor: Palatt.white,
-      appBar: AppBar(
-        elevation: 4,
-        backgroundColor: Palatt.white,
-        toolbarHeight: h * .08,
-        automaticallyImplyLeading: true,
-        centerTitle: true,
-        title: textStyle('Sign Up', Palatt.black,
-            fontSize: w * .059, fontWeight: FontWeight.bold),
+    return Container(
+      decoration: const BoxDecoration(
+        color: Palatt.white,
+        image: DecorationImage(
+            image: AssetImage(AppImages.background),
+            alignment: Alignment.bottomCenter,
+            fit: BoxFit.fitWidth),
       ),
-      body: GestureDetector(
-        onTap: () {
-          FocusScope.of(context).requestFocus(FocusNode());
-        },
-        child: Container(
-          height: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage(AppImages.background),
-                alignment: Alignment.bottomCenter,
-                fit: BoxFit.fitWidth),
-          ),
+      child: Scaffold(
+        backgroundColor: Palatt.transparent,
+        appBar: AppBar(
+          elevation: 4,
+          backgroundColor: Palatt.white,
+          toolbarHeight: h * .08,
+          automaticallyImplyLeading: true,
+          centerTitle: true,
+          title: textStyle('Sign Up', Palatt.black,
+              fontSize: w * .059, fontWeight: FontWeight.bold),
+        ),
+        body: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+          },
           child: SingleChildScrollView(
             keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
             child: Column(
@@ -226,7 +226,7 @@ class _SignupState extends State<Signup> {
                 //         ],
                 //       )),
                 // ),
-                signupTextForm('Mobile No. *', TextInputType.phone,
+                signupTextForm('Mobile No.', TextInputType.phone,
                     onboardingController.mobileController,
                     nonEditable: true,
                     maxLength: 10,
@@ -282,13 +282,7 @@ class _SignupState extends State<Signup> {
                                       ? const Color(0xffa4a4a4)
                                       : Palatt.black,
                                   fontSize: w * .04,
-                                  fontWeight: onboardingController
-                                          .selectedexpertise
-                                          .value!
-                                          .name!
-                                          .isEmpty
-                                      ? FontWeight.w500
-                                      : FontWeight.bold),
+                                  fontWeight: FontWeight.w400),
                               const Padding(
                                   padding: EdgeInsets.all(5),
                                   child: Icon(
@@ -332,7 +326,7 @@ class _SignupState extends State<Signup> {
                 ),
 
                 signupTextForm(
-                  'Qualifications',
+                  'My Qualifications',
                   TextInputType.text,
                   onboardingController.qualificationsController,
                 ),
@@ -375,7 +369,7 @@ class _SignupState extends State<Signup> {
                               textStyle(
                                   onboardingController.selectedexpertise.value!
                                           .name!.isEmpty
-                                      ? "My Expertise"
+                                      ? "Language"
                                       : onboardingController
                                               .selectedexpertise.value!.name ??
                                           "",
@@ -384,13 +378,7 @@ class _SignupState extends State<Signup> {
                                       ? const Color(0xffa4a4a4)
                                       : Palatt.black,
                                   fontSize: w * .04,
-                                  fontWeight: onboardingController
-                                          .selectedexpertise
-                                          .value!
-                                          .name!
-                                          .isEmpty
-                                      ? FontWeight.w500
-                                      : FontWeight.bold),
+                                  fontWeight: FontWeight.w400),
                               const Padding(
                                   padding: EdgeInsets.all(5),
                                   child: Icon(
@@ -441,13 +429,7 @@ class _SignupState extends State<Signup> {
                                       ? const Color(0xffa4a4a4)
                                       : Palatt.black,
                                   fontSize: w * .04,
-                                  fontWeight: onboardingController
-                                          .selectedexpertise
-                                          .value!
-                                          .name!
-                                          .isEmpty
-                                      ? FontWeight.w500
-                                      : FontWeight.bold),
+                                  fontWeight: FontWeight.w400),
                               const Padding(
                                   padding: EdgeInsets.all(5),
                                   child: Icon(
@@ -517,13 +499,7 @@ class _SignupState extends State<Signup> {
                                       ? const Color(0xffa4a4a4)
                                       : Palatt.black,
                                   fontSize: w * .04,
-                                  fontWeight: onboardingController
-                                          .selectedexpertise
-                                          .value!
-                                          .name!
-                                          .isEmpty
-                                      ? FontWeight.w500
-                                      : FontWeight.bold),
+                                  fontWeight: FontWeight.w400),
                               Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: SvgPicture.asset(
@@ -642,7 +618,7 @@ class _SignupState extends State<Signup> {
                     width: double.infinity,
                     padding: EdgeInsets.only(
                         bottom: h * .02,
-                        top: h * .01,
+                        top: h * .02,
                         left: w * .042,
                         right: w * .042),
                     margin: EdgeInsets.only(
@@ -666,16 +642,16 @@ class _SignupState extends State<Signup> {
                           AppImages.upload,
                           // color: AppColor.colSrchIcon,
                           colorFilter: const ColorFilter.mode(
-                              Palatt.grey, BlendMode.srcIn),
+                              const Color(0xffa4a4a4), BlendMode.srcIn),
                           width: w * .17,
                         ),
                         Obx(() => textStyle(
                             onboardingController.filePath.value.isEmpty
-                                ? "Add File Upload"
+                                ? "Multiple Photo"
                                 : onboardingController.filePath.value,
-                            Palatt.grey,
-                            fontSize: w * .04,
-                            fontWeight: FontWeight.w500)),
+                            const Color(0xffa4a4a4),
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400)),
                       ],
                     ),
                   ),
@@ -759,8 +735,9 @@ class _SignupState extends State<Signup> {
                               fontWeight: FontWeight.w500,
                               decoration: TextDecoration.underline),
                         ),
-                        onTap: () => Get.toNamed(Routes.webview,
-                            arguments: {"link": ApiUrls.termsncondition})),
+                        onTap: () => Get.toNamed(
+                              Routes.termsncondition,
+                            )),
                   ],
                 ),
                 SizedBox(
@@ -860,7 +837,7 @@ class _SignupState extends State<Signup> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       textStyle('Already have an account? ', Palatt.black,
-                          fontSize: w * .038, fontWeight: FontWeight.bold),
+                          fontSize: 15, fontWeight: FontWeight.w500),
                       InkWell(
                           child: Text(
                             'Login',
@@ -926,19 +903,19 @@ class _SignupState extends State<Signup> {
       bool? isDense,
       List<TextInputFormatter>? inputFormatters}) {
     return Container(
-      height: height ?? h * .063,
+      height: 50,
       margin: EdgeInsets.only(
           left: w * .042, right: w * .042, top: h * .01, bottom: h * .01),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Palatt.white,
-        borderRadius: const BorderRadius.all(Radius.circular(13)),
-        boxShadow: const [
+        borderRadius: BorderRadius.all(Radius.circular(13)),
+        boxShadow: [
           BoxShadow(color: Color(0xffebebeb), blurRadius: 5, spreadRadius: 3),
         ],
       ),
       child: TextFormField(
         enabled: nonEditable,
-        controller: textController,
+        // controller: textController,
         keyboardType: textInputType,
         inputFormatters: inputFormatters,
         maxLines: maxLines,
@@ -949,9 +926,10 @@ class _SignupState extends State<Signup> {
         style: TextStyle(fontSize: w * .043, fontWeight: FontWeight.w500),
         decoration: InputDecoration(
           isDense: isDense,
+          isCollapsed: true,
           hintText: hintText,
           contentPadding:
-              const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              EdgeInsets.symmetric(horizontal: w * .042, vertical: 10),
           hintStyle: TextStyle(
               fontSize: w * .04,
               color: const Color(0xffa4a4a4),

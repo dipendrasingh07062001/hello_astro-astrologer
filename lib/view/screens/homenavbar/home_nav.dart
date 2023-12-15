@@ -2,6 +2,8 @@
 
 import 'dart:developer';
 // import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:astro/theme/themedata.dart';
+
 import '../../../theme/colorpalatt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,6 +22,7 @@ class HomeNavBar extends GetView<HomeNavController> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: controller.scaffoldKey,
+      extendBody: true,
       drawer: const HomeDrawer(),
       body: Obx(
         () => controller.body[controller.currentpage.value],
@@ -34,7 +37,7 @@ class HomeNavBar extends GetView<HomeNavController> {
             boxShadow: const [
               BoxShadow(
                 color: Palatt.boxShadow,
-                blurRadius: 8,
+                blurRadius: 12,
               )
             ]),
         alignment: Alignment.center,
@@ -62,13 +65,13 @@ class HomeNavBar extends GetView<HomeNavController> {
                         spaceVertical(5),
                         Text(
                           controller.bar[index]["name"] ?? "",
-                          style: TextStyle(
+                          style: googleFontstyle(TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                             color: controller.currentpage.value == index
                                 ? Palatt.primary
                                 : Palatt.black,
-                          ),
+                          )),
                         )
                       ],
                     ),

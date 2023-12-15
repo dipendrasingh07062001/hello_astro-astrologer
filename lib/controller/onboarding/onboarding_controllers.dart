@@ -207,7 +207,7 @@ class OnboardingController extends GetxController {
     //           value["data"].map((e) => ExpertiseModel.fromJson(e)));
     //     }
     //   });
-    Get.toNamed(Routes.homeNav);
+    Get.toNamed(Routes.languageview);
   }
 
   onexpertisetap(ExpertiseModel model) {

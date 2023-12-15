@@ -46,6 +46,17 @@ class AppImages {
   static const service_call = "$_svg/icons/service_call.svg";
   static const service_chat = "$_svg/icons/service_chat.svg";
   static const service_calender = "$_svg/icons/service_calender.svg";
+  static const download = "$_svg/icons/download.svg";
+  static const request = "$_svg/icons/request.svg";
+  static const feather = "$_svg/icons/feather.svg";
+  static const emoji = "$_svg/icons/emoji.svg";
+  static const square_earning = "$_svg/icons/square_earning.svg";
+  static const square_review = "$_svg/icons/square_review.svg";
+  static const square_aboutus = "$_svg/icons/square_aboutus.svg";
+  static const square_followers = "$_svg/icons/square_followers.svg";
+  static const square_tnc = "$_svg/icons/square_tnc.svg";
+  static const square_pp = "$_svg/icons/square_pp.svg";
+  static const square_faq = "$_svg/icons/square_faq.svg";
 
   //images
   static const login = "$_svg/images/loginimage.svg";
