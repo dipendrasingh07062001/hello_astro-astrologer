@@ -8,6 +8,46 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../../controller/onboarding/onboarding_controllers.dart';
+
+class TheFirstScreen extends StatefulWidget {
+  const TheFirstScreen({super.key});
+
+  @override
+  State<TheFirstScreen> createState() => _TheFirstScreenState();
+}
+
+class _TheFirstScreenState extends State<TheFirstScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 2), () async {
+      Get.offAllNamed(Routes.login);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Widget logo = Image.asset(AppImages.splashpic);
+    return Scaffold(
+      backgroundColor: Palatt.primary,
+      body: Center(
+        child: Container(
+          height: Get.height,
+          width: Get.width,
+          padding: EdgeInsets.symmetric(horizontal: Get.width * 0.2),
+          child: Stack(
+            fit: StackFit.expand,
+            children: <Widget>[
+              logo,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -21,90 +61,19 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 2), () async {
-      Get.offAllNamed(Routes.login);
-    });
-  }
-
-  Future<void> _loadIndicatorImage() async {
-    await precacheImage(const AssetImage(AppImages.splashpic), context);
+    Future.delayed(
+        const Duration(milliseconds: 500),
+        () => Get.to(() => const TheFirstScreen(),
+            transition: Transition.downToUp,
+            duration: const Duration(seconds: 1)));
   }
 
   @override
   Widget build(BuildContext context) {
-    return EasySplashScreen(
-      logo: Image.asset(AppImages.splashpic),
-      logoWidth: 130,
-
-      // title: Text(
-      //   "Title",
-      //   style: TextStyle(
-      //     fontSize: 18,
-      //     fontWeight: FontWeight.bold,
-      //   ),
-      // ),
-      backgroundColor: Palatt.primary,
-      showLoader: true,
-      // loadingText: Text("Loading..."),
-      // navigator: ,
-      loaderColor: Palatt.primary,
-      durationInSeconds: 3,
-    );
-    Container(
+    return Container(
       height: Get.height,
       width: Get.width,
       color: Palatt.primary,
-      padding: EdgeInsets.symmetric(horizontal: Get.width * 0.2),
-      alignment: Alignment.center,
-      child: SizedBox(
-          width: w * .6,
-          child: FutureBuilder(
-            future: _loadIndicatorImage(),
-            builder: (context, snapshot) {
-              return Image.asset(
-                AppImages.splashpic,
-                // "https://images.unsplash.com/photo-1498462440456-0dba182e775b?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                errorBuilder: (context, error, stackTrace) {
-                  log(error.toString());
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(error.toString())));
-                  setState(() {});
-                  return Container();
-                },
-                // color: Palatt.white,
-              );
-            },
-          )),
     );
-    Scaffold(
-        backgroundColor: Palatt.primary,
-        body: Center(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: Get.width * 0.2),
-            // height: Get.height * 0.6,
-            width: Get.width * 0.6,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    fit: BoxFit.fitWidth,
-                    alignment: Alignment.center,
-                    image: AssetImage(
-                      AppImages.background2,
-                    ))),
-          ),
-        )
-        //  Center(
-        //   child: SizedBox(
-        //     width: w * .6,
-        //     child: Image.asset(
-        //       AppImages.splashpic,
-        //       errorBuilder: (context, error, stackTrace) {
-        //         setState(() {});
-        //         return Container();
-        //       },
-        //       // color: Palatt.white,
-        //     ),
-        //   ),
-        // ),
-        );
   }
 }

@@ -500,6 +500,14 @@ class HomeDrawer extends StatelessWidget {
                         ),
                         spaceVertical(10),
                         DrawerTile(
+                          image: AppImages.contactus,
+                          title: "Contact us",
+                          onTap: () {
+                            Get.toNamed(Routes.contactUs);
+                          },
+                        ),
+                        spaceVertical(10),
+                        DrawerTile(
                           image: AppImages.square_aboutus,
                           title: "About us",
                           onTap: () {

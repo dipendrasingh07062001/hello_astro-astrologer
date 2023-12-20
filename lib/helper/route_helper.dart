@@ -1,3 +1,4 @@
+import 'package:astro/view/contactus/view.dart';
 import 'package:astro/view/screens/bankdetails/view.dart';
 import 'package:astro/view/screens/faq/faqs.dart';
 import 'package:astro/view/screens/profile/view.dart';
@@ -50,6 +51,7 @@ abstract class Routes {
   static const profileView = _Paths.profileView;
   static const faqs = _Paths.faqs;
   static const bankdetails = _Paths.bankdetails;
+  static const contactUs = _Paths.contactUs;
 }
 
 abstract class _Paths {
@@ -76,6 +78,7 @@ abstract class _Paths {
   static const profileView = '/profileView';
   static const faqs = '/faqs';
   static const bankdetails = '/bankdetails';
+  static const contactUs = '/contactUs';
 }
 
 class AppPages {
@@ -83,6 +86,7 @@ class AppPages {
   static const initial = Routes.splash;
 
   static final routes = [
+    GetPage(name: _Paths.contactUs, page: () => ContactUs()),
     GetPage(name: _Paths.profileView, page: () => ProfileView()),
     GetPage(name: _Paths.faqs, page: () => FAQs()),
     GetPage(name: _Paths.bankdetails, page: () => UpdateBankDetails()),

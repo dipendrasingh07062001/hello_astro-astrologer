@@ -57,6 +57,9 @@ class AppImages {
   static const square_tnc = "$_svg/icons/square_tnc.svg";
   static const square_pp = "$_svg/icons/square_pp.svg";
   static const square_faq = "$_svg/icons/square_faq.svg";
+  static const contactus = "$_svg/icons/contactus.svg";
+  static const phone = "$_svg/icons/phone.svg";
+  static const mail = "$_svg/icons/mail.svg";
 
   //images
   static const login = "$_svg/images/loginimage.svg";

@@ -157,14 +157,14 @@ class EarningHistory extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Free Seconds : 189",
+                "Promotional Minutes : 189",
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
                 ),
               ),
               Text(
-                "Billable Seconds : 0",
+                "Billable Minutes : 0",
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,

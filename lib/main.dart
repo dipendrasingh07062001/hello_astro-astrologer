@@ -22,6 +22,12 @@ class HelloAstrologer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: child!,
+        );
+      },
       initialRoute: AppPages.initial,
       navigatorKey: NavigationServices.navigatorKey,
       getPages: AppPages.routes,
