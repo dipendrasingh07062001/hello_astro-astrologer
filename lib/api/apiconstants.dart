@@ -6,8 +6,4 @@ class ApiUrls {
   static const socialsignup = "$baseUrl/user_social_signUp/";
   static const getexpertise = "$baseUrl/expertise/";
   static const resendotp = "$baseUrl/resend_otp/";
-
-  //// web pages link
-  static const termsncondition =
-      "https://helloastro.appic.site/terms-and-condition";
 }

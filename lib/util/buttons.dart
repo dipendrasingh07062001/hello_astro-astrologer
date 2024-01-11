@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 
 import '../theme/colorpalatt.dart';
+import '../theme/themedata.dart';
+import '../view/widgets/textwidgets.dart';
 
 class EltdButton extends StatelessWidget {
   String? title;
@@ -194,4 +196,52 @@ class RRButton2 extends StatelessWidget {
           child: child),
     );
   }
+}
+
+Widget continuebutton(void Function()? onTap, {EdgeInsetsGeometry? margin}) {
+  return RRButton(
+    onTap: onTap,
+    margin: margin ?? const EdgeInsets.symmetric(horizontal: 10),
+    data: "Continue",
+    height: 47,
+    radius: 10,
+    backgroundColor: Palatt.primary,
+    style: googleFontstyle(const TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.w500,
+      color: Palatt.white,
+    )),
+  );
+}
+
+Widget timingSlot(String timing,
+    {Function()? onTap,
+    bool isSelected = false,
+    bool isbooked = false,
+    Color? borderColor,
+    double? fontSize,
+    FontWeight? fontWeight,
+    Color? backgroundColor,
+    Color? foregroundColor,
+    double? radius}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Container(
+      height: 34,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      decoration: BoxDecoration(
+        color: backgroundColor ??
+            (isbooked ? Palatt.grey.withOpacity(0.5) : Colors.white),
+        borderRadius: BorderRadius.circular(radius ?? 10),
+        border: Border.all(
+            color:
+                borderColor ?? (isSelected ? Palatt.primary : Colors.black26)),
+      ),
+      child: textStyle(timing, foregroundColor ?? Palatt.black,
+          fontSize: fontSize ?? 16,
+          fontWeight: fontWeight ?? FontWeight.w400,
+          textAlign: TextAlign.center),
+    ),
+  );
 }

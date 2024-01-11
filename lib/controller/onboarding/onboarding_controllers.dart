@@ -11,9 +11,7 @@ import '../../api/apiservices.dart';
 import '../../data/model/language_model.dart';
 import '../../helper/route_helper.dart';
 import '../../theme/colorpalatt.dart';
-
 import '../../util/textstyles.dart';
-import 'package:http/http.dart' as http;
 
 class OnboardingController extends GetxController {
   RxBool isLoading = false.obs;
@@ -33,21 +31,57 @@ class OnboardingController extends GetxController {
   RxBool isSelected = false.obs;
   RxBool showexpertise = false.obs;
   RxBool directoryselected = true.obs;
-  RxList<LanguageModel> languageList = RxList();
-  Rxn<ExpertiseModel> selectedexpertise =
-      Rxn<ExpertiseModel>(ExpertiseModel(name: "", id: 0, image: ""));
-  RxList<ExpertiseModel> expertiselist = RxList();
+  RxBool gendershow = false.obs;
+  RxBool languageshow = false.obs;
+  RxBool availabilityTimeshow = false.obs;
+  RxList<ExpertiseModel> selectedexpertise = RxList();
+  RxList<DateTime> availabilityDateList = RxList();
+  Rxn<DateTime> selectedDate = Rxn(DateTime.now());
 
-  // List language = [
-  //   {"language": "Hindi", "isSelected": false},
-  //   {"language": "English", "isSelected": false},
-  // ];
-  String gender = 'Gender';
+  List language = [
+    {"language": "Hindi", "isSelected": false.obs},
+    {"language": "English", "isSelected": false.obs}
+  ];
+  RxString gender = 'Gender'.obs;
   // google login api
   String? name;
   String? email;
   String? profilePic;
   RxString filePath = ''.obs;
+  RxList<ExpertiseModel> expertise = RxList();
+  ontapLanguage() => languageshow.value = !languageshow.value;
+  ontapavailablity() {
+    availabilityTimeshow.value = !availabilityTimeshow.value;
+    if (availabilityDateList.isEmpty) {
+      availabilityDateList.value = List.generate(
+          10, (index) => DateTime.now().add(Duration(days: index)));
+    }
+  }
+
+  ontapDate(DateTime date) => selectedDate.value = date;
+  checkdateisEqual(DateTime date1, DateTime date2) {
+    return date1.day == date2.day &&
+        date1.month == date2.month &&
+        date1.year == date2.year;
+  }
+
+  selectlanguage(int index) => language[index]["isSelected"].value =
+      !language[index]["isSelected"].value;
+  ontapgender() => gendershow.value = !gendershow.value;
+  changegender(String gender) {
+    this.gender.value = gender;
+    gendershow.value = !gendershow.value;
+  }
+
+  getExpertise() async {
+    ApiClient apiClient = ApiClient();
+    await apiClient.getRequest(ApiUrls.getexpertise).then((value) {
+      if (value != null) {
+        expertise.value = List<ExpertiseModel>.from(
+            value["data"].map((e) => ExpertiseModel.fromJson(e)));
+      }
+    });
+  }
 
   Widget getprofileImage() {
     if (profileImage.value == "") {
@@ -81,6 +115,7 @@ class OnboardingController extends GetxController {
 
   showhideexpertise() {
     showexpertise.value = !showexpertise.value;
+    print(showexpertise.value);
   }
 
   onlogin(BuildContext context) {
@@ -211,412 +246,10 @@ class OnboardingController extends GetxController {
   }
 
   onexpertisetap(ExpertiseModel model) {
-    selectedexpertise.value = model;
+    if (selectedexpertise.any((element) => element.id == model.id)) {
+      selectedexpertise.removeWhere((element) => element.id == model.id);
+    } else {
+      selectedexpertise.add(model);
+    }
   }
-
-//   Future googleLogin() async {
-//     // var familyname;
-//     GoogleSignIn googleSignIn = GoogleSignIn();
-//     try {
-//       var reslut = await googleSignIn.signIn();
-//       if (reslut != null) {
-//         final userData = await reslut.authentication;
-//         final credential = GoogleAuthProvider.credential(
-//             accessToken: userData.accessToken, idToken: userData.idToken);
-
-//         await FirebaseAuth.instance.signInWithCredential(credential);
-//         // print("family name: "+ )
-//         name = reslut.displayName.toString();
-//         // firstName = finalResult.additionalUserInfo?.profile!["given_name"];
-//         // lastName = finalResult.additionalUserInfo?.profile!["family_name"];
-
-//         email = reslut.email.toString();
-
-//         socialSignup(name.toString(), email.toString(), "2");
-
-//         // print("name: " + name);
-//         // print("email: " + email);
-
-//         return true;
-//       }
-
-//       return false;
-//     } catch (error) {
-//       log(error.toString());
-//     }
-//   }
-
-// // social login api
-
-//   Future<dynamic> socialSignup(String name, String email, String type) async {
-//     final box = GetStorage();
-//     isLoading.value = true;
-//     var res = await http.post(Uri.parse(googleSignupUrl), body: {
-//       'name': name.toString(),
-//       'email': email.toString(),
-//       "type": type
-//     });
-
-//     if (res.statusCode == 200) {
-//       var data = jsonDecode(res.body);
-//       var msg = data["message"].toString();
-
-//       if (data['status'] == true) {
-//         box.write(UserData.id, data['data']['id']);
-//         box.write(UserData.name, data['data']['name']);
-//         box.write(UserData.experience, data['data']['experience']);
-//         box.write(UserData.expertise, data['data']['expertise']);
-//         box.write(UserData.skills, data['data']['skills']);
-//         box.write(UserData.phone, data['data']['phone']);
-//         box.write(UserData.email, data['data']['email']);
-//         box.write(UserData.gender, data['data']['gender']);
-//         box.write(UserData.city, data['data']['city']);
-//         box.write(UserData.country, data['data']['country']);
-//         box.write(UserData.systemKnown, data['data']['system_known']);
-//         box.write(UserData.shortBio, data['data']['short_bio']);
-//         box.write(UserData.conversationType, data['data']['conversation_type']);
-//         box.write(UserData.socialType, data['data']['social_type']);
-//         box.write(UserData.astrology, data['data']['astrology']);
-//         box.write(UserData.price, data['data']['price']);
-//         box.write(UserData.description, data['data']['description']);
-//         box.write(UserData.image, data['data']['image']);
-//         box.write(UserData.coverImage, data['data']['cover_image']);
-//         box.write(UserData.galleryImage, data['data']['gallery_image']);
-//         box.write(UserData.icon, data['data']['icon']);
-//         box.write(UserData.panCard, data['data']['pan_card']);
-//         box.write(UserData.aadharCard, data['data']['aadhar_card']);
-//         box.write(UserData.language, data['data']['language']);
-//         box.write(UserData.status, data['data']['status']);
-//         box.write(UserData.approveStatus, data['data']['approve_status']);
-//         box.write(UserData.monetize, data['data']['monetize']);
-
-//         box.write(UserData.isLogin, data['data']['is_login']);
-//         box.write(UserData.token, data["token"] ?? "");
-//         Get.to(() =>
-//             data['data']['is_login'] ? HomeNav(index: 0) : const Signup());
-//         data['data']['is_login']
-//             ? Get.rawSnackbar(
-//                 messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//                 backgroundColor: Colors.green)
-//             : null;
-//       } else {
-//         // Get.snackbar(msg, "");
-//         Get.rawSnackbar(
-//             messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//             backgroundColor: Colors.red);
-
-//         isLoading.value = false;
-//       }
-//     } else {
-//       isLoading.value = false;
-//     }
-//   }
-
-//   // signup api
-
-//   astroSignup(String phone) async {
-//     isLoading.value = true;
-
-//     var res = await http.post(Uri.parse(signUpUrl), body: {'phone': phone});
-
-//     if (res.statusCode == 200) {
-//       var data = jsonDecode(res.body);
-//       var msg = data["message"].toString();
-
-//       if (data['status'] == true) {
-//         Get.to(() => Verification(phone: phone));
-
-//         // Get.rawSnackbar(
-//         //     messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//         //     backgroundColor: Colors.green);
-//         isLoading.value = false;
-//       } else {
-//         Get.rawSnackbar(
-//             messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//             backgroundColor: Colors.red);
-
-//         isLoading.value = false;
-//       }
-//     } else {
-//       isLoading.value = false;
-//     }
-//   }
-
-//   // signup form api
-
-//   signupForm() async {
-//     final box = GetStorage();
-//     isLoading.value = true;
-
-//     try {
-//       var res = await http.post(Uri.parse(signupFormUrl), body: {
-//         'name': nameController.text,
-//         'gender': gender,
-//         'phone': mobileController.text,
-//         'email': emailController.text,
-//         'experience': expController.text,
-//         'city': cityController.text,
-//         'country': countryController.text,
-//         'system_known': systemController.text,
-//         'conversation_type': 'chat',
-//         'ids': languageList
-//             .where((p) => p.isSelected)
-//             .map((e) => e.id)
-//             .toList()
-//             .join(', '),
-//         'short_bio': bioController.text,
-//       });
-
-//       if (res.statusCode == 200) {
-//         var data = jsonDecode(res.body);
-//         var msg = data['message'].toString();
-
-//         if (data['status'] == true) {
-//           isLoading.value = false;
-//           box.write(UserData.name, data['data']['name']);
-//           box.write(UserData.experience, data['data']['experience']);
-//           box.write(UserData.expertise, data['data']['expertise']);
-//           box.write(UserData.skills, data['data']['skills']);
-//           box.write(UserData.phone, data['data']['phone']);
-//           box.write(UserData.email, data['data']['email']);
-//           box.write(UserData.gender, data['data']['gender']);
-//           box.write(UserData.city, data['data']['city']);
-//           box.write(UserData.country, data['data']['country']);
-//           box.write(UserData.systemKnown, data['data']['system_known']);
-//           box.write(UserData.shortBio, data['data']['short_bio']);
-//           box.write(
-//               UserData.conversationType, data['data']['conversation_type']);
-//           box.write(UserData.astrology, data['data']['astrology']);
-//           box.write(UserData.price, data['data']['price']);
-//           box.write(UserData.image, data['data']['image']);
-//           box.write(UserData.status, data['data']['status']);
-//           box.write(
-//               UserData.speakingLanguages, data['data']['speaking_languages']);
-//           box.write(UserData.approveStatus, data['data']['approve_status']);
-
-//           box.write(UserData.id, data['data']['id']);
-
-//           Get.offAll(() => LoginAstro(
-//               phone:
-//                   mobileController.text.trim() /*box.read(UserData.phone)*/));
-//           Get.rawSnackbar(
-//               messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//               backgroundColor: Colors.green);
-
-//           // setState(() {});
-//         } else {
-//           Get.rawSnackbar(
-//               messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//               backgroundColor: Colors.red);
-
-//           isLoading.value = false;
-
-//           // setState(() {});
-//         }
-//       } else {
-//         isLoading.value = false;
-
-//         // setState(() {});
-//       }
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
-
-//   // for resend (on login screen)
-//   Future<dynamic> resendSignupApi(String phone) async {
-//     isLoading.value = true;
-
-//     var res = await http.post(Uri.parse(signUpUrl), body: {
-//       "phone": phone,
-//     });
-
-//     if (res.statusCode == 200) {
-//       var data = jsonDecode(res.body);
-//       var msg = data['message'];
-//       if (data['status'] == true) {
-//         Get.rawSnackbar(
-//             messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//             backgroundColor: Colors.green);
-//         print(msg);
-
-//         isLoading.value = false;
-
-//         // setState(() {});
-//       } else {
-//         Get.rawSnackbar(
-//             messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//             backgroundColor: Colors.red);
-//         isLoading.value = false;
-
-//         print(msg);
-//         // setState(() {});
-//       }
-//     } else {
-//       isLoading.value = false;
-
-//       // setState(() {});
-//     }
-//   }
-
-//   // for verification
-
-//   Future<dynamic> veriifyApi(String phone, String otp) async {
-//     final box = GetStorage();
-//     isLoading.value = true;
-
-//     var res = await http
-//         .post(Uri.parse(verifyOtpUrl), body: {"phone": phone, "otp": otp});
-
-//     if (res.statusCode == 200) {
-//       // isLoading = true;
-//       var data = jsonDecode(res.body);
-//       var msg = data['message'].toString();
-
-//       if (data['status'] == true) {
-//         Get.rawSnackbar(
-//             messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//             backgroundColor: Colors.green);
-//         box.write(UserData.id, data['data']['id']);
-//         box.write(UserData.name, data['data']['name']);
-//         box.write(UserData.experience, data['data']['experience']);
-//         box.write(UserData.expertise, data['data']['expertise']);
-//         box.write(UserData.skills, data['data']['skills']);
-//         box.write(UserData.phone, data['data']['phone']);
-//         box.write(UserData.email, data['data']['email']);
-//         box.write(UserData.gender, data['data']['gender']);
-//         box.write(UserData.city, data['data']['city']);
-//         box.write(UserData.country, data['data']['country']);
-//         box.write(UserData.systemKnown, data['data']['system_known']);
-//         box.write(UserData.shortBio, data['data']['short_bio']);
-//         box.write(UserData.conversationType, data['data']['conversation_type']);
-//         box.write(UserData.socialType, data['data']['social_type']);
-//         box.write(UserData.astrology, data['data']['astrology']);
-//         box.write(UserData.price, data['data']['price']);
-//         box.write(UserData.description, data['data']['description']);
-//         box.write(UserData.image, data['data']['image']);
-//         box.write(UserData.coverImage, data['data']['cover_image']);
-//         box.write(UserData.galleryImage, data['data']['gallery_image']);
-//         box.write(UserData.icon, data['data']['icon']);
-//         box.write(UserData.panCard, data['data']['pan_card']);
-//         box.write(UserData.aadharCard, data['data']['aadhar_card']);
-//         box.write(UserData.language, data['data']['language']);
-//         box.write(UserData.status, data['data']['status']);
-//         box.write(UserData.approveStatus, data['data']['approve_status']);
-//         box.write(UserData.monetize, data['data']['monetize']);
-//         box.write(UserData.token, data["token"]);
-
-//         Get.offAll(() => Language(phone: phone));
-//         Get.offAll(() => data['data']['language'] != null
-//             ? HomeNav(index: 0)
-//             : Language(
-//                 phone: phone,
-//               ));
-
-//         isLoading.value = false;
-
-//         // setState(() {});
-//       } else {
-//         Get.rawSnackbar(
-//             messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//             backgroundColor: Colors.red);
-//         isLoading.value = false;
-
-//         // setState(() {});
-//       }
-//     } else {
-//       isLoading.value = false;
-
-//       // setState(() {});
-//     }
-//   }
-
-//   // language api
-
-//   Future<dynamic> languageApi(String phone, String language) async {
-//     final box = GetStorage();
-//     print("language: $language");
-//     print("phone: $phone");
-//     isLoading.value = true;
-//     var res = await http.post(Uri.parse(languageUrl),
-//         body: {"phone": phone, "language": language});
-
-//     if (res.statusCode == 200) {
-//       isLoading.value = true;
-
-//       var data = jsonDecode(res.body);
-//       var msg = data['message'].toString();
-
-//       if (data['status'] == true) {
-//         box.write(UserData.id, data['data']['id']);
-//         box.write(UserData.name, data['data']['name']);
-//         box.write(UserData.experience, data['data']['experience']);
-//         box.write(UserData.expertise, data['data']['expertise']);
-//         box.write(UserData.skills, data['data']['skills']);
-//         box.write(UserData.phone, data['data']['phone']);
-//         box.write(UserData.email, data['data']['email']);
-//         box.write(UserData.gender, data['data']['gender']);
-//         box.write(UserData.city, data['data']['city']);
-//         box.write(UserData.country, data['data']['country']);
-//         box.write(UserData.systemKnown, data['data']['system_known']);
-//         box.write(UserData.shortBio, data['data']['short_bio']);
-//         box.write(UserData.conversationType, data['data']['conversation_type']);
-//         box.write(UserData.socialType, data['data']['social_type']);
-//         box.write(UserData.astrology, data['data']['astrology']);
-//         box.write(UserData.price, data['data']['price']);
-//         box.write(UserData.description, data['data']['description']);
-//         box.write(UserData.image, data['data']['image']);
-//         box.write(UserData.coverImage, data['data']['cover_image']);
-//         box.write(UserData.galleryImage, data['data']['gallery_image']);
-//         box.write(UserData.icon, data['data']['icon']);
-//         box.write(UserData.panCard, data['data']['pan_card']);
-//         box.write(UserData.aadharCard, data['data']['aadhar_card']);
-//         box.write(UserData.language, data['data']['language']);
-//         box.write(
-//             UserData.speakingLanguages, data['data']['speaking_languages']);
-//         box.write(UserData.status, data['data']['status']);
-//         box.write(UserData.approveStatus, data['data']['approve_status']);
-//         box.write(UserData.monetize, data['data']['monetize']);
-
-//         Get.rawSnackbar(
-//             messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//             backgroundColor: Colors.green);
-//         Get.offAll(() => HomeNav(index: 0));
-
-//         print(msg);
-
-//         isLoading.value = false;
-
-//         // setState(() {});
-//       } else {
-//         Get.rawSnackbar(
-//             messageText: textStyle(msg, colWhite, 16, FontWeight.w500),
-//             backgroundColor: Colors.red);
-//         isLoading.value = false;
-
-//         print(data["message"]);
-//         // setState(() {});
-//       }
-//     } else {
-//       isLoading.value = false;
-
-//       // setState(() {});
-//     }
-//   }
-
-//   Future getLanguage() async {
-//     try {
-//       var response = await http.get(Uri.parse(getLanguageUrl));
-//       if (response.statusCode == 200) {
-//         var data = jsonDecode(response.body);
-//         if (data["status"]) {
-//           languageList.value = List<LanguageModel>.from(
-//               data["data"].map((e) => LanguageModel.fromjson(e)));
-//           print(languageList);
-//         }
-//       }
-//     } catch (e) {
-//       print(e);
-//     }
-//   }
 }

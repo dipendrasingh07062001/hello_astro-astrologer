@@ -1,14 +1,9 @@
-import 'dart:developer';
-
 import 'package:astro/helper/route_helper.dart';
 import 'package:astro/theme/colorpalatt.dart';
 import 'package:astro/util/images.dart';
-import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../../../controller/onboarding/onboarding_controllers.dart';
 
 class TheFirstScreen extends StatefulWidget {
   const TheFirstScreen({super.key});
@@ -21,6 +16,7 @@ class _TheFirstScreenState extends State<TheFirstScreen> {
   @override
   void initState() {
     super.initState();
+
     Future.delayed(const Duration(seconds: 2), () async {
       Get.offAllNamed(Routes.login);
     });
