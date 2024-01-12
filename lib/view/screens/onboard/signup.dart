@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import '../../../controller/onboarding/onboarding_controllers.dart';
+import '../../../data/model/availbilityTimeModel/model.dart';
 import '../../../data/model/expertise_model.dart';
 import '../../../theme/colorpalatt.dart';
 import '../../../theme/themedata.dart';
 import '../../../util/buttons.dart';
+import '../../../util/datepicker.dart';
 import '../../../util/extra_widget.dart';
 import '../../../util/images.dart';
 import '../../../util/methods.dart';
@@ -139,11 +142,10 @@ class _SignupState extends State<Signup> {
                             right: w * .042,
                             top: h * .01,
                             bottom: h * .01),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Palatt.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(13)),
-                            boxShadow: const [
+                            borderRadius: BorderRadius.all(Radius.circular(13)),
+                            boxShadow: [
                               BoxShadow(
                                   color: Color(0xffebebeb),
                                   blurRadius: 5,
@@ -177,11 +179,10 @@ class _SignupState extends State<Signup> {
                             right: w * .042,
                             top: h * .01,
                             bottom: h * .01),
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Palatt.white,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(13)),
-                            boxShadow: const [
+                            borderRadius: BorderRadius.all(Radius.circular(13)),
+                            boxShadow: [
                               BoxShadow(
                                   color: Color(0xffebebeb),
                                   blurRadius: 5,
@@ -450,208 +451,456 @@ class _SignupState extends State<Signup> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            height: 53,
-                            alignment: Alignment.centerLeft,
-                            decoration: const BoxDecoration(
-                              color: Palatt.blueshadelight,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
+                          Visibility(
+                            visible: !onboardingController.allday.value,
+                            child: Container(
+                              height: 53,
+                              alignment: Alignment.centerLeft,
+                              decoration: const BoxDecoration(
+                                color: Palatt.blueshadelight,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(10),
+                                  topRight: Radius.circular(10),
+                                ),
                               ),
-                            ),
-                            child: ListView.builder(
-                              physics: const BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: onboardingController
-                                  .availabilityDateList.length,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              itemBuilder: (BuildContext context, int index) {
-                                return GestureDetector(
-                                  onTap: () => onboardingController.ontapDate(
-                                      onboardingController
-                                          .availabilityDateList[index]),
-                                  child: Container(
-                                    margin: const EdgeInsets.only(right: 14),
-                                    width: 34,
-                                    height: 45,
-                                    decoration: const BoxDecoration(
-                                      // color: Palatt.white,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(15)),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                            DateFormat("EEE")
-                                                .format(onboardingController
-                                                        .availabilityDateList[
-                                                    index])
-                                                .toUpperCase(),
-                                            textAlign: TextAlign.center,
-                                            style: googleFontstyle(
-                                              const TextStyle(
-                                                  fontSize: 10,
-                                                  color: Palatt.black,
-                                                  fontWeight: FontWeight.w600),
-                                            )),
-                                        CircleAvatar(
-                                          radius: 14,
-                                          backgroundColor: onboardingController
-                                                  .checkdateisEqual(
-                                                      onboardingController
-                                                          .selectedDate.value!,
-                                                      onboardingController
-                                                              .availabilityDateList[
-                                                          index])
-                                              ? Palatt.primary
-                                              : Palatt.transparent,
-                                          child: Text(
-                                              DateFormat("dd").format(
-                                                  onboardingController
-                                                          .availabilityDateList[
-                                                      index]),
+                              child: ListView.builder(
+                                physics: const BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: onboardingController
+                                    .availabilityDateList.length,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return GestureDetector(
+                                    onTap: () =>
+                                        onboardingController.ontapDate(index),
+                                    child: Container(
+                                      margin: const EdgeInsets.only(right: 14),
+                                      width: 34,
+                                      height: 45,
+                                      decoration: const BoxDecoration(
+                                        // color: Palatt.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15)),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                              DateFormat("EEE")
+                                                  .format(onboardingController
+                                                      .availabilityDateList[
+                                                          index]
+                                                      .date!)
+                                                  .toUpperCase(),
                                               textAlign: TextAlign.center,
                                               style: googleFontstyle(
-                                                TextStyle(
-                                                    fontSize: 15,
-                                                    color: onboardingController
-                                                            .checkdateisEqual(
-                                                                onboardingController
-                                                                    .selectedDate
-                                                                    .value!,
-                                                                onboardingController
-                                                                        .availabilityDateList[
-                                                                    index])
-                                                        ? Palatt.white
-                                                        : Palatt.black,
+                                                const TextStyle(
+                                                    fontSize: 10,
+                                                    color: Palatt.black,
                                                     fontWeight:
-                                                        FontWeight.w500),
+                                                        FontWeight.w600),
                                               )),
-                                        ),
-                                      ],
+                                          CircleAvatar(
+                                            radius: 14,
+                                            backgroundColor:
+                                                onboardingController
+                                                            .selectedindex
+                                                            .value ==
+                                                        index
+                                                    ? Palatt.primary
+                                                    : Palatt.transparent,
+                                            child: Text(
+                                                DateFormat("dd").format(
+                                                    onboardingController
+                                                        .availabilityDateList[
+                                                            index]
+                                                        .date!),
+                                                textAlign: TextAlign.center,
+                                                style: googleFontstyle(
+                                                  TextStyle(
+                                                      fontSize: 15,
+                                                      color: onboardingController
+                                                                  .selectedindex
+                                                                  .value ==
+                                                              index
+                                                          ? Palatt.white
+                                                          : Palatt.black,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                )),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
                           ),
                           // const Divider(color: Palatt.grey, thickness: 1),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, top: 13),
-                            child: Text("Walking",
-                                style: googleFontstyle(
-                                  const TextStyle(
-                                    fontSize: 19,
-                                    color: Palatt.black,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                )),
-                          ),
-                          ListView.builder(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 15,
-                              vertical: 10,
-                            ),
-                            shrinkWrap: true,
-                            itemCount: 1,
-                            itemBuilder: (context, index) {
-                              return Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text("Start time",
-                                            style: googleFontstyle(
-                                              const TextStyle(
-                                                fontSize: 15,
-                                                color: Palatt.black,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )),
-                                        timingSlot(
-                                            DateFormat().add_jm().format(
-                                                DateTime.now().add(
-                                                    Duration(hours: index))),
-                                            foregroundColor: Palatt.greyshade2,
-                                            borderColor: Palatt.greyshade2,
-                                            radius: 8
-                                            //     onTap: () {
-                                            //   setState(() {
-                                            //     astroPrfileController.whichtime =
-                                            //         astroPrfileController
-                                            //             .selectedavailability
-                                            //             .timing[index];
-                                            //   });
-                                            // },
-                                            ),
-                                      ],
-                                    ),
-                                  ),
-                                  spaceHorizontal(14),
-                                  Expanded(
-                                    flex: 3,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text("End time",
-                                            style: googleFontstyle(
-                                              const TextStyle(
-                                                fontSize: 15,
-                                                color: Palatt.black,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            )),
-                                        timingSlot(
-                                            DateFormat().add_jm().format(
-                                                  DateTime.now().add(
-                                                      Duration(hours: index)),
-                                                ),
-                                            radius: 8,
-                                            borderColor: Palatt.greyshade2,
-                                            foregroundColor: Palatt.greyshade2
-                                            //     onTap: () {
-                                            //   setState(() {
-                                            //     astroPrfileController.whichtime =
-                                            //         astroPrfileController
-                                            //             .selectedavailability
-                                            //             .timing[index];
-                                            //   });
-                                            // },
-                                            ),
-                                      ],
-                                    ),
-                                  ),
-                                  spaceHorizontal(18),
-                                  Expanded(
-                                    flex: 2,
-                                    child: RRButton2(
-                                      onTap: () {},
-                                      height: 34,
-                                      radius: 8,
-                                      backgroundColor: Palatt.primary,
-                                      child: const Icon(
-                                        Icons.add,
-                                        color: Palatt.white,
+                          Row(
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 15, top: 13),
+                                child: Text("Walking",
+                                    style: googleFontstyle(
+                                      const TextStyle(
+                                        fontSize: 19,
+                                        color: Palatt.black,
+                                        fontWeight: FontWeight.w500,
                                       ),
+                                    )),
+                              ),
+                              const Spacer(),
+                              Text("All days",
+                                  style: googleFontstyle(
+                                    const TextStyle(
+                                      fontSize: 12,
+                                      color: Palatt.black,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                  )
-                                ],
-                              );
-                            },
+                                  )),
+                              GestureDetector(
+                                  onTap: () =>
+                                      onboardingController.allday.value =
+                                          !onboardingController.allday.value,
+                                  child: checkBoxContainer(
+                                      onboardingController.allday.value)),
+                              spaceHorizontal(16)
+                            ],
                           ),
+                          onboardingController.allday.value
+                              ? ListView.builder(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                    vertical: 10,
+                                  ),
+                                  shrinkWrap: true,
+                                  itemCount: onboardingController
+                                      .alldaytimeList.length,
+                                  itemBuilder: (context, index) {
+                                    Timing timing = onboardingController
+                                        .alldaytimeList[index];
+                                    return Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Visibility(
+                                                visible: index == 0,
+                                                child: Text("Start time",
+                                                    style: googleFontstyle(
+                                                      const TextStyle(
+                                                        fontSize: 15,
+                                                        color: Palatt.black,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    )),
+                                              ),
+                                              timingSlot(
+                                                  DateFormat().add_jm().format(
+                                                      timing.startTime!),
+                                                  foregroundColor:
+                                                      Palatt.greyshade2,
+                                                  borderColor:
+                                                      Palatt.greyshade2,
+                                                  radius: 8, onTap: () async {
+                                                picktime().then((value) {
+                                                  if (value != null) {
+                                                    timing.startTime =
+                                                        getDateWithGivenTime(
+                                                            value);
+                                                    onboardingController
+                                                        .availabilityDateList[
+                                                            onboardingController
+                                                                .selectedindex
+                                                                .value]
+                                                        .saved!
+                                                        .value = false;
+
+                                                    setState(() {});
+                                                  }
+                                                });
+                                              }
+                                                  //     onTap: () {
+                                                  //   setState(() {
+                                                  //     astroPrfileController.whichtime =
+                                                  //         astroPrfileController
+                                                  //             .selectedavailability
+                                                  //             .timing[index];
+                                                  //   });
+                                                  // },
+                                                  ),
+                                              spaceVertical(10)
+                                            ],
+                                          ),
+                                        ),
+                                        spaceHorizontal(14),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Visibility(
+                                                visible: index == 0,
+                                                child: Text("End time",
+                                                    style: googleFontstyle(
+                                                      const TextStyle(
+                                                        fontSize: 15,
+                                                        color: Palatt.black,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    )),
+                                              ),
+                                              timingSlot(
+                                                  DateFormat()
+                                                      .add_jm()
+                                                      .format(timing.endTime!),
+                                                  radius: 8,
+                                                  borderColor:
+                                                      Palatt.greyshade2,
+                                                  foregroundColor:
+                                                      Palatt.greyshade2,
+                                                  onTap: () async {
+                                                picktime().then((value) {
+                                                  if (value != null) {
+                                                    timing.endTime =
+                                                        getDateWithGivenTime(
+                                                            value);
+                                                    onboardingController
+                                                        .availabilityDateList[
+                                                            onboardingController
+                                                                .selectedindex
+                                                                .value]
+                                                        .saved!
+                                                        .value = false;
+                                                    setState(() {});
+                                                  }
+                                                });
+                                              }
+                                                  //     onTap: () {
+                                                  //   setState(() {
+                                                  //     astroPrfileController.whichtime =
+                                                  //         astroPrfileController
+                                                  //             .selectedavailability
+                                                  //             .timing[index];
+                                                  //   });
+                                                  // },
+                                                  ),
+                                              spaceVertical(10)
+                                            ],
+                                          ),
+                                        ),
+                                        spaceHorizontal(18),
+                                        Expanded(
+                                          flex: 2,
+                                          child: RRButton2(
+                                            onTap: () => onboardingController
+                                                .ontapAddRemoveIcon(index),
+                                            height: 34,
+                                            radius: 8,
+                                            margin: const EdgeInsets.only(
+                                                bottom: 10),
+                                            backgroundColor: Palatt.primary,
+                                            child: Icon(
+                                              index == 0
+                                                  ? Icons.add
+                                                  : Icons.remove,
+                                              color: Palatt.white,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                )
+                              : ListView.builder(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 15,
+                                    vertical: 10,
+                                  ),
+                                  shrinkWrap: true,
+                                  itemCount: onboardingController
+                                      .availabilityDateList[onboardingController
+                                          .selectedindex.value]
+                                      .timing!
+                                      .length,
+                                  itemBuilder: (context, index) {
+                                    Timing timing = onboardingController
+                                        .availabilityDateList[
+                                            onboardingController
+                                                .selectedindex.value]
+                                        .timing![index];
+                                    return Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Visibility(
+                                                visible: index == 0,
+                                                child: Text("Start time",
+                                                    style: googleFontstyle(
+                                                      const TextStyle(
+                                                        fontSize: 15,
+                                                        color: Palatt.black,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    )),
+                                              ),
+                                              timingSlot(
+                                                  DateFormat().add_jm().format(
+                                                      timing.startTime!),
+                                                  foregroundColor:
+                                                      Palatt.greyshade2,
+                                                  borderColor:
+                                                      Palatt.greyshade2,
+                                                  radius: 8, onTap: () async {
+                                                picktime().then((value) {
+                                                  if (value != null) {
+                                                    timing.startTime =
+                                                        getDateWithGivenTime(
+                                                            value);
+                                                    onboardingController
+                                                        .availabilityDateList[
+                                                            onboardingController
+                                                                .selectedindex
+                                                                .value]
+                                                        .saved!
+                                                        .value = false;
+
+                                                    setState(() {});
+                                                  }
+                                                });
+                                              }
+                                                  //     onTap: () {
+                                                  //   setState(() {
+                                                  //     astroPrfileController.whichtime =
+                                                  //         astroPrfileController
+                                                  //             .selectedavailability
+                                                  //             .timing[index];
+                                                  //   });
+                                                  // },
+                                                  ),
+                                              spaceVertical(10)
+                                            ],
+                                          ),
+                                        ),
+                                        spaceHorizontal(14),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Visibility(
+                                                visible: index == 0,
+                                                child: Text("End time",
+                                                    style: googleFontstyle(
+                                                      const TextStyle(
+                                                        fontSize: 15,
+                                                        color: Palatt.black,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                    )),
+                                              ),
+                                              timingSlot(
+                                                  DateFormat()
+                                                      .add_jm()
+                                                      .format(timing.endTime!),
+                                                  radius: 8,
+                                                  borderColor:
+                                                      Palatt.greyshade2,
+                                                  foregroundColor:
+                                                      Palatt.greyshade2,
+                                                  onTap: () async {
+                                                picktime().then((value) {
+                                                  if (value != null) {
+                                                    timing.endTime =
+                                                        getDateWithGivenTime(
+                                                            value);
+                                                    onboardingController
+                                                        .availabilityDateList[
+                                                            onboardingController
+                                                                .selectedindex
+                                                                .value]
+                                                        .saved!
+                                                        .value = false;
+                                                    setState(() {});
+                                                  }
+                                                });
+                                              }
+                                                  //     onTap: () {
+                                                  //   setState(() {
+                                                  //     astroPrfileController.whichtime =
+                                                  //         astroPrfileController
+                                                  //             .selectedavailability
+                                                  //             .timing[index];
+                                                  //   });
+                                                  // },
+                                                  ),
+                                              spaceVertical(10)
+                                            ],
+                                          ),
+                                        ),
+                                        spaceHorizontal(18),
+                                        Expanded(
+                                          flex: 2,
+                                          child: RRButton2(
+                                            onTap: () => onboardingController
+                                                .ontapAddRemoveIcon(index),
+                                            height: 34,
+                                            radius: 8,
+                                            margin: const EdgeInsets.only(
+                                                bottom: 10),
+                                            backgroundColor: Palatt.primary,
+                                            child: Icon(
+                                              index == 0
+                                                  ? Icons.add
+                                                  : Icons.remove,
+                                              color: Palatt.white,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                ),
                           spaceVertical(10),
-                          continuebutton(() {}),
+                          Visibility(
+                              visible: onboardingController.allday.value
+                                  ? false
+                                  : !onboardingController
+                                      .availabilityDateList[onboardingController
+                                          .selectedindex.value]
+                                      .saved!
+                                      .value,
+                              child: continuebutton(text: "Add", () {
+                                onboardingController
+                                    .availabilityDateList[onboardingController
+                                        .selectedindex.value]
+                                    .saved!
+                                    .value = true;
+                              })),
                           spaceVertical(10),
                         ],
                       ),
@@ -666,18 +915,14 @@ class _SignupState extends State<Signup> {
                 signupTextForm(
                   'GST Number',
                   TextInputType.text,
-                  onboardingController.panController,
+                  onboardingController.gstController,
                 ),
                 signupTextForm(
                   'Consultancy Charges Per Minute',
                   TextInputType.text,
-                  onboardingController.panController,
+                  onboardingController.consultpriceController,
                 ),
-                signupTextForm(
-                  'Profile Bio(Multiple language)',
-                  TextInputType.text,
-                  onboardingController.panController,
-                ),
+
                 GestureDetector(
                   onTap: onboardingController.showhideexpertise,
                   child: Container(
@@ -718,105 +963,6 @@ class _SignupState extends State<Signup> {
                   ),
                 ),
 
-                // Select Language
-                // GestureDetector(
-                //   onTap: () {
-                //     setState(() {
-                //       onTappedLang = !onTappedLang;
-                //     });
-                //   },
-                //   child: signupTextForm('Language', TextInputType.text,
-                //       onboardingController.languageController,
-                //       nonEditable: false),
-                // ),
-                // Visibility(
-                //   visible: onTappedLang,
-                //   child: Container(
-                //     // height: h * .063,
-                //     width: double.infinity,
-                //     padding: EdgeInsets.only(
-                //         left: w * .042,
-                //         right: w * .042,
-                //         top: h * .01,
-                //         bottom: h * .0),
-                //     margin: EdgeInsets.only(
-                //         left: w * .042,
-                //         right: w * .042,
-                //         top: h * .01,
-                //         bottom: h * .01),
-                //     decoration: BoxDecoration(
-                //         color: Palatt.white,
-                //         borderRadius:
-                //             const BorderRadius.all(Radius.circular(13)),
-                //         boxShadow: const [
-                //           BoxShadow(
-                //               color: Color(0xffebebeb),
-                //               blurRadius: 5,
-                //               spreadRadius: 3),
-                //         ]),
-                //     child: Column(
-                //       crossAxisAlignment: CrossAxisAlignment.start,
-                //       children: List.generate(
-                //         onboardingController.languageList.length,
-                //         (index) => GestureDetector(
-                //           onTap: () {
-                //             print('start');
-                //             print(onboardingController.languageList);
-                //             setState(() {
-                //               onboardingController
-                //                       .languageList[index].isSelected =
-                //                   !onboardingController
-                //                       .languageList[index].isSelected;
-                //               onboardingController.languageController.text =
-                //                   onboardingController.languageList
-                //                       .where((p0) => p0.isSelected)
-                //                       .map((e) => e.language)
-                //                       .toList()
-                //                       .join(', ');
-                //               // onboardingController.language
-                //               //     .where((element) => element["isSelected"])
-                //               //     .map((e) => e["language"])
-                //               //     .toList()
-                //               //     .join(", ")
-                //               // ;
-                //             });
-                //             print(onboardingController.languageList
-                //                 .where((p0) => p0.isSelected)
-                //                 .map((e) => e.language)
-                //                 .toList()
-                //                 .join(', '));
-                //           },
-                //           child: SizedBox(
-                //             height: h * .05,
-                //             width: double.infinity,
-                //             child: Row(
-                //               children: [
-                //                 checkBoxContainer(onboardingController
-                //                     .languageList[index].isSelected),
-                //                 SizedBox(width: w * .04),
-                //                 textStyle(
-                //                     onboardingController
-                //                         .languageList[index].language
-                //                         .toString(),
-                //                     Palatt.black,
-                //                     w * .04,
-                //                     FontWeight.bold),
-                //                 const Spacer(),
-                //               ],
-                //             ),
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                // signupTextForm(
-                //   'Short Bio',
-                //   TextInputType.multiline,
-                //   onboardingController.bioController,
-                //   isDense: true,
-                //   maxLines: 2,
-                // ),
                 InkWell(
                   // onTap: onboardingController.pickcertificat,
                   child: Container(
@@ -861,60 +1007,72 @@ class _SignupState extends State<Signup> {
                     ),
                   ),
                 ),
-
+                Visibility(
+                    child: Row(
+                  children: [
+                    spaceHorizontal(w * 0.04),
+                    textStyle("Enter bio for", const Color(0xffa4a4a4),
+                        fontSize: 16, fontWeight: FontWeight.w400),
+                    spaceHorizontal(5),
+                    PopupMenuButton(
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(
+                              color: Palatt.primary,
+                            )),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 2),
+                        child: textStyle(
+                            onboardingController.selectedLanguage.value == ""
+                                ? "Language"
+                                : onboardingController.selectedLanguage.value,
+                            Palatt.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400),
+                      ),
+                      itemBuilder: (context) {
+                        return onboardingController.language
+                            .where((element) => element["isSelected"].value)
+                            .map((e) => PopupMenuItem(
+                                  onTap: () {
+                                    onboardingController
+                                        .selectedLanguage.value = e["language"];
+                                    onboardingController.languageController
+                                        .text = e["bio"].value;
+                                    setState(() {});
+                                  },
+                                  child: textStyle(
+                                      e["language"], const Color(0xffa4a4a4),
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400),
+                                ))
+                            .toList();
+                      },
+                    ),
+                  ],
+                )),
+                signupTextForm(
+                  'Profile Bio(Multiple language)',
+                  TextInputType.multiline,
+                  onboardingController.languageController,
+                  onChanged: (p0) {
+                    if (onboardingController.selectedLanguage.value == "") {
+                      return;
+                    }
+                    var data = onboardingController.language.firstWhereOrNull(
+                        (element) =>
+                            element["language"] ==
+                            onboardingController.selectedLanguage.value);
+                    if (data != null) {
+                      data["bio"].value = p0;
+                    }
+                  },
+                  maxLines: 2,
+                ),
                 SizedBox(
                   height: h * .02,
                 ),
-                // Row(
-                //   children: [
-                //     // SizedBox(width: w * .032),
-                //     InkWell(
-                //       child: checkBoxContainer(
-                //           onboardingController.directoryselected.value),
-                //       onTap: () {
-                //         setState(() {
-                //           onboardingController.directoryselected.value = true;
-                //         });
-                //       },
-                //     ),
-                //     SizedBox(
-                //       width: w * .026,
-                //     ),
-                //     textStyle('Profile listing in directory', Palatt.grey,
-                //         fontSize: w * .043, fontWeight: FontWeight.w500),
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: h * .02,
-                // ),
-                // Row(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     // SizedBox(width: w * .032),
-                //     InkWell(
-                //       child: checkBoxContainer(
-                //           !onboardingController.directoryselected.value),
-                //       onTap: () {
-                //         setState(() {
-                //           onboardingController.directoryselected.value = false;
-                //         });
-                //       },
-                //     ),
-                //     SizedBox(
-                //       width: w * .026,
-                //     ),
-                //     Expanded(
-                //       child: textStyle(
-                //           'Profile listing in chat with astrologers and call with astrologers',
-                //           Palatt.grey,
-                //           fontSize: w * .043,
-                //           fontWeight: FontWeight.w500),
-                //     ),
-                //   ],
-                // ),
-                // SizedBox(
-                //   height: h * .02,
-                // ),
                 Row(
                   children: [
                     // SizedBox(width: w * .032),
@@ -1013,27 +1171,11 @@ class _SignupState extends State<Signup> {
                             //   return;
                             // }
 
-                            onboardingController.onsignup(context);
+                            onboardingController.onsignup();
                           },
                         ),
                 ),
-                // SizedBox(
-                //   height: h * .024,
-                // ),
-                // textStyle('OR', Palatt.primary, w * .039, FontWeight.w500),
-                // SizedBox(
-                //   height: h * .024,
-                // ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     loginGFA(Palatt.white, AppImages.iconGoogle),
-                //     SizedBox(
-                //       width: w * .08,
-                //     ),
-                //     loginGFA(AppColor.colFbCircle, AppImages.iconFB),
-                //   ],
-                // ),
+
                 Padding(
                   padding: EdgeInsets.only(top: h * .034, bottom: h * .026),
                   child: Row(
@@ -1072,7 +1214,7 @@ class _SignupState extends State<Signup> {
       margin: EdgeInsets.only(left: w * .042),
       height: w * .055,
       width: w * .055,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(2.5)),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -1087,7 +1229,7 @@ class _SignupState extends State<Signup> {
       child: Center(
         child: Visibility(
             visible: varVisible,
-            child: FittedBox(
+            child: const FittedBox(
               child: Icon(
                 Icons.check_rounded,
                 color: Palatt.white,
@@ -1104,9 +1246,10 @@ class _SignupState extends State<Signup> {
       double? height,
       int? maxLines = 1,
       bool? isDense,
+      void Function(String)? onChanged,
       List<TextInputFormatter>? inputFormatters}) {
     return Container(
-      height: 50,
+      // height: 50,
       margin: EdgeInsets.only(
           left: w * .042, right: w * .042, top: h * .01, bottom: h * .01),
       decoration: const BoxDecoration(
@@ -1118,14 +1261,13 @@ class _SignupState extends State<Signup> {
       ),
       child: TextFormField(
         enabled: nonEditable,
-        // controller: textController,
+        controller: textController,
         keyboardType: textInputType,
         inputFormatters: inputFormatters,
         maxLines: maxLines,
         maxLength: maxLength,
-        onChanged: (value) {
-          mobNumber = value;
-        },
+        minLines: 1,
+        onChanged: onChanged,
         style: TextStyle(fontSize: w * .043, fontWeight: FontWeight.w500),
         decoration: InputDecoration(
           isDense: isDense,

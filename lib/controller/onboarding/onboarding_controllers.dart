@@ -8,10 +8,11 @@ import 'package:get/get.dart';
 
 import '../../api/apiconstants.dart';
 import '../../api/apiservices.dart';
-import '../../data/model/language_model.dart';
+import '../../data/model/availbilityTimeModel/model.dart';
 import '../../helper/route_helper.dart';
 import '../../theme/colorpalatt.dart';
 import '../../util/textstyles.dart';
+import 'package:http/http.dart' as http;
 
 class OnboardingController extends GetxController {
   RxBool isLoading = false.obs;
@@ -28,6 +29,9 @@ class OnboardingController extends GetxController {
   TextEditingController qualificationsController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController panController = TextEditingController();
+  TextEditingController gstController = TextEditingController();
+  TextEditingController consultpriceController = TextEditingController();
+  RxBool allday = false.obs;
   RxBool isSelected = false.obs;
   RxBool showexpertise = false.obs;
   RxBool directoryselected = true.obs;
@@ -35,13 +39,21 @@ class OnboardingController extends GetxController {
   RxBool languageshow = false.obs;
   RxBool availabilityTimeshow = false.obs;
   RxList<ExpertiseModel> selectedexpertise = RxList();
-  RxList<DateTime> availabilityDateList = RxList();
-  Rxn<DateTime> selectedDate = Rxn(DateTime.now());
+  RxList<Timing> alldaytimeList =
+      RxList([Timing(startTime: DateTime.now(), endTime: DateTime.now())]);
+  RxList<AvailabilityTiming> availabilityDateList = RxList([
+    AvailabilityTiming(
+        saved: false.obs,
+        timing:
+            [Timing(startTime: DateTime.now(), endTime: DateTime.now())].obs)
+  ]);
+  RxInt selectedindex = 0.obs;
 
   List language = [
-    {"language": "Hindi", "isSelected": false.obs},
-    {"language": "English", "isSelected": false.obs}
+    {"language": "Hindi", "isSelected": false.obs, "bio": "".obs},
+    {"language": "English", "isSelected": false.obs, "bio": "".obs}
   ];
+  RxString selectedLanguage = "".obs;
   RxString gender = 'Gender'.obs;
   // google login api
   String? name;
@@ -50,16 +62,47 @@ class OnboardingController extends GetxController {
   RxString filePath = ''.obs;
   RxList<ExpertiseModel> expertise = RxList();
   ontapLanguage() => languageshow.value = !languageshow.value;
-  ontapavailablity() {
-    availabilityTimeshow.value = !availabilityTimeshow.value;
-    if (availabilityDateList.isEmpty) {
-      availabilityDateList.value = List.generate(
-          10, (index) => DateTime.now().add(Duration(days: index)));
+  ontapAddRemoveIcon(
+    int index,
+  ) {
+    if (allday.value) {
+      if (index == 0) {
+        alldaytimeList
+            .add(Timing(startTime: DateTime.now(), endTime: DateTime.now()));
+      } else {
+        alldaytimeList.removeAt(index);
+      }
+    } else {
+      availabilityDateList[selectedindex.value].saved!.value = false;
+      if (index == 0) {
+        availabilityDateList[selectedindex.value]
+            .timing!
+            .add(Timing(startTime: DateTime.now(), endTime: DateTime.now()));
+      } else {
+        availabilityDateList[selectedindex.value].timing!.removeAt(index);
+      }
     }
   }
 
-  ontapDate(DateTime date) => selectedDate.value = date;
-  checkdateisEqual(DateTime date1, DateTime date2) {
+  ontapavailablity() {
+    availabilityTimeshow.value = !availabilityTimeshow.value;
+    if (availabilityDateList.length == 1) {
+      availabilityDateList.value = List.generate(
+          10,
+          (index) => AvailabilityTiming(
+              saved: false.obs,
+              date: DateTime.now().add(Duration(days: index)),
+              timing: [
+                Timing(startTime: DateTime.now(), endTime: DateTime.now())
+              ].obs));
+    }
+  }
+
+  ontapDate(int index) {
+    selectedindex.value = index;
+  }
+
+  bool checkdateisEqual(DateTime date1, DateTime date2) {
     return date1.day == date2.day &&
         date1.month == date2.month &&
         date1.year == date2.year;
@@ -185,10 +228,10 @@ class OnboardingController extends GetxController {
     resendingotp.value = false;
   }
 
-  onsignup(BuildContext context) async {
-    // isLoading.value = true;
-    // ApiClient apiClient = ApiClient();
-    // List<http.MultipartFile> files = [];
+  onsignup() async {
+    isLoading.value = true;
+    ApiClient apiClient = ApiClient();
+    List<http.MultipartFile> files = [];
     // Map<String, String> map = {
     //   "phone": mobileController.text,
     //   "name": nameController.text,

@@ -198,11 +198,12 @@ class RRButton2 extends StatelessWidget {
   }
 }
 
-Widget continuebutton(void Function()? onTap, {EdgeInsetsGeometry? margin}) {
+Widget continuebutton(void Function()? onTap,
+    {EdgeInsetsGeometry? margin, String? text}) {
   return RRButton(
     onTap: onTap,
     margin: margin ?? const EdgeInsets.symmetric(horizontal: 10),
-    data: "Continue",
+    data: text ?? "Continue",
     height: 47,
     radius: 10,
     backgroundColor: Palatt.primary,

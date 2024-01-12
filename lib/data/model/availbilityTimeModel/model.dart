@@ -1,19 +1,23 @@
+import 'package:get/get.dart';
+
 class AvailabilityTiming {
   String id = "";
   DateTime? date;
-  List<Timing> timing = [];
-  AvailabilityTiming({
-    this.id = "",
-    this.date,
-    this.timing = const [],
-  });
+  RxList<Timing>? timing = RxList();
+  RxBool? saved = false.obs;
+  AvailabilityTiming({this.id = "", this.date, this.timing, this.saved});
+  Map<String, dynamic> toJson() => {
+        "date": date?.toIso8601String(),
+        "timing": timing?.map((element) => element.toJson())
+      };
 }
 
 class Timing {
-  String? startTime;
-  String? endTime;
-  Timing({
-    this.startTime,
-    this.endTime,
-  });
+  DateTime? startTime;
+  DateTime? endTime;
+  Timing({this.startTime, this.endTime});
+  Map<String, dynamic> toJson() => {
+        "startTime": startTime?.toIso8601String(),
+        "endTime": endTime?.toIso8601String(),
+      };
 }
