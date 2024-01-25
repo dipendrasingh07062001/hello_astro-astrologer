@@ -74,6 +74,7 @@
 //   ];
 // }
 
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/view/screens/chatroom/chat_room.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -101,19 +102,19 @@ class HomeNavController extends GetxController {
   ]);
   List<Map<String, String>> bar = [
     {
-      "name": "Home",
+      "name": Words.home,
       "image": AppImages.home,
     },
     {
-      "name": "Services",
+      "name": Words.services,
       "image": AppImages.category,
     },
     {
-      "name": "Chat",
+      "name": Words.Chat,
       "image": AppImages.chaticon,
     },
     {
-      "name": "Free Services",
+      "name": Words.FreeServices,
       "image": AppImages.category,
     }
   ];

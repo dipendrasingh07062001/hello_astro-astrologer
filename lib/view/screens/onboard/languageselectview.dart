@@ -1,4 +1,5 @@
 import 'package:astro/helper/route_helper.dart';
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/view/screens/onboard/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -42,7 +43,7 @@ class LanguageSelectView extends GetView<LanguageController> {
                 )
               : null,
           centerTitle: true,
-          title: textStyle('Select Language', Palatt.black,
+          title: textStyle(Words.SelectLanguage.tr, Palatt.black,
               fontSize: w * .059, fontWeight: FontWeight.w500),
         ),
         body: GestureDetector(
@@ -69,13 +70,13 @@ class LanguageSelectView extends GetView<LanguageController> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: 2,
                       itemBuilder: (_, index) {
+                        var lang = controller.languages[index];
                         return Obx(() => LanguageTile(
+                              lang["language"], // "English",
+                              lang["language"], // "English",
                               "English",
-                              "English",
-                              "English",
-                              "India",
                               isTypeSelected: controller.selectedlanguage.value,
-                              onTap: () => controller.selectlang("English"),
+                              onTap: () => controller.selectlang(index),
                             ));
                       }),
                   // Padding(

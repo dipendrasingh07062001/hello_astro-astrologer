@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/theme/themedata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -101,8 +102,8 @@ class HelpNSupport extends GetView<HelpNSupportController> {
 
     return Scaffold(
       backgroundColor: Palatt.white,
-      appBar: const CustomAppBar(
-        title: "Help & Support",
+      appBar: CustomAppBar(
+        title: Words.HelpnSupport.tr,
       ),
       body: Column(
         children: [
@@ -131,7 +132,7 @@ class HelpNSupport extends GetView<HelpNSupportController> {
                                   : const Border(),
                             ),
                             child: Text(
-                              "Admin Support",
+                              Words.AdminSupport.tr,
                               style: googleFontstyle(TextStyle(
                                 fontSize: 17,
                                 fontWeight: controller.currenttab.value == 0
@@ -159,7 +160,7 @@ class HelpNSupport extends GetView<HelpNSupportController> {
                                       )
                                     : const Border()),
                             child: Text(
-                              "User Assistant",
+                              Words.UserAssistant.tr,
                               style: googleFontstyle(TextStyle(
                                 fontSize: 17,
                                 fontWeight: controller.currenttab.value == 1
@@ -210,7 +211,7 @@ class HelpNSupport extends GetView<HelpNSupportController> {
                   isCollapsed: true,
                   filled: true,
                   fillColor: Palatt.white,
-                  hintText: "Type a message",
+                  hintText: Words.Type_a_mesage.tr,
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   hintStyle: const TextStyle(

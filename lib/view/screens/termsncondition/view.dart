@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../theme/colorpalatt.dart';
@@ -11,7 +12,7 @@ class TermsAndCondition extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Terms and Condition",
+        title: Words.TermsNConditions.tr,
       ),
       body: Container(
         decoration: BoxDecoration(

@@ -1,4 +1,6 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../theme/colorpalatt.dart';
 import '../../../../theme/themedata.dart';
 import '../../../../util/buttons.dart';
@@ -70,8 +72,8 @@ class ReviewsView extends StatelessWidget {
       ),
     );
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: "Reviews",
+      appBar: CustomAppBar(
+        title: Words.Reviews.tr,
       ),
       body: ListView.separated(
         itemCount: 10,

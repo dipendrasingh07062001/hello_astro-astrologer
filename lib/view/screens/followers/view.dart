@@ -1,4 +1,6 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../theme/colorpalatt.dart';
 import '../../../theme/themedata.dart';
@@ -63,7 +65,7 @@ class FollowersView extends StatelessWidget {
     );
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Followers",
+        title: Words.Followers.tr,
       ),
       body: ListView.builder(
           itemCount: 10,

@@ -1,4 +1,5 @@
 import 'package:astro/helper/route_helper.dart';
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/util/buttons.dart';
 import 'package:astro/view/widgets/space.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,8 @@ class ChatRoomScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palatt.white,
-      appBar: const CustomAppBar(
-          title: "Chat Room", automaticallyImplyLeading: false),
+      appBar: CustomAppBar(
+          title: Words.Chat_Room.tr, automaticallyImplyLeading: false),
       body: Column(children: [
         Expanded(
           child: DefaultTabController(
@@ -50,12 +51,12 @@ class ChatRoomScreen extends StatelessWidget {
                     isScrollable: false,
                     unselectedLabelColor: Palatt.primary,
                     labelColor: Colors.white,
-                    tabs: const [
+                    tabs: [
                       Tab(
-                        text: "History",
+                        text: Words.History.tr,
                       ),
                       Tab(
-                        text: "Live Chat",
+                        text: Words.LiveChat.tr,
                       ),
                     ],
                   ),
@@ -75,7 +76,7 @@ class ChatRoomScreen extends StatelessWidget {
                               decoration: InputDecoration(
                                 contentPadding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 10),
-                                hintText: "Search here ...",
+                                hintText: "${Words.Searchhere.tr}...",
                                 isCollapsed: true,
                                 isDense: true,
                                 hintStyle: const TextStyle(

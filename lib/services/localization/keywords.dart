@@ -1,0 +1,86 @@
+// ignore_for_file: constant_identifier_names
+
+class Words {
+  static const HelloAstrologer = "Hello Astrologer";
+  static const FindanAstrologer = "Find an Astrologer";
+  static const call = "call";
+  static const notification = "notification";
+  static const Chat = "Chat";
+  static const support = "support";
+  static const BankDetails = "Bank Details";
+  static const Current = "Current";
+  static const Profile = "Profile";
+  static const home = "home";
+  static const services = "services";
+  static const Busy = "Busy";
+  static const Chat_Room = "Chat Room";
+  static const FreeServices = "Free Services";
+  static const HelpnSupport = "Help & Support";
+  static const SelectLanguage = "Select Language";
+  static const Hindi = "Hindi";
+  static const EarningHistory = "Earning History";
+  static const Reviews = "Reviews";
+  static const ContactUs = "Contact Us";
+  static const AboutUs = "About Us";
+  static const Followers = "Followers";
+  static const TermsNConditions = "Terms & Conditions";
+  static const PrivacyPolicy = "Privacy Policy";
+  static const FAQ = "FAQ";
+  static const SignOut = "Sign Out";
+  static const Fromdate = "From date";
+  static const EndDate = "End Date";
+  static const GenerateStatement = "Generate Statement";
+  static const findorder = "find order";
+  static const Duration = "Duration";
+  static const TransactionID = "Transaction ID";
+  static const PromotionalMinutes = "Promotional Minutes";
+  static const Earning = "Earning";
+  static const BillableMinutes = "Billable Minutes";
+  static const Submityourquery = "Submit your query";
+  static const Call = "Call";
+  static const Mail = "Mail";
+  static const Name = "Name";
+  static const Submit = "Submit";
+  static const OR = "OR";
+  static const LANGUAGE = "LANGUAGE";
+  static const RateperMinute = "Rate per Minute";
+  static const Expertise = "Expertise";
+  static const Availabilitytime = "Availability time";
+  static const Uploadprofile = "Upload profile";
+  static const GalleryImages = "Gallery Images";
+  static const Continue = "Continue";
+  static const UpdateBankdetails = "Update Bank details";
+  static const Accountinformation = "Account information";
+  static const Lastupdatedon = "Last updated on";
+  static const BeneficiaryName = "Beneficiary Name";
+  static const BankName = "Bank Name";
+  static const AccountNumber = "Account Number";
+  static const IFSCcode = "IFSC code";
+  static const BranchName = "Branch Name";
+  static const CancelledCheque = "Cancelled Cheque";
+  static const Download = "Download";
+  static const EditBankDetails = "Edit Bank Details";
+  static const Approved = "Approved";
+  static const Approval = "Approval";
+  static const AdminSupport = "Admin Support";
+  static const UserAssistant = "User Assistant";
+  static const Type_a_mesage = "Type a mesage";
+  static const Kundali = "Kundali";
+  static const Horoscope = "Horoscope";
+  static const Matchmaking = "Matchmaking";
+  static const Panchang = "Panchang";
+  static const History = "History";
+  static const LiveChat = "Live Chat";
+  static const Searchhere = "Search here";
+  static const ServicesChat = "(Services) Chat";
+  static const ServicesCall = "(Services) Call";
+  static const ServicesBusy = "(Services) Busy";
+  static const Have_any_issues_related_to_bank_details =
+      "Have any issues related to bank details?";
+  static const Raise_request = "Raise request";
+  static const Call_Price = "Call Rate";
+  static const Chat_Price = "Chat Rate";
+  static const Price = "Price";
+}
+
+enum Language { hindi, english }

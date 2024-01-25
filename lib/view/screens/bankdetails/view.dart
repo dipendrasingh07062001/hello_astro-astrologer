@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/theme/colorpalatt.dart';
 import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/buttons.dart';
@@ -21,8 +22,8 @@ class _UpdateBankDetailsState extends State<UpdateBankDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palatt.white,
-      appBar: const CustomAppBar(
-        title: 'Update Bank Details',
+      appBar: CustomAppBar(
+        title: Words.UpdateBankdetails.tr,
       ),
       floatingActionButton: RRButton(
           backgroundColor: Palatt.primary,
@@ -31,7 +32,7 @@ class _UpdateBankDetailsState extends State<UpdateBankDetails> {
           radius: 10,
           width: Get.width,
           onTap: () {},
-          data: "Edit Bank Details",
+          data: Words.EditBankDetails.tr,
           style: googleFontstyle(
             const TextStyle(
               fontSize: 18,
@@ -57,8 +58,9 @@ class _UpdateBankDetailsState extends State<UpdateBankDetails> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Account information",
+                        Text(Words.Accountinformation.tr,
                             style: googleFontstyle(
                               TextStyle(
                                 fontSize: 18,
@@ -66,7 +68,7 @@ class _UpdateBankDetailsState extends State<UpdateBankDetails> {
                               ),
                             )),
                         Text(
-                          "Last updated on 27 Feb. 2022",
+                          "${Words.Lastupdatedon.tr} 27 Feb. 2022",
                           style: TextStyle(fontSize: 13, color: Palatt.grey),
                         ),
                       ],
@@ -77,7 +79,7 @@ class _UpdateBankDetailsState extends State<UpdateBankDetails> {
                       width: 131,
                       height: 38,
                       radius: 5,
-                      data: "Approval",
+                      data: Words.Approval.tr,
                       style: const TextStyle(
                         fontSize: 16,
                         color: Palatt.primary,
@@ -89,39 +91,40 @@ class _UpdateBankDetailsState extends State<UpdateBankDetails> {
                 SizedBox(
                   height: Get.height * .01,
                 ),
-                bankdetails("Beneficiary name :", "Lal Singh Chauhan",
+                bankdetails(
+                    "${Words.BeneficiaryName.tr} :", "Lal Singh Chauhan",
                     trailingstyle: const TextStyle(fontSize: 15),
                     leadingstyle: const TextStyle(
                       color: Palatt.grey,
                       fontSize: 15,
                     )),
-                bankdetails("Bank Name :", "State Bank of India",
+                bankdetails("${Words.BankName.tr} :", "State Bank of India",
                     trailingstyle: const TextStyle(fontSize: 15),
                     leadingstyle: const TextStyle(
                       color: Palatt.grey,
                       fontSize: 15,
                     )),
-                bankdetails("Account Number :", "12345678901234",
+                bankdetails("${Words.AccountNumber.tr} :", "12345678901234",
                     trailingstyle: const TextStyle(fontSize: 15),
                     leadingstyle: const TextStyle(
                       color: Palatt.grey,
                       fontSize: 15,
                     )),
-                bankdetails("IFSC code :", "SBI0000360",
+                bankdetails("${Words.IFSCcode.tr} :", "SBI0000360",
                     trailingstyle: const TextStyle(fontSize: 15),
                     leadingstyle: const TextStyle(
                       color: Palatt.grey,
                       fontSize: 15,
                     )),
-                bankdetails("Branch Name :", "State Bank Of India",
+                bankdetails("${Words.BranchName.tr} :", "State Bank Of India",
                     trailingstyle: const TextStyle(fontSize: 15),
                     leadingstyle: const TextStyle(
                       color: Palatt.grey,
                       fontSize: 15,
                     )),
                 bankdetails(
-                  "Cancelled cheque",
-                  "Download",
+                  Words.CancelledCheque.tr,
+                  Words.Download.tr,
                   icon: AppImages.download,
                   trailingstyle:
                       const TextStyle(fontSize: 14, color: Palatt.primary),
@@ -131,10 +134,10 @@ class _UpdateBankDetailsState extends State<UpdateBankDetails> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 7),
-                  child: Text("Have any issue related to bank details?",
+                  padding: const EdgeInsets.symmetric(vertical: 7),
+                  child: Text(Words.Have_any_issues_related_to_bank_details.tr,
                       style: googleFontstyle(
-                        TextStyle(
+                        const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 16,
                         ),
@@ -149,7 +152,7 @@ class _UpdateBankDetailsState extends State<UpdateBankDetails> {
                     const SizedBox(
                       width: 8,
                     ),
-                    Text("Raise request",
+                    Text(Words.Raise_request.tr,
                         style: googleFontstyle(
                           TextStyle(
                             fontSize: 16,

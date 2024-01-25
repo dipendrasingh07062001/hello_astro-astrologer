@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/theme/colorpalatt.dart';
 import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/buttons.dart';
@@ -28,7 +29,7 @@ class ProfileView extends StatelessWidget {
                 blurRadius: 6,
               )
             ]),
-        title: Text("Availability Time",
+        title: Text(Words.Availabilitytime.tr,
             style: googleFontstyle(
               const TextStyle(
                 fontSize: 16,
@@ -231,7 +232,7 @@ class ProfileView extends StatelessWidget {
               blurRadius: 6,
             )
           ]),
-      title: Text("Language",
+      title: Text(Words.LANGUAGE.tr.capitalize!,
           style: googleFontstyle(
             const TextStyle(
               fontSize: 16,
@@ -356,7 +357,7 @@ class ProfileView extends StatelessWidget {
               blurRadius: 6,
             )
           ]),
-      title: Text("Rate per minute",
+      title: Text(Words.RateperMinute.tr,
           style: googleFontstyle(
             const TextStyle(
               fontSize: 16,
@@ -381,7 +382,7 @@ class ProfileView extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             children: [
               spaceVertical(10),
-              Text("Call Rate",
+              Text(Words.Call_Price.tr,
                   style: googleFontstyle(
                     const TextStyle(
                       fontSize: 17,
@@ -390,9 +391,9 @@ class ProfileView extends StatelessWidget {
                     ),
                   )),
               spaceVertical(5),
-              shadowBox(child: textformfeild(hint: "Price")),
+              shadowBox(child: textformfeild(hint: Words.Price.tr)),
               spaceVertical(10),
-              Text("Chat Rate",
+              Text(Words.Chat_Price.tr,
                   style: googleFontstyle(
                     const TextStyle(
                       fontSize: 17,
@@ -401,7 +402,7 @@ class ProfileView extends StatelessWidget {
                     ),
                   )),
               spaceVertical(5),
-              shadowBox(child: textformfeild(hint: "Price")),
+              shadowBox(child: textformfeild(hint: Words.Price.tr)),
               spaceVertical(20),
               continuebutton(() {}, margin: EdgeInsets.zero),
               spaceVertical(10),
@@ -421,7 +422,7 @@ class ProfileView extends StatelessWidget {
               blurRadius: 6,
             )
           ]),
-      title: Text("Expertise",
+      title: Text(Words.Expertise.tr,
           style: googleFontstyle(
             const TextStyle(
               fontSize: 16,
@@ -501,7 +502,7 @@ class ProfileView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Upload Profile",
+          Text(Words.Uploadprofile.tr.capitalize!,
               style: googleFontstyle(const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -531,7 +532,7 @@ class ProfileView extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Gallery Image",
+          Text(Words.GalleryImages.tr,
               style: googleFontstyle(const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -546,8 +547,8 @@ class ProfileView extends StatelessWidget {
     );
     return Scaffold(
       backgroundColor: Palatt.white,
-      appBar: const CustomAppBar(
-        title: "Profile",
+      appBar: CustomAppBar(
+        title: Words.Profile.tr,
       ),
       body: ListView(
         shrinkWrap: true,
@@ -555,13 +556,13 @@ class ProfileView extends StatelessWidget {
         children: [
           shadowBox(
               child: textformfeild(
-                hint: "Name",
+                hint: Words.Name.tr,
               ),
               height: 42),
           spaceVertical(16),
           RRButton(
             onTap: () {},
-            data: "Earning History",
+            data: Words.EarningHistory.tr,
             alignment: Alignment.centerLeft,
             backgroundColor: Palatt.white,
             padding: const EdgeInsets.symmetric(horizontal: 10),

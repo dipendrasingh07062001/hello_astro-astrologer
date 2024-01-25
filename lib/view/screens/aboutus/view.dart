@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -13,7 +14,7 @@ class AboutUs extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        title: "About us",
+        title: Words.AboutUs.tr,
       ),
       body: Container(
         decoration: BoxDecoration(

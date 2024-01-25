@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import '../../../api/preference.dart';
+
 class TheFirstScreen extends StatefulWidget {
   const TheFirstScreen({super.key});
 
@@ -18,7 +20,9 @@ class _TheFirstScreenState extends State<TheFirstScreen> {
     super.initState();
 
     Future.delayed(const Duration(seconds: 2), () async {
-      Get.offAllNamed(Routes.login);
+      Preference.getString(PreferenceConstants.userid) == ""
+          ? Get.offAllNamed(Routes.login)
+          : Get.offAllNamed(Routes.homeNav);
     });
   }
 

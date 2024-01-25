@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../theme/colorpalatt.dart';
@@ -10,8 +11,8 @@ class PrivacyPolicy extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: "Privacy Policy",
+      appBar: CustomAppBar(
+        title: Words.PrivacyPolicy.tr,
       ),
       body: Container(
         decoration: const BoxDecoration(

@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/images.dart';
 import 'package:astro/view/widgets/space.dart';
@@ -16,8 +17,8 @@ class CallCurrentScreen extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palatt.white,
-      appBar: const CustomAppBar(
-        title: 'Call',
+      appBar: CustomAppBar(
+        title: Words.call.tr.capitalize!,
         height: 60,
       ),
       body: Column(children: [
@@ -54,12 +55,12 @@ class CallCurrentScreen extends GetView {
                     isScrollable: false,
                     unselectedLabelColor: Palatt.primary,
                     labelColor: Colors.white,
-                    tabs: const [
+                    tabs: [
                       Tab(
-                        text: "Current",
+                        text: Words.Current.tr,
                       ),
                       Tab(
-                        text: "History",
+                        text: Words.History.tr,
                       ),
                     ],
                   ),

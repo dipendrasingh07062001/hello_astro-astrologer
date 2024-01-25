@@ -29,4 +29,5 @@ class PreferenceConstants {
   static const gender = "gender";
   static const latitute = "leti";
   static const longitute = "longi";
+  static const language = "language";
 }

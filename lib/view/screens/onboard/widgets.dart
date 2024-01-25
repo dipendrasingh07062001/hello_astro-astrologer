@@ -9,10 +9,10 @@ class LanguageTile extends StatelessWidget {
   String text;
   String val;
   String language;
-  String country;
+
   String isTypeSelected;
   void Function()? onTap;
-  LanguageTile(this.text, this.val, this.language, this.country,
+  LanguageTile(this.text, this.val, this.language,
       {super.key, required this.isTypeSelected, required this.onTap});
   double h = Get.height, w = Get.width;
   @override

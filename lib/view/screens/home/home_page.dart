@@ -108,7 +108,8 @@ class _HomeViewState extends State<HomeView> {
                             children: [
                               SvgPicture.asset(data['image']),
                               SizedBox(height: h * .01),
-                              textStyle(data['title'], Palatt.white,
+                              textStyle(data['title'].toString().tr.capitalize!,
+                                  Palatt.white,
                                   fontSize: w * .048,
                                   fontWeight: FontWeight.bold,
                                   height: 1.8)

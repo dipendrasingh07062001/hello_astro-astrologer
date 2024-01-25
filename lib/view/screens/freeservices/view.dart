@@ -1,9 +1,11 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/theme/colorpalatt.dart';
 import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/buttons.dart';
 import 'package:astro/view/widgets/custom_appbar.dart';
 import 'package:astro/view/widgets/space.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FreeServices extends StatelessWidget {
   const FreeServices({super.key});
@@ -11,8 +13,8 @@ class FreeServices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-          title: "Free Service", automaticallyImplyLeading: false),
+      appBar: CustomAppBar(
+          title: Words.FreeServices.tr, automaticallyImplyLeading: false),
       body: ListView(
         shrinkWrap: true,
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -29,14 +31,14 @@ class FreeServices extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Kundali",
+                Text(Words.Kundali.tr,
                     style: googleFontstyle(
-                      TextStyle(
+                      const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     )),
-                Icon(
+                const Icon(
                   Icons.keyboard_arrow_down_rounded,
                   size: 30,
                 )
@@ -56,14 +58,14 @@ class FreeServices extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Horoscope",
+                Text(Words.Horoscope.tr,
                     style: googleFontstyle(
-                      TextStyle(
+                      const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     )),
-                Icon(
+                const Icon(
                   Icons.keyboard_arrow_down_rounded,
                   size: 30,
                 )
@@ -83,14 +85,14 @@ class FreeServices extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Matchmaking",
+                Text(Words.Matchmaking.tr,
                     style: googleFontstyle(
-                      TextStyle(
+                      const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     )),
-                Icon(
+                const Icon(
                   Icons.keyboard_arrow_down_rounded,
                   size: 30,
                 )
@@ -110,14 +112,14 @@ class FreeServices extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Panchang",
+                Text(Words.Panchang.tr,
                     style: googleFontstyle(
-                      TextStyle(
+                      const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
                     )),
-                Icon(
+                const Icon(
                   Icons.keyboard_arrow_down_rounded,
                   size: 30,
                 )

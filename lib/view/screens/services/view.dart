@@ -1,5 +1,6 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/theme/colorpalatt.dart';
 import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/images.dart';
@@ -16,13 +17,14 @@ class ServicesView extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-          title: "Services", automaticallyImplyLeading: false),
+      appBar: CustomAppBar(
+          title: Words.services.tr.capitalize!,
+          automaticallyImplyLeading: false),
       body: Column(children: [
         spaceVertical(15),
-        service(AppImages.service_chat, "Chat", true),
-        service(AppImages.service_call, "Call", false),
-        service(AppImages.service_calender, "Busy", false),
+        service(AppImages.service_chat, Words.Chat, true),
+        service(AppImages.service_call, Words.call, false),
+        service(AppImages.service_calender, Words.Busy, false),
       ]),
     );
   }
@@ -54,9 +56,9 @@ class ServicesView extends GetView {
                   height: 42,
                 ),
                 spaceHorizontal(10),
-                Text("Chat",
+                Text(title.tr.capitalize!,
                     style: googleFontstyle(
-                      TextStyle(
+                      const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                         color: Palatt.black,

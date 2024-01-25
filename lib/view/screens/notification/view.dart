@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/theme/colorpalatt.dart';
 import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/buttons.dart';
@@ -54,7 +55,7 @@ class NotificationView extends GetView {
     );
     return Scaffold(
       appBar: CustomAppBar(
-        title: "Notification",
+        title: Words.notification.tr.capitalize!,
       ),
       body: ListView.builder(
           itemCount: 10,

@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/theme/colorpalatt.dart';
 import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/buttons.dart';
@@ -15,9 +16,9 @@ class EarningHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> findorder = [
       spaceVertical(30),
-      Text("From Date (DD-MM-YY)",
+      Text("${Words.Fromdate.tr} (DD-MM-YY)",
           style: googleFontstyle(
-            TextStyle(
+            const TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w500,
             ),
@@ -37,7 +38,7 @@ class EarningHistory extends StatelessWidget {
           children: [
             Text("08-07-2022",
                 style: googleFontstyle(
-                  TextStyle(
+                  const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
@@ -50,9 +51,9 @@ class EarningHistory extends StatelessWidget {
         ),
       ),
       spaceVertical(22),
-      Text("End Date (DD-MM-YY)",
+      Text("${Words.EndDate.tr} (DD-MM-YY)",
           style: googleFontstyle(
-            TextStyle(
+            const TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w500,
             ),
@@ -72,7 +73,7 @@ class EarningHistory extends StatelessWidget {
           children: [
             Text("08-07-2022",
                 style: googleFontstyle(
-                  TextStyle(
+                  const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
@@ -87,7 +88,7 @@ class EarningHistory extends StatelessWidget {
       spaceVertical(32),
       RRButton(
         onTap: () {},
-        data: "Generate Statement",
+        data: Words.GenerateStatement.tr,
         style: googleFontstyle(
           const TextStyle(
               fontSize: 18, fontWeight: FontWeight.w500, color: Palatt.primary),
@@ -99,7 +100,7 @@ class EarningHistory extends StatelessWidget {
       spaceVertical(15),
       RRButton(
         onTap: () {},
-        data: "Find Order",
+        data: Words.findorder.tr.capitalize!,
         style: googleFontstyle(
           const TextStyle(
               fontSize: 18, fontWeight: FontWeight.w500, color: Palatt.white),
@@ -126,19 +127,19 @@ class EarningHistory extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Duration : 122",
-                style: TextStyle(
+                "${Words.Duration.tr} : 122",
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Text(
-                "Earning : ₹8.5",
-                style: TextStyle(
+                "${Words.Earning.tr} : ₹8.5",
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -146,26 +147,26 @@ class EarningHistory extends StatelessWidget {
             ],
           ),
           spaceVertical(5),
-          const Text(
-            "Transaction Id : 2354",
-            style: TextStyle(
+          Text(
+            "${Words.TransactionID.tr} : 2354",
+            style: const TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w400,
             ),
           ),
-          const Row(
+          Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Promotional Minutes : 189",
-                style: TextStyle(
+                "${Words.PromotionalMinutes.tr} : 189",
+                style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
                 ),
               ),
               Text(
-                "Billable Minutes : 0",
-                style: TextStyle(
+                "${Words.BillableMinutes.tr} : 0",
+                style: const TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,
                 ),
@@ -180,9 +181,9 @@ class EarningHistory extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         leadingWidth: 40,
-        title: Text("Earning History",
+        title: Text(Words.EarningHistory.tr,
             style: googleFontstyle(
-              TextStyle(
+              const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w500,
                 color: Palatt.black,

@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -15,8 +16,8 @@ class ChatCurrentScreen extends GetView {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Palatt.white,
-      appBar: const CustomAppBar(
-        title: 'Chat',
+      appBar: CustomAppBar(
+        title: Words.Chat.tr,
         height: 60,
       ),
       body: Column(children: [
@@ -53,12 +54,12 @@ class ChatCurrentScreen extends GetView {
                     isScrollable: false,
                     unselectedLabelColor: Palatt.primary,
                     labelColor: Colors.white,
-                    tabs: const [
+                    tabs: [
                       Tab(
-                        text: "Current",
+                        text: Words.Current.tr,
                       ),
                       Tab(
-                        text: "History",
+                        text: Words.History.tr,
                       ),
                     ],
                   ),

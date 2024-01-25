@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,7 @@ class FAQs extends GetView {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "FAQs"),
+      appBar: CustomAppBar(title: Words.FAQ.tr),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(

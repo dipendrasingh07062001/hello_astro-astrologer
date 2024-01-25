@@ -1,4 +1,4 @@
-import 'package:astro/view/contactus/view.dart';
+import 'package:astro/view/screens/contactus/view.dart';
 import 'package:astro/view/screens/bankdetails/view.dart';
 import 'package:astro/view/screens/faq/faqs.dart';
 import 'package:astro/view/screens/profile/view.dart';

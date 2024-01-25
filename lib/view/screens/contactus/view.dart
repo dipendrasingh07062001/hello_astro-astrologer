@@ -1,3 +1,4 @@
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/theme/colorpalatt.dart';
 import 'package:astro/theme/themedata.dart';
 import 'package:astro/util/buttons.dart';
@@ -6,6 +7,7 @@ import 'package:astro/view/widgets/custom_appbar.dart';
 import 'package:astro/view/widgets/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class ContactUs extends StatelessWidget {
   const ContactUs({super.key});
@@ -13,7 +15,7 @@ class ContactUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: "Contact Us"),
+      appBar: CustomAppBar(title: Words.ContactUs.tr),
       body: ListView(
         padding: const EdgeInsets.symmetric(
           horizontal: 15,
@@ -21,7 +23,7 @@ class ContactUs extends StatelessWidget {
         children: [
           spaceVertical(20),
           Text(
-            "Submit your Query",
+            Words.Submityourquery.tr,
             style: googleFontstyle(const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w500,
@@ -37,7 +39,7 @@ class ContactUs extends StatelessWidget {
             decoration: InputDecoration(
               isCollapsed: true,
               contentPadding: const EdgeInsets.all(10),
-              hintText: "Submit your Query",
+              hintText: Words.Submityourquery.tr,
               hintStyle: const TextStyle(fontSize: 15, color: Palatt.grey),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
@@ -52,7 +54,7 @@ class ContactUs extends StatelessWidget {
           spaceVertical(30),
           RRButton(
             onTap: () {},
-            data: "Submit",
+            data: Words.Submit.tr,
             height: 50,
             radius: 10,
             style: const TextStyle(fontSize: 16, color: Palatt.white),
@@ -69,7 +71,7 @@ class ContactUs extends StatelessWidget {
               )),
               spaceHorizontal(25),
               Text(
-                "OR",
+                Words.OR.tr,
                 style: googleFontstyle(const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
@@ -102,7 +104,7 @@ class ContactUs extends StatelessWidget {
                   ),
                   spaceHorizontal(10),
                   Text(
-                    "Call",
+                    Words.Call.tr,
                     style: googleFontstyle(const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
@@ -130,7 +132,7 @@ class ContactUs extends StatelessWidget {
                   ),
                   spaceHorizontal(10),
                   Text(
-                    "Mail",
+                    Words.Mail.tr,
                     style: googleFontstyle(const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.w500,

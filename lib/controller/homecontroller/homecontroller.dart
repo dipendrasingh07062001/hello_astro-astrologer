@@ -1,4 +1,5 @@
 import 'package:astro/helper/route_helper.dart';
+import 'package:astro/services/localization/keywords.dart';
 import 'package:astro/util/images.dart';
 import 'package:get/get.dart';
 
@@ -14,42 +15,42 @@ class HomeController extends GetxController {
       "color1": '0xFFAA076B',
       'color2': '0xFF61045F',
       "image": AppImages.callhead,
-      'title': 'Call',
+      'title': Words.call,
       "class": Routes.callview
     },
     {
       "color1": '0xFF8541B3',
       'color2': '0xFF732E89',
       "image": AppImages.notificationhome,
-      'title': 'Notification',
+      'title': Words.notification,
       "class": Routes.notification
     },
     {
       "color1": '0xFF1E46CF',
       'color2': '0xFF100C5E',
       "image": AppImages.chatuser,
-      'title': 'Chat',
+      'title': Words.Chat,
       "class": Routes.chatview
     },
     {
       "color1": '0xFF67A19D',
       'color2': '0xFF22726C',
       "image": AppImages.support,
-      'title': 'Support',
+      'title': Words.support,
       "class": Routes.helpnsupport
     },
     {
       "color1": '0xFF0063A5',
       'color2': '0xFF0C8BE0',
       "image": AppImages.refund,
-      'title': 'Bank Details',
+      'title': Words.BankDetails,
       "class": Routes.bankdetails
     },
     {
       "color1": '0xFF7B4397',
       'color2': '0xFFDC2430',
       "image": AppImages.user,
-      'title': 'Profile',
+      'title': Words.Profile,
       "class": Routes.profileView
     },
 
