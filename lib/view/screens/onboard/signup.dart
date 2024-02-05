@@ -964,7 +964,7 @@ class _SignupState extends State<Signup> {
                 ),
 
                 InkWell(
-                  // onTap: onboardingController.pickcertificat,
+                  onTap: onboardingController.pickcertificat,
                   child: Container(
                     width: double.infinity,
                     padding: EdgeInsets.only(
@@ -993,7 +993,7 @@ class _SignupState extends State<Signup> {
                           AppImages.upload,
                           // color: AppColor.colSrchIcon,
                           colorFilter: const ColorFilter.mode(
-                              const Color(0xffa4a4a4), BlendMode.srcIn),
+                              Color(0xffa4a4a4), BlendMode.srcIn),
                           width: w * .17,
                         ),
                         Obx(() => textStyle(

@@ -232,35 +232,36 @@ class OnboardingController extends GetxController {
     isLoading.value = true;
     ApiClient apiClient = ApiClient();
     List<http.MultipartFile> files = [];
-    // Map<String, String> map = {
-    //   "phone": mobileController.text,
-    //   "name": nameController.text,
-    //   "email": emailController.text,
-    //   "experience": expController.text,
-    //   "expertise[]": selectedexpertise.value!.id.toString(),
-    //   "qualifications": qualificationsController.text,
-    //   "bio": bioController.text,
-    //   "astrologer_type": (directoryselected.value ? 1 : 0).toString()
-    // };
-    // if (profileImage.value.isNotEmpty) {
-    //   files.add(await http.MultipartFile.fromPath("profile", profileImage.value,
-    //       filename: profileImage.value.split("/").last));
-    // }
-    // if (filePath.value.isNotEmpty) {
-    //   files.add(await http.MultipartFile.fromPath("image", filePath.value,
-    //       filename: filePath.value.split("/").last));
-    // }
-    // await apiClient
-    //     .postRequest(ApiUrls.signUp, map, files: files)
-    //     .then((value) {
-    //   if (value != null) {
-    //     print("==$value");
-    //     Get.toNamed(Routes.otpverification);
-    //     isLoading.value = false;
-    //   }
-    // });
-    // isLoading.value = false;
-    Get.toNamed(Routes.otpverification);
+    Map<String, String> map = {
+      "phone": mobileController.text,
+      "name": nameController.text,
+      "email": emailController.text,
+      "experience": expController.text,
+      "expertise[]":
+          selectedexpertise.map((element) => element.id).join(", ").toString(),
+      "qualifications": qualificationsController.text,
+      "bio": bioController.text,
+      "astrologer_type": (directoryselected.value ? 1 : 0).toString()
+    };
+    if (profileImage.value.isNotEmpty) {
+      files.add(await http.MultipartFile.fromPath("profile", profileImage.value,
+          filename: profileImage.value.split("/").last));
+    }
+    if (filePath.value.isNotEmpty) {
+      files.add(await http.MultipartFile.fromPath("image", filePath.value,
+          filename: filePath.value.split("/").last));
+    }
+    await apiClient
+        .postRequest(ApiUrls.signUp, map, files: files)
+        .then((value) {
+      if (value != null) {
+        print("==$value");
+        Get.toNamed(Routes.otpverification);
+        isLoading.value = false;
+      }
+    });
+    isLoading.value = false;
+    // Get.toNamed(Routes.otpverification);
   }
 
   verifyotp(String otp) async {
